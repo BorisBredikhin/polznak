@@ -3,9 +3,9 @@
   <component name="FacetManager">
     <facet type="django" name="Django">
       <configuration>
-        <option name="rootFolder" value="$MODULE_DIR$" />
-        <option name="settingsModule" value="core/settings.py" />
-        <option name="manageScript" value="manage.py" />
+        <option name="rootFolder" value="$MODULE_DIR$/core" />
+        <option name="settingsModule" value="settings.py" />
+        <option name="manageScript" value="$MODULE_DIR$/manage.py" />
         <option name="environment" value="&lt;map/&gt;" />
         <option name="doNotUseTestRunner" value="false" />
         <option name="trackFilePattern" value="migrations" />
@@ -15,7 +15,10 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="jdk" jdkName="Remote Python 3.10.0 Docker Compose (web at [/home/boris/IdeaProjects/polznak/docker-compose.yml])" jdkType="Python SDK" />
+    <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Django" />
   </component>
 </module>
