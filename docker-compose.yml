@@ -5,10 +5,13 @@ services:
     image: postgres
     volumes:
       - ./data/db:/var/lib/postgresql/data
+      - ./data/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     environment:
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=polznak
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+    ports:
+      - 5432:5432
   web:
     build: core
     command: python manage.py runserver 0.0.0.0:8000
