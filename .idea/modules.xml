@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/mobile_app.iml" filepath="$PROJECT_DIR$/core/mobile_app.iml" />
       <module fileurl="file://$PROJECT_DIR$/postgresql/postgresql.iml" filepath="$PROJECT_DIR$/postgresql/postgresql.iml" />
     </modules>
   </component>
