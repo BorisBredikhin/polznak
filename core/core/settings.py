@@ -75,13 +75,15 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+DOCKER = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'polznak',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '172.22.0.2',
+        'HOST': 'db' if DOCKER else 'localhost',
         'PORT': 5432,
     }
 }
