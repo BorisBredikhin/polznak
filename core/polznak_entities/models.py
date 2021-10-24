@@ -63,3 +63,33 @@ class MessageSeenByProfile(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
     seen_at = models.DateTimeField(auto_now=True, verbose_name=_("Seen at"))
+
+class Comment(models.Model):
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='comment_sender')
+    body = models.TextField()
+    send_at = models.DateTimeField(auto_now=True, verbose_name=_("Send at"))
+
+class UserOpinion(models.Model):
+    OPINION_CHOICES = [
+        (-1, _("Dislike")),
+        (1, _('Like'))
+    ]
+
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='like_sender')
+    opinion = models.IntegerField(default=0, choices=OPINION_CHOICES)
+
+class Grades(models.Model):
+    GRADE_CHOICES = [
+        (1, _("1")),
+        (2, _("2")),
+        (3, _("3")),
+        (4, _("4")),
+        (5, _("5"))
+    ]
+
+    conversation = models.ForeignKey('Conversation', on_delete=models.CASCADE)
+    user_given = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='user_given')
+    user_received = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='user_received')
+    grade = models.IntegerField(choices=GRADE_CHOICES)
