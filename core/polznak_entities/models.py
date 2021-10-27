@@ -4,19 +4,22 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
+
 class InterestArea(models.Model):
     name = models.CharField(verbose_name=_('Title'), max_length=50)
 
     class Meta:
-        verbose_name=_("interest area")
+        verbose_name = _("interest area")
         verbose_name_plural = _("interest areas")
+
 
 class Language(models.Model):
     language_code = models.CharField(verbose_name=_('language_code'), max_length=5)
 
     class Meta:
-        verbose_name=_("language")
+        verbose_name = _("language")
         verbose_name_plural = _("languages")
+
 
 class Profile(models.Model):
     GENDER_CHOICES = [
@@ -32,14 +35,17 @@ class Profile(models.Model):
     interests = models.ManyToManyField('InterestArea')
     knows_languages = models.ManyToManyField('Language', verbose_name=_("Knows languages"))
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
 
 class Post(models.Model):
     creator = models.ForeignKey('Profile', on_delete=models.CASCADE)
@@ -48,9 +54,11 @@ class Post(models.Model):
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
 
+
 class Conversation(models.Model):
-    participants=models.ManyToManyField('Profile')
+    participants = models.ManyToManyField('Profile')
     initiator = models.ForeignKey('Post', on_delete=models.CASCADE)
+
 
 class Message(models.Model):
     conversation = models.ForeignKey('Conversation', on_delete=models.CASCADE)
@@ -59,16 +67,19 @@ class Message(models.Model):
     seen_by = models.ManyToManyField('Profile', through='MessageSeenByProfile', related_name='seen_by')
     send_at = models.DateTimeField(auto_now=True, verbose_name=_("Send at"))
 
+
 class MessageSeenByProfile(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     message = models.ForeignKey(Message, on_delete=models.CASCADE)
     seen_at = models.DateTimeField(auto_now=True, verbose_name=_("Seen at"))
+
 
 class Comment(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='comment_sender')
     body = models.TextField()
     send_at = models.DateTimeField(auto_now=True, verbose_name=_("Send at"))
+
 
 class UserOpinion(models.Model):
     OPINION_CHOICES = [
@@ -79,6 +90,7 @@ class UserOpinion(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
     sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='like_sender')
     opinion = models.IntegerField(default=0, choices=OPINION_CHOICES)
+
 
 class Grades(models.Model):
     GRADE_CHOICES = [

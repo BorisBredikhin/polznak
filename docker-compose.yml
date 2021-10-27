@@ -14,7 +14,7 @@ services:
       - 5432:5432
   web:
     build: core
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python app.py
     volumes:
       - ./core:/code
     ports:
