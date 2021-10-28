@@ -1,7 +1,4 @@
-from asgiref.sync import sync_to_async
-from django.contrib.auth import authenticate
 from django.http import HttpResponseBadRequest
-from fastapi import Request
 
 from token_auth.models import Token
 
@@ -20,21 +17,8 @@ class TokenMiddleware:
         if not auth_header[2]:
             return HttpResponseBadRequest("Improperly formatted token")
 
-        user = authenticate(token=auth_header[2])
+        user = Token.objects.get(key=auth_header[2]).profile  # authenticate(token=auth_header[2])
         if user:
-            request.profile = user
+            request.user = user
 
         return self.get_response(request)
-
-
-async def TokenAuth(request: Request, *args):
-    if "Authorization" in request.headers.keys():
-        name, token = request.headers["Authorization"].split()
-        def get_prof(token):
-            try:
-                return Token.objects.get(key=token).profile
-            except:
-                return None
-        return await sync_to_async(get_prof)(token)
-    else:
-        return request

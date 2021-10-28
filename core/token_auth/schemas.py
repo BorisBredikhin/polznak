@@ -1,6 +1,6 @@
-from pydantic.main import BaseModel
+from typing import TypedDict
 
 
-class LoginSchema(BaseModel):
+class LoginSchema(TypedDict):
     username: str
     password: str

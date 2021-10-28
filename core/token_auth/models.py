@@ -18,7 +18,7 @@ class Token(models.Model):
         return super(Token, self).save(*args, **kwargs)
 
     def generate_key(self):
-        return secrets.token_hex(64)
+        return secrets.token_hex(32)
 
     def __unicode__(self):
         return self.key
