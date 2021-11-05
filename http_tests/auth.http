@@ -1,13 +1,13 @@
 GET http://localhost:8000/
 Content-Type: application/json
-Authorization: token 51eba4779d13f2876930bcd23f74834f89111ba471aedb99857af67daf3ef628
+Authorization: token a4340b11f8608665b2733c5d1a088ee7e2039b8b
 
 
 
 {}
 
 ###
-POST http://localhost:8000/auth/login/
+POST http://localhost:8000/api-token-auth/
 Content-Type: application/json
 
 {
