@@ -30,13 +30,14 @@ class Profile(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True)
     birth_date = models.DateField(null=True, blank=True, verbose_name=_("Birthday"))
     details = models.TextField(blank=True, verbose_name=_("Additional information"))
     interests = models.ManyToManyField('InterestArea')
     knows_languages = models.ManyToManyField('Language', verbose_name=_("Knows languages"))
 
 
+# noinspection PyUnusedLocal
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
@@ -44,6 +45,7 @@ def create_user_profile(sender, instance, created, **kwargs):
         Token.objects.create(user=instance)
 
 
+# noinspection PyUnusedLocal
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
@@ -52,7 +54,7 @@ def save_user_profile(sender, instance, **kwargs):
 class Post(models.Model):
     creator = models.ForeignKey('Profile', on_delete=models.CASCADE)
     title = models.CharField(max_length=128)
-    content = models.TextField()
+    content = models.TextField(help_text="Содержимое поста")
     created_at = models.DateTimeField(auto_now=True, verbose_name=_("Created at"))
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)

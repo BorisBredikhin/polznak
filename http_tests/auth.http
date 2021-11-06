@@ -1,3 +1,19 @@
+POST http://0.0.0.0:8000/api/register/
+accept: application/json
+Content-Type: application/json
+
+{
+  "first_name": "string",
+  "last_name": "string",
+  "username": "string",
+  "birth_date": "2021-11-06",
+  "gender": "M",
+  "email": "user@example.com",
+  "password": "stK?0ring"
+}
+
+###
+
 GET http://localhost:8000/
 Content-Type: application/json
 Authorization: token a4340b11f8608665b2733c5d1a088ee7e2039b8b
@@ -11,8 +27,8 @@ POST http://localhost:8000/api-token-auth/
 Content-Type: application/json
 
 {
-  "username": "admin",
-  "password": "admIn?1"
+  "username": "string",
+  "password": "stK?0ring"
 }
 
 ###
