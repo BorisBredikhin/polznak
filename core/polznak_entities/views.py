@@ -1,13 +1,14 @@
 from django.contrib.auth.models import User
 from django.db import IntegrityError
-from drf_yasg.openapi import Schema
+from drf_yasg.openapi import Schema, Parameter
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.authtoken.models import Token
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
-from polznak_entities.models import Profile
+from polznak_entities.models import Profile, Post
 from polznak_entities.serializers import PostSerializer, RegisterSerializer
 
 
@@ -23,6 +24,27 @@ class PostView(APIView):
         profile = Profile.objects.get(user=request.user)
         data.save(creator=profile)
         return Response(data.data, HTTP_201_CREATED)
+
+    @swagger_auto_schema(
+        operation_description="Список постов, рекомендованны для текущего пользователя",
+        responses={
+            200: PostSerializer(many=True)
+        },
+        manual_parameters=[
+            Parameter('skip', 'path', 'Количество уже полученных постов', required=True, type='number'),
+            Parameter('count', 'path', 'Количество постов для получения', required=True, type='number'),
+        ]
+    )
+    def get(self, request: Request):
+        # todo: написать интеллектуальное ранжирование
+        return Response(PostSerializer(
+            Post.objects.all()
+                .order_by('-created_at')[int(request.query_params['skip'])
+                                         :int(request.query_params['skip'])
+                                          + int(request.query_params['count'])],
+            many=True
+        ).data
+                        )
 
 
 class RegisterView(APIView):

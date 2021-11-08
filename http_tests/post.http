@@ -9,3 +9,8 @@ Authorization: token 077e829e5c617e0385fe471f130e5f43f95ad0aa
 
 ###
 
+GET http://localhost:8000/api/posts/?skip=0&count=10
+Accept: application/json
+Authorization: token 077e829e5c617e0385fe471f130e5f43f95ad0aa
+
+###
