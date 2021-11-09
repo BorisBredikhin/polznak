@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/widgets/auth/auth_widget.dart';
+import 'package:mobile_client/widgets/registration/registration_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +18,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: {
-        '/auth': (context) => const AuthWidget(),
+        '/registration': (context) => const RegistrationWidget(),
       },
-      initialRoute: '/auth',
+      initialRoute: '/registration',
     );
   }
 }
