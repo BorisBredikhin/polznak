@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/http_tests/http_tests.iml" filepath="$PROJECT_DIR$/http_tests/http_tests.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobile_client/mobile_client.iml" filepath="$PROJECT_DIR$/mobile_client/mobile_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/parsing/parsing.iml" filepath="$PROJECT_DIR$/parsing/parsing.iml" />
       <module fileurl="file://$PROJECT_DIR$/postgresql/postgresql.iml" filepath="$PROJECT_DIR$/postgresql/postgresql.iml" />
     </modules>
   </component>
