@@ -146,7 +146,7 @@ class _RegistrationRow extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: _register,
             child: const Text(
               'Зарегистрироваться',
               style: TextStyle(
@@ -166,5 +166,10 @@ class _RegistrationRow extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _register() {
+    // todo: обработка регистрации
+    print("обработка регистрации");
   }
 }
