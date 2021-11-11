@@ -96,6 +96,9 @@ class UserOpinion(models.Model):
     sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='like_sender')
     opinion = models.IntegerField(default=0, choices=OPINION_CHOICES)
 
+    class Meta:
+        unique_together = (('post', 'sender'),)
+
 
 # noinspection PyUnusedLocal
 @receiver(post_save, sender=UserOpinion)
