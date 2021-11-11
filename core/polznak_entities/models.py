@@ -102,9 +102,9 @@ class UserOpinion(models.Model):
 
 # noinspection PyUnusedLocal
 @receiver(post_save, sender=UserOpinion)
-def save_user_opinon(sender: UserOpinion, **kwargs):
-    post = sender.post
-    if sender.opinion>0:
+def save_user_opinon(instance: UserOpinion, **kwargs):
+    post = instance.post
+    if instance.opinion>0:
         post.likes+=1
     else:
         post.dislikes+=1

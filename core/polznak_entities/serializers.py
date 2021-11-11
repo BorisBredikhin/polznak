@@ -2,7 +2,7 @@ from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework import serializers
 from typing import TypedDict
 
-from polznak_entities.models import Post, Profile
+from polznak_entities.models import Post, Profile, UserOpinion
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -16,6 +16,11 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
 
+
+class UserOpinionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserOpinion
+        fields = '__all__'
 
 class RegisterSerializer(serializers.Serializer):
     first_name = serializers.CharField(help_text="Имя")
@@ -41,5 +46,14 @@ class LikeRequestSerializer(serializers.Serializer):
     grade = serializers.IntegerField(help_text="Оценка") # todo: add validator
 
 
-class LikeResponseSerializer(serializers.Serializer):
-    pass
+class LikeListRequestSerializer(serializers.Serializer):
+    class LikeRequestSerializerTypedDict(TypedDict):
+        post_id: int
+
+    validated_data: LikeRequestSerializerTypedDict
+
+    post_id = serializers.PrimaryKeyRelatedField(
+        queryset=Post.objects.all(),
+        help_text="Идентификатор поста, для которого нужно получиить список лайков"
+    )
+

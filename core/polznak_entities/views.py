@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 
 from polznak_entities.models import Profile, Post, UserOpinion
 from polznak_entities.serializers import PostSerializer, RegisterSerializer, LikeRequestSerializer, \
-    LikeResponseSerializer
+   UserOpinionSerializer
 
 
 class PostView(APIView):
@@ -58,7 +58,7 @@ class LikesView(APIView):
                               "с ключом `post_id`",
         request_body=LikeRequestSerializer,
         responses={
-            HTTP_200_OK: LikeResponseSerializer()
+            HTTP_200_OK: Schema(type='str')
         }
     )
     def post(self, request: Request):
@@ -67,11 +67,26 @@ class LikesView(APIView):
             return Response(data.errors, HTTP_400_BAD_REQUEST)
 
         profile = Profile.objects.get(user=request.user)
-        opinion = UserOpinion(post_id=data.validated_data["post_id"],
-                              sender=profile, opinion=data.validated_data['grade'])
+        opinion = UserOpinion(post=data.validated_data["post_id"],                              sender=profile, opinion=data.validated_data['grade'])
         opinion.save()
 
         return Response(None, HTTP_200_OK)
+
+    @swagger_auto_schema(
+        operation_description="Получает информацию о лайках поста с ключом `post_id`",
+        manual_parameters=[
+        Parameter('post_id', 'path', 'Идентификатор поста',
+                  required=True, type='number'),
+    ],
+        responses={
+            HTTP_200_OK: UserOpinionSerializer(many=True)
+        }
+    )
+    def get(self, request: Request):
+        return Response(UserOpinionSerializer(
+            UserOpinion.objects.filter(post_id=int(request.query_params['post_id'])),
+            many=True,
+        ).data)
 
 class RegisterView(APIView):
     @swagger_auto_schema(
