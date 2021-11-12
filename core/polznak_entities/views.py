@@ -107,6 +107,8 @@ class RegisterView(APIView):
             user = User.objects.create_user(data.validated_data['username'],
                                             data.validated_data['email'],
                                             data.validated_data['password'])
+            user.first_name = data.validated_data['first_name']
+            user.last_name = data.validated_data['last_name']
             user.save()
 
             profile = Profile.objects.get(user=user)
