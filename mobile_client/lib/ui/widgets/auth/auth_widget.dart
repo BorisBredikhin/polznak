@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/resources/resources.dart';
-import 'package:mobile_client/widgets/auth/auth_form_widget.dart';
+import 'package:mobile_client/ui/widgets/auth/auth_form_widget.dart';
 
 class AuthWidget extends StatelessWidget {
   const AuthWidget({Key? key}) : super(key: key);
@@ -125,10 +125,20 @@ class _LoginMethodsDividerWidget extends StatelessWidget {
   }
 }
 
-class _RegistrationRow extends StatelessWidget {
+class _RegistrationRow extends StatefulWidget {
   const _RegistrationRow({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_RegistrationRow> createState() => _RegistrationRowState();
+}
+
+class _RegistrationRowState extends State<_RegistrationRow> {
+  
+  void _openRegistrationWidget() {
+    Navigator.of(context).pushReplacementNamed('/registration');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +156,7 @@ class _RegistrationRow extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: _register,
+            onPressed: _openRegistrationWidget,
             child: const Text(
               'Зарегистрироваться',
               style: TextStyle(
@@ -166,10 +176,5 @@ class _RegistrationRow extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void _register() {
-    // todo: обработка регистрации
-    print("обработка регистрации");
   }
 }

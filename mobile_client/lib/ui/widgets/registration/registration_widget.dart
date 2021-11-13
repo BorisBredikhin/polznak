@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/resources/resources.dart';
-import 'package:mobile_client/widgets/registration/registration_form_widget.dart';
+import 'package:mobile_client/ui/widgets/registration/registration_form_widget.dart';
 
 class RegistrationWidget extends StatelessWidget {
   const RegistrationWidget({Key? key}) : super(key: key);
@@ -28,19 +27,19 @@ class RegistrationWidget extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(
+                children: const [
+                  SizedBox(
                     height: 130,
                     width: 130,
                     child: Placeholder(),
                   ),
-                  const SizedBox(height: 15),
-                  const Text('Название приложения'),
-                  const SizedBox(height: 60),
-                  const RegistrationFormWidget(),
-                  const SizedBox(height: 5),
-                  const _EnterRow(),
-                  const SizedBox(height: 5),
+                  SizedBox(height: 15),
+                  Text('Название приложения'),
+                  SizedBox(height: 60),
+                  RegistrationFormWidget(),
+                  SizedBox(height: 5),
+                  _EnterRow(),
+                  SizedBox(height: 5),
                 ],
               ),
             ),
@@ -51,10 +50,20 @@ class RegistrationWidget extends StatelessWidget {
   }
 }
 
-class _EnterRow extends StatelessWidget {
+class _EnterRow extends StatefulWidget {
   const _EnterRow({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<_EnterRow> createState() => _EnterRowState();
+}
+
+class _EnterRowState extends State<_EnterRow> {
+  
+  void _openAuthWidget() {
+    Navigator.of(context).pushReplacementNamed('/auth');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +81,7 @@ class _EnterRow extends StatelessWidget {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: _openAuthWidget,
             child: const Text(
               'Войти',
               style: TextStyle(

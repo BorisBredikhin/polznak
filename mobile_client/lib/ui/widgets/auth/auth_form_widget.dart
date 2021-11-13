@@ -14,7 +14,7 @@ class _FormWidgetState extends State<FormWidget> {
   void _auth() {
     final mail = _mailTextController.text;
     final password = _passwordTextController.text;
-    // todo: Обработка входа
+    // TODO: Обработка входа
     print(mail + password);
     // setState(() {});
   }

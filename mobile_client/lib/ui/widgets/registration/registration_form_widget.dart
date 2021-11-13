@@ -49,7 +49,7 @@ class _RegistrationFormWidgetState extends State<RegistrationFormWidget> {
               _InputTextField(
                 hintText: 'Date of birth',
                 isObscured: false,
-                suffixIcon: Icon(Icons.calendar_today),
+                suffixIcon: const Icon(Icons.calendar_today),
                 controller: _dateOfBirthTextController,
               ),
               const SizedBox(height: 6),
