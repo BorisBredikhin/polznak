@@ -96,6 +96,19 @@ class UserOpinion(models.Model):
     sender = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='like_sender')
     opinion = models.IntegerField(default=0, choices=OPINION_CHOICES)
 
+    class Meta:
+        unique_together = (('post', 'sender'),)
+
+
+# noinspection PyUnusedLocal
+@receiver(post_save, sender=UserOpinion)
+def save_user_opinon(instance: UserOpinion, **kwargs):
+    post = instance.post
+    if instance.opinion>0:
+        post.likes+=1
+    else:
+        post.dislikes+=1
+    post.save()
 
 class Grades(models.Model):
     GRADE_CHOICES = [
@@ -109,4 +122,4 @@ class Grades(models.Model):
     conversation = models.ForeignKey('Conversation', on_delete=models.CASCADE)
     user_given = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='user_given')
     user_received = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='user_received')
-    grade = models.IntegerField(choices=GRADE_CHOICES)
+    grade = models.IntegerField(choices=GRADE_CHOICES) # todo: delete choices and add validator
