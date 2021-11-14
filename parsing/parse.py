@@ -4,61 +4,14 @@ from typing import Union
 import json
 import requests
 
+from api_types import RawNotesResponse, Note, APINote
+
 access_token = "" # get it here: https://oauth.vk.com/authorize?client_id=7992889&redirect_uri=localhost&scope=10242&response_type=token
 
 MAX_NOTES = 1000
 START_USER = None
 FILENAME = "data.json"
 
-class CopyHistory(typing.TypedDict):
-    id: int
-    from_id: int
-    owner_id: int
-    date: int
-    post_type: str
-    text: str
-    attachments: list[dict]
-    post_source: dict
-
-
-class NoteItem(typing.TypedDict):
-    id: int
-    from_id: int
-    owner_id: int
-    date: int
-    post_type: str
-    text: str
-    copy_history: list[CopyHistory]
-    can_delete: int
-    can_pin: int
-    can_archive: bool
-    is_archived: bool
-    post_source: dict
-    comments: dict
-    likes: dict
-    reports: dict
-    views: dict
-    is_favorite: bool
-    donut: dict
-    short_text_rate: float
-    hash: str
-
-class NotesResponse(typing.TypedDict):
-    count: int
-    items: list[NoteItem]
-
-
-class RawNotesResponse(typing.TypedDict):
-    response: NotesResponse
-
-class Note(typing.TypedDict):
-    id: int
-    from_id: int
-    owner_id: int
-    date: int
-    post_type: str
-    text: str
-    likes: dict
 
 def get_notes_of_user(user_id: str) -> RawNotesResponse:
     return requests.get("https://api.vk.com/method/wall.get", {
@@ -99,7 +52,7 @@ user_queue.append(3945237)
 user_queue.append(338031983)
 visited_users: set[str] = set()
 
-parsed_notes: list = []
+parsed_notes: list[APINote] = []
 
 while len(user_queue)>0 and len(parsed_notes) < MAX_NOTES:
     current_user = user_queue.popleft()
