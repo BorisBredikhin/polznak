@@ -9,5 +9,9 @@ file.close()
 
 users: dict[str, FakeUser] = data['users']
 
+i = 0
+
 for uid, user in users.items():
     requests.post('http://0.0.0.0:8000/api/register/', user)
+    print(i, len(users))
+    i+=1

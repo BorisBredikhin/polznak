@@ -4,7 +4,12 @@ from . import models
 
 admin.site.register(models.InterestArea)
 admin.site.register(models.Language)
-admin.site.register(models.Profile)
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'user')
+
+
+admin.site.register(models.Profile, ProfileAdmin)
 admin.site.register(models.Post)
 admin.site.register(models.Conversation)
 admin.site.register(models.Message)

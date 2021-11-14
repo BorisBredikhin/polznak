@@ -1,6 +1,8 @@
 import datetime
 import typing
 
+import requests
+
 
 class CopyHistory(typing.TypedDict):
     id: int
@@ -76,3 +78,15 @@ class FakeUser(typing.TypedDict):
     gender: str
     email: str
     password: str
+
+def get_token(author: FakeUser) -> str:
+    return requests.post('http://localhost:8000/api-token-auth/', {
+        'username': author['username'],
+        'password': author['password']
+    }).json()['token']
+
+def create_post(token: str, title: str, content: str):
+    requests.post('http://localhost:8000/api/posts/', {
+        'title': title,
+        'content': content
+    }, headers={'Authorization': f'Token {token}'})
