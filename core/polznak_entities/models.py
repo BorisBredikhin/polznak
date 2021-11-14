@@ -5,9 +5,14 @@ from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from rest_framework.authtoken.models import Token
 
+from polznak_entities.validators import grade_validator
+
 
 class InterestArea(models.Model):
     name = models.CharField(verbose_name=_('Title'), max_length=50)
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         verbose_name = _("interest area")
@@ -16,6 +21,9 @@ class InterestArea(models.Model):
 
 class Language(models.Model):
     language_code = models.CharField(verbose_name=_('language_code'), max_length=5)
+
+    def __str__(self):
+        return self.language_code
 
     class Meta:
         verbose_name = _("language")
@@ -35,6 +43,9 @@ class Profile(models.Model):
     details = models.TextField(blank=True, verbose_name=_("Additional information"))
     interests = models.ManyToManyField('InterestArea')
     knows_languages = models.ManyToManyField('Language', verbose_name=_("Knows languages"))
+
+    def __str__(self):
+        return "{0} {1}".format(self.user.first_name, self.user.last_name)
 
 
 # noinspection PyUnusedLocal
@@ -58,6 +69,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now=True, verbose_name=_("Created at"))
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
 
 
 class Conversation(models.Model):
@@ -111,15 +125,7 @@ def save_user_opinon(instance: UserOpinion, **kwargs):
     post.save()
 
 class Grades(models.Model):
-    GRADE_CHOICES = [
-        (1, _("1")),
-        (2, _("2")),
-        (3, _("3")),
-        (4, _("4")),
-        (5, _("5"))
-    ]
-
     conversation = models.ForeignKey('Conversation', on_delete=models.CASCADE)
     user_given = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='user_given')
     user_received = models.ForeignKey('Profile', on_delete=models.CASCADE, related_name='user_received')
-    grade = models.IntegerField(choices=GRADE_CHOICES) # todo: delete choices and add validator
+    grade = models.IntegerField(validators=[grade_validator])
