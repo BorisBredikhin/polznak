@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/navigation/main_navigation.dart';
+import 'package:mobile_client/ui/Theme/app_colors.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_form_widget.dart';
 
 class RegistrationWidget extends StatelessWidget {
@@ -8,16 +10,7 @@ class RegistrationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: <Color>[
-              Color.fromRGBO(0, 22, 217, 0.38),
-              Color.fromRGBO(188, 0, 169, 1),
-            ],
-            begin: Alignment(-0.8, -1),
-            end: Alignment(1, 1),
-          ),
-        ),
+        decoration: AppColors.backgroundGradient,
         child: ListView(
           children: [
             const SizedBox(height: 80),
@@ -60,9 +53,8 @@ class _EnterRow extends StatefulWidget {
 }
 
 class _EnterRowState extends State<_EnterRow> {
-  
   void _openAuthWidget() {
-    Navigator.of(context).pushReplacementNamed('/auth');
+    Navigator.of(context).pushReplacementNamed(MainNavigationRouteNames.auth);
   }
 
   @override

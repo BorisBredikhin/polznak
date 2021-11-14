@@ -1,26 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
+import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
 
-class FormWidget extends StatefulWidget {
+class FormWidget extends StatelessWidget {
   const FormWidget({Key? key}) : super(key: key);
 
   @override
-  _FormWidgetState createState() => _FormWidgetState();
-}
-
-class _FormWidgetState extends State<FormWidget> {
-  final _mailTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
-
-  void _auth() {
-    final mail = _mailTextController.text;
-    final password = _passwordTextController.text;
-    // TODO: Обработка входа
-    print(mail + password);
-    // setState(() {});
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.read<AuthModel>(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 60),
       child: DecoratedBox(
@@ -32,74 +19,24 @@ class _FormWidgetState extends State<FormWidget> {
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              const _ErrorMessageWidget(),
               _InputTextField(
                 prefixIcon: const Icon(Icons.mail),
                 hintText: 'Email',
                 isObscured: false,
-                controller: _mailTextController,
+                controller: model?.mailTextController,
               ),
               const SizedBox(height: 6),
               _InputTextField(
                 prefixIcon: const Icon(Icons.password),
                 hintText: 'Password',
                 isObscured: true,
-                controller: _passwordTextController,
+                controller: model?.passwordTextController,
               ),
               const SizedBox(height: 6),
-              SizedBox(
-                height: 28,
-                child: OutlinedButton(
-                  onPressed: _auth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        'Войти',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(
-                      const Color.fromRGBO(151, 62, 201, 1),
-                    ),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    )),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 9),
-                    ),
-                  ),
-                ),
-              ),
+              const _AuthButtonWidget(),
               const SizedBox(height: 6),
-              SizedBox(
-                height: 10,
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Забыли пароль?',
-                    style: TextStyle(
-                      color: Color.fromRGBO(151, 62, 201, 1),
-                      fontSize: 9,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  style: ButtonStyle(
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5),
-                    )),
-                    padding: MaterialStateProperty.all(
-                      const EdgeInsets.symmetric(vertical: 0),
-                    ),
-                    splashFactory: NoSplash.splashFactory,
-                  ),
-                ),
-              ),
+              const _ResetPasswordButton(),
             ],
           ),
         ),
@@ -108,11 +45,34 @@ class _FormWidgetState extends State<FormWidget> {
   }
 }
 
+class _ErrorMessageWidget extends StatelessWidget {
+  const _ErrorMessageWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final errorMessage =
+        NotifierProvider.watch<AuthModel>(context)?.errorMessage;
+    if (errorMessage == null) return const SizedBox.shrink();
+    return Column(
+      children: [
+        Text(
+          errorMessage,
+          style: const TextStyle(
+            color: Colors.red,
+            fontSize: 17,
+          ),
+        ),
+        const SizedBox(height: 20),
+      ],
+    );
+  }
+}
+
 class _InputTextField extends StatelessWidget {
   final Icon prefixIcon;
   final String hintText;
   final bool isObscured;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   const _InputTextField({
     Key? key,
     required this.prefixIcon,
@@ -162,6 +122,83 @@ class _InputTextField extends StatelessWidget {
         cut: true,
         paste: true,
         selectAll: true,
+      ),
+    );
+  }
+}
+
+class _AuthButtonWidget extends StatelessWidget {
+  const _AuthButtonWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = NotifierProvider.watch<AuthModel>(context);
+    final onPressed =
+        model?.canStartAuth == true ? () => model?.auth(context) : null;
+    final child = model?.isAuthProgress == true
+        ? const SizedBox(
+            width: 15,
+            height: 15,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          )
+        : const Text(
+            'Войти',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 9,
+              fontWeight: FontWeight.w700,
+            ),
+          );
+    return SizedBox(
+      height: 28,
+      width: double.infinity,
+      child: OutlinedButton(
+        onPressed: onPressed,
+        child: child,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(
+            const Color.fromRGBO(151, 62, 201, 1),
+          ),
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          )),
+          padding: MaterialStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 9),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ResetPasswordButton extends StatelessWidget {
+  const _ResetPasswordButton({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 10,
+      child: TextButton(
+        onPressed: () {},
+        child: const Text(
+          'Забыли пароль?',
+          style: TextStyle(
+            color: Color.fromRGBO(151, 62, 201, 1),
+            fontSize: 9,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          )),
+          padding: MaterialStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 0),
+          ),
+          splashFactory: NoSplash.splashFactory,
+        ),
       ),
     );
   }
