@@ -86,7 +86,14 @@ def get_token(author: FakeUser) -> str:
     }).json()['token']
 
 def create_post(token: str, title: str, content: str):
-    requests.post('http://localhost:8000/api/posts/', {
+    return requests.post('http://localhost:8000/api/posts/', {
         'title': title,
         'content': content
+    }, headers={'Authorization': f'Token {token}'}).json()
+
+
+def like_post(token, post_id, grade):
+    requests.post('http://localhost:8000/api/likes/', {
+        'post_id': int(post_id),
+        'grade': int(grade),
     }, headers={'Authorization': f'Token {token}'})
