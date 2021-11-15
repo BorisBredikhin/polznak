@@ -1,8 +1,8 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:http/http.dart' as http;
 
-enum ApiCLientExceptionType { Network, Auth, Other }
+enum ApiCLientExceptionType { network, auth, other }
 
 class ApiCLientException implements Exception {
   final ApiCLientExceptionType type;
@@ -11,17 +11,17 @@ class ApiCLientException implements Exception {
 }
 
 class ApiClient {
-  static const _host = 'http://127.0.0.1:8000';
+  static const _host = 'http://192.168.56.1:8000';
 
-  Future<void> auth({
+  Future<String> auth({
     required String username,
     required String password,
   }) async {
-    final token = _makeToken(
+    final token = await _makeToken(
       username: username,
       password: password,
     );
-    print(token);
+    return token;
   }
 
   Future<String> _makeToken({
@@ -33,18 +33,24 @@ class ApiClient {
       'password': password,
     };
 
-    final response = await http.post(
-        Uri.parse(_host+'/api-token-auth/'),
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: jsonEncode(body)
-    );
-
-    if (response.statusCode != 200) {
-      throw Exception(response.body);
+    try {
+      final response = await http.post(
+        Uri.parse(_host + '/api-token-auth/'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode(body),
+      );
+      if (response.statusCode != 200) {
+        throw ApiCLientException(ApiCLientExceptionType.auth);
+        // throw Exception(response.body);
+      }
+      final token = jsonDecode(response.body)['token'] as String;
+      return token;
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } on ApiCLientException {
+      rethrow;
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
     }
-
-    return jsonDecode(response.body)['token'] as String;
   }
 }

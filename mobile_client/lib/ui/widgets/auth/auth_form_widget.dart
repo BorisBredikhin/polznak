@@ -21,15 +21,15 @@ class FormWidget extends StatelessWidget {
             children: [
               const _ErrorMessageWidget(),
               _InputTextField(
-                prefixIcon: const Icon(Icons.mail),
-                hintText: 'Email',
+                prefixIcon: const Icon(Icons.person),
+                hintText: 'Имя пользователя',
                 isObscured: false,
-                controller: model?.mailTextController,
+                controller: model?.usernameTextController,
               ),
               const SizedBox(height: 6),
               _InputTextField(
                 prefixIcon: const Icon(Icons.password),
-                hintText: 'Password',
+                hintText: 'Пароль',
                 isObscured: true,
                 controller: model?.passwordTextController,
               ),
@@ -59,7 +59,7 @@ class _ErrorMessageWidget extends StatelessWidget {
           errorMessage,
           style: const TextStyle(
             color: Colors.red,
-            fontSize: 17,
+            fontSize: 12,
           ),
         ),
         const SizedBox(height: 20),
@@ -137,8 +137,8 @@ class _AuthButtonWidget extends StatelessWidget {
         model?.canStartAuth == true ? () => model?.auth(context) : null;
     final child = model?.isAuthProgress == true
         ? const SizedBox(
-            width: 15,
-            height: 15,
+            height: 10,
+            width: 10,
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : const Text(

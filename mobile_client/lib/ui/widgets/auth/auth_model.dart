@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/domain/api_client/api_client.dart';
+import 'package:mobile_client/domain/data_providers/token_data_provider.dart';
+import 'package:mobile_client/navigation/main_navigation.dart';
 
 class AuthModel extends ChangeNotifier {
   final _apiClient = ApiClient();
+  final _tokenDataProvider = TokenDataProvider();
 
-  final mailTextController = TextEditingController();
-  final passwordTextController = TextEditingController();
+  final usernameTextController = TextEditingController(); //text: 'admin'
+  final passwordTextController = TextEditingController(); //text: 'AdMiN_PaSswd'
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
@@ -14,18 +17,55 @@ class AuthModel extends ChangeNotifier {
   bool get canStartAuth => !_isAuthProgress;
   bool get isAuthProgress => _isAuthProgress;
 
-  Future<void> auth (BuildContext context) async {
-    // TODO: Обработка входа
-    // final username = mailTextController.text;
-    // final password = passwordTextController.text;
-    const username = 'admin';
-    const password = 'admIn?1';
+  Future<void> auth(BuildContext context) async {
+    final username = usernameTextController.text;
+    final password = passwordTextController.text;
+
     if (username.isEmpty || password.isEmpty) {
       _errorMessage = 'Заполните логин и пароль';
       notifyListeners();
       return;
     }
-    _apiClient.auth(username: username, password: password);
-    print(username + password);
+
+    _errorMessage = null;
+    _isAuthProgress = true;
+    notifyListeners();
+
+    String? token;
+    try {
+      token = await _apiClient.auth(
+        username: username,
+        password: password,
+      );
+    } on ApiCLientException catch (e) {
+      switch (e.type) {
+        case ApiCLientExceptionType.network:
+          _errorMessage =
+              'Сервер недоступен. Проверьте подключение к интернету.';
+          break;
+        case ApiCLientExceptionType.auth:
+          _errorMessage = 'Неверный логин или пароль.';
+          break;
+        case ApiCLientExceptionType.other:
+          _errorMessage = 'Произошла ошибка, попробуйте еще раз.';
+          break;
+      }
+    }
+
+    _isAuthProgress = false;
+    if (_errorMessage != null) {
+      notifyListeners();
+      return;
+    }
+
+    if (token == null) {
+      _errorMessage = 'Неизвестная ошибка. Повторите попытку.';
+      notifyListeners();
+      return;
+    }
+
+    await _tokenDataProvider.setToken(token);
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
   }
 }

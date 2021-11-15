@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/navigation/main_navigation.dart';
-import 'package:mobile_client/ui/widgets/auth/auth_widget.dart';
-import 'package:mobile_client/ui/widgets/registration/registration_widget.dart';
+import 'package:mobile_client/ui/app/my_app_model.dart';
 
 class MyApp extends StatelessWidget {
+  final MyAppModel model;
   static final mainNavigation = MainNavigation();
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({
+    Key? key,
+    required this.model,
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -16,8 +19,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       routes: mainNavigation.routes,
-      //TODO Передать корректный isAuth
-      initialRoute: mainNavigation.initialRoute(true),
+      initialRoute: mainNavigation.initialRoute(model.isAuth),
+      //TODO указать onGenerateRoute
     );
   }
 }
