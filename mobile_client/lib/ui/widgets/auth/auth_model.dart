@@ -18,8 +18,8 @@ class AuthModel extends ChangeNotifier {
     // TODO: Обработка входа
     // final username = mailTextController.text;
     // final password = passwordTextController.text;
-    const username = '13092000polushkin';
-    const password = 'rZGByf49Y3.q5mr';
+    const username = 'admin';
+    const password = 'admIn?1';
     if (username.isEmpty || password.isEmpty) {
       _errorMessage = 'Заполните логин и пароль';
       notifyListeners();
