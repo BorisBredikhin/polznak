@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'input_textfield_widget.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 
 class ProfileInfo extends StatefulWidget {
   ProfileInfo({Key? key}) : super(key: key);
@@ -40,7 +40,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 8),
-              _ProfileAvatar(),
+              const _ProfileAvatar(),
               const SizedBox(height: 60),
               InputTextField(
                 hintText: 'Имя пользователя',
@@ -66,7 +66,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
 }
 
 class _ProfileAvatar extends StatefulWidget {
-  _ProfileAvatar({Key? key}) : super(key: key);
+  const _ProfileAvatar({Key? key}) : super(key: key);
 
   @override
   __ProfileAvatarState createState() => __ProfileAvatarState();

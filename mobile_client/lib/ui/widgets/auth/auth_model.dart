@@ -17,6 +17,11 @@ class AuthModel extends ChangeNotifier {
   bool get canStartAuth => !_isAuthProgress;
   bool get isAuthProgress => _isAuthProgress;
 
+  void openRegistrationWidget(BuildContext context) {
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRouteNames.registration);
+  }
+
   Future<void> auth(BuildContext context) async {
     final username = usernameTextController.text;
     final password = passwordTextController.text;
@@ -46,7 +51,7 @@ class AuthModel extends ChangeNotifier {
         case ApiCLientExceptionType.auth:
           _errorMessage = 'Неверный логин или пароль.';
           break;
-        case ApiCLientExceptionType.other:
+        default:
           _errorMessage = 'Произошла ошибка, попробуйте еще раз.';
           break;
       }

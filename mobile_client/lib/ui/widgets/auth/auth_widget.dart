@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/resources/resources.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/app_logo_widget.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_form_widget.dart';
 
-class AuthWidget extends StatefulWidget {
+class AuthWidget extends StatelessWidget {
   const AuthWidget({Key? key}) : super(key: key);
 
-  @override
-  State<AuthWidget> createState() => _AuthWidgetState();
-}
-
-class _AuthWidgetState extends State<AuthWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +22,7 @@ class _AuthWidgetState extends State<AuthWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 80),
-                const _AppLogoWidget(),
+                const AppLogoWidget(),
                 const SizedBox(height: 15),
                 const Text('Название приложения'),
                 const SizedBox(height: 60),
@@ -44,26 +42,12 @@ class _AuthWidgetState extends State<AuthWidget> {
   }
 }
 
-class _AppLogoWidget extends StatelessWidget {
-  const _AppLogoWidget({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 130,
-      width: 130,
-      child: Placeholder(),
-    );
-  }
-}
-
 class _RegistrationRow extends StatelessWidget {
-  const _RegistrationRow({ Key? key }) : super(key: key);
+  const _RegistrationRow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.read<AuthModel>(context);
     return SizedBox(
       height: 15,
       child: Row(
@@ -78,8 +62,7 @@ class _RegistrationRow extends StatelessWidget {
             ),
           ),
           TextButton(
-            //TODO Открыть виджет регистрации
-            onPressed: () {},
+            onPressed: () => model?.openRegistrationWidget(context),
             child: const Text(
               'Зарегистрироваться',
               style: TextStyle(

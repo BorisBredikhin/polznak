@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/ui/widgets/profile_redaction/input_textfield_widget.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 
 class Essays extends StatefulWidget {
-  Essays({Key? key}) : super(key: key);
+  const Essays({Key? key}) : super(key: key);
 
   @override
   _EssaysState createState() => _EssaysState();
 }
 
 class _EssaysState extends State<Essays> {
-  final _EssayTextController = TextEditingController();
+  final _essayTextController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -34,7 +34,7 @@ class _EssaysState extends State<Essays> {
                               SizedBox(
                                 width: 320,
                                 child: InputTextField(
-                                  controller: _EssayTextController,
+                                  controller: _essayTextController,
                                   prefixIcon: const Icon(Icons.tag),
                                   contentPadding: const EdgeInsets.all(10),
                                   hintText: 'Введите тему эссе',

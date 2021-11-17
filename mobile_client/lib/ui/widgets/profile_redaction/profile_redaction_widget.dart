@@ -45,7 +45,7 @@ class ProfileRedactionWidget extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(height: 220, child: Essays()),
+                              const SizedBox(height: 220, child: Essays()),
                               saveButton(),
                             ],
                           ),

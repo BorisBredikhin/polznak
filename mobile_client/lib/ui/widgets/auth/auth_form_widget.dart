@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 
 class FormWidget extends StatelessWidget {
   const FormWidget({Key? key}) : super(key: key);
@@ -20,14 +21,14 @@ class FormWidget extends StatelessWidget {
           child: Column(
             children: [
               const _ErrorMessageWidget(),
-              _InputTextField(
+              InputTextField(
                 prefixIcon: const Icon(Icons.person),
                 hintText: 'Имя пользователя',
-                isObscured: false,
                 controller: model?.usernameTextController,
+                textInputAction: TextInputAction.next,
               ),
               const SizedBox(height: 6),
-              _InputTextField(
+              InputTextField(
                 prefixIcon: const Icon(Icons.password),
                 hintText: 'Пароль',
                 isObscured: true,
@@ -64,65 +65,6 @@ class _ErrorMessageWidget extends StatelessWidget {
         ),
         const SizedBox(height: 20),
       ],
-    );
-  }
-}
-
-class _InputTextField extends StatelessWidget {
-  final Icon prefixIcon;
-  final String hintText;
-  final bool isObscured;
-  final TextEditingController? controller;
-  const _InputTextField({
-    Key? key,
-    required this.prefixIcon,
-    required this.hintText,
-    required this.isObscured,
-    required this.controller,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      style: const TextStyle(
-        fontSize: 9,
-        color: Colors.black,
-      ),
-      decoration: InputDecoration(
-        isDense: true,
-        contentPadding: const EdgeInsets.all(6),
-        hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 9,
-          color: Color.fromRGBO(136, 136, 136, 1),
-        ),
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: prefixIcon,
-        ),
-        prefixIconConstraints: const BoxConstraints(
-          minWidth: 0,
-          minHeight: 0,
-        ),
-        filled: true,
-        fillColor: const Color.fromRGBO(244, 244, 244, 1),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            style: BorderStyle.none,
-          ),
-          borderRadius: BorderRadius.circular(5),
-        ),
-      ),
-      keyboardType: TextInputType.emailAddress,
-      textInputAction: TextInputAction.next,
-      obscureText: isObscured,
-      toolbarOptions: const ToolbarOptions(
-        copy: true,
-        cut: true,
-        paste: true,
-        selectAll: true,
-      ),
     );
   }
 }

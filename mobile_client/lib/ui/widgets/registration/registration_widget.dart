@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/navigation/main_navigation.dart';
+import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/app_logo_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_form_widget.dart';
+import 'package:mobile_client/ui/widgets/registration/registration_model.dart';
 
 class RegistrationWidget extends StatelessWidget {
   const RegistrationWidget({Key? key}) : super(key: key);
@@ -14,27 +16,20 @@ class RegistrationWidget extends StatelessWidget {
         child: ListView(
           children: [
             const SizedBox(height: 80),
-            SizedBox(
-              width: double.infinity,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    height: 130,
-                    width: 130,
-                    child: Placeholder(),
-                  ),
-                  SizedBox(height: 15),
-                  Text('Название приложения'),
-                  SizedBox(height: 60),
-                  RegistrationFormWidget(),
-                  SizedBox(height: 5),
-                  _EnterRow(),
-                  SizedBox(height: 5),
-                ],
-              ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const [
+                AppLogoWidget(),
+                SizedBox(height: 15),
+                Text('Название приложения'),
+                SizedBox(height: 60),
+                RegistrationFormWidget(),
+                SizedBox(height: 5),
+                _EnterRow(),
+                SizedBox(height: 5),
+              ],
             ),
           ],
         ),
@@ -43,22 +38,12 @@ class RegistrationWidget extends StatelessWidget {
   }
 }
 
-class _EnterRow extends StatefulWidget {
-  const _EnterRow({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<_EnterRow> createState() => _EnterRowState();
-}
-
-class _EnterRowState extends State<_EnterRow> {
-  void _openAuthWidget() {
-    Navigator.of(context).pushReplacementNamed(MainNavigationRouteNames.auth);
-  }
+class _EnterRow extends StatelessWidget {
+  const _EnterRow({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final model = NotifierProvider.read<RegistrationModel>(context);
     return SizedBox(
       height: 15,
       child: Row(
@@ -73,7 +58,7 @@ class _EnterRowState extends State<_EnterRow> {
             ),
           ),
           TextButton(
-            onPressed: _openAuthWidget,
+            onPressed: () => model?.openAuthWidget(context),
             child: const Text(
               'Войти',
               style: TextStyle(
