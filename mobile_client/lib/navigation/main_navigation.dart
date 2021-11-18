@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_widget.dart';
+import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_model.dart';
+import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_widget.dart';
 import 'package:mobile_client/ui/widgets/main_screen/main_screen_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_model.dart';
@@ -11,12 +13,13 @@ class MainNavigationRouteNames {
   static const auth = 'auth';
   static const registration = 'registration';
   static const mainScreen = '/';
-  //TODO Поработать с путем к редактированию профиля
+  //TODO Поработать с путем к редактированию профиля и созданию эссе
   static const profileRedaction = 'profileRedaction';
+  static const essayCreation = 'essayCreation';
 }
 
 class MainNavigation {
-  // String initialRoute(bool isAuth) => MainNavigationRouteNames.profileRedaction;
+  // String initialRoute(bool isAuth) => MainNavigationRouteNames.essayCreation;
   String initialRoute(bool isAuth) => isAuth
       ? MainNavigationRouteNames.mainScreen
       : MainNavigationRouteNames.auth;
@@ -29,9 +32,14 @@ class MainNavigation {
           model: RegistrationModel(),
           child: const RegistrationWidget(),
         ),
-        // TODO Качественно переделать все, что ниже
+    MainNavigationRouteNames.essayCreation: (context) => NotifierProvider(
+          model: EssayCreationModel(),
+          child: const EssayCreationWidget(),
+        ),
+    // TODO Качественно переделать все, что ниже
     MainNavigationRouteNames.mainScreen: (context) => const MainScreenWidget(),
-    MainNavigationRouteNames.profileRedaction: (context) => const ProfileRedactionWidget(),
+    MainNavigationRouteNames.profileRedaction: (context) =>
+        const ProfileRedactionWidget(),
   };
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {

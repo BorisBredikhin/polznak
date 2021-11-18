@@ -33,7 +33,7 @@ class ProfileRedactionWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        ProfileInfo(),
+                        const ProfileInfo(),
                         Divider(),
                         const SizedBox(height: 6),
                         const Text(
@@ -46,7 +46,8 @@ class ProfileRedactionWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const SizedBox(height: 220, child: Essays()),
-                              saveButton(),
+                              //TODO Обработка нажатия
+                              // SaveButtonWidget(onPressed: () {}),
                             ],
                           ),
                         ),
@@ -82,46 +83,4 @@ class Divider extends StatelessWidget {
       ],
     );
   }
-}
-
-SizedBox saveButton() {
-  return SizedBox(
-    width: 100,
-    height: 30,
-    child: OutlinedButton(
-      onPressed: () {},
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
-          Text(
-            'Сохранить',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          Icon(
-            Icons.save,
-            size: 18,
-            color: Colors.black,
-          ),
-        ],
-      ),
-      style: ButtonStyle(
-        overlayColor:
-            MaterialStateProperty.all(const Color.fromRGBO(196, 1962, 196, 1)),
-        backgroundColor: MaterialStateProperty.all(
-          const Color.fromRGBO(255, 255, 255, 1),
-        ),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
-        )),
-        padding: MaterialStateProperty.all(
-          const EdgeInsets.symmetric(vertical: 6),
-        ),
-      ),
-    ),
-  );
 }

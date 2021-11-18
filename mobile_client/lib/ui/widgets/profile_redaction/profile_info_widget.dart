@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 
 class ProfileInfo extends StatefulWidget {
-  ProfileInfo({Key? key}) : super(key: key);
+  const ProfileInfo({Key? key}) : super(key: key);
 
   @override
   _ProfileInfoState createState() => _ProfileInfoState();

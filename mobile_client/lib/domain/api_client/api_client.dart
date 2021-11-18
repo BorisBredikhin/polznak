@@ -109,4 +109,30 @@ class ApiClient {
       throw ApiCLientException(ApiCLientExceptionType.other);
     }
   }
+
+  Future<void> savePost({
+    required String title,
+    required String content,
+    required String token,
+  }) async {
+    final body = <String, dynamic>{
+      "title": title,
+      "content": content,
+    };
+
+    try {
+      await http.post(
+        Uri.parse(_host + '/api/posts/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'token $token',
+        },
+        body: jsonEncode(body),
+      );
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
 }

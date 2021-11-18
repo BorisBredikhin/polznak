@@ -65,7 +65,7 @@ class RegistrationModel extends ChangeNotifier {
     final email = emailTextController.text;
     final password = passwordTextController.text;
     final repeatPassword = repeatPasswordTextController.text;
-    //TODO По возможности разделить проверки на существующую почту и имя пользователя
+    
     if (firstName.isEmpty ||
         lastName.isEmpty ||
         username.isEmpty ||

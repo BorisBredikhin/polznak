@@ -18,7 +18,7 @@ class InputTextField extends StatelessWidget {
     this.isObscured,
     this.hintText,
     this.keyboardType,
-    this.maxLines,
+    this.maxLines = 1,
     this.prefixIcon,
     this.suffixIcon,
     this.textInputAction,
@@ -30,6 +30,7 @@ class InputTextField extends StatelessWidget {
     return TextField(
       onTap: onTap,
       controller: controller,
+      maxLines: maxLines,
       style: const TextStyle(
         fontSize: 10,
         color: Colors.black,
