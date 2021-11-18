@@ -11,6 +11,7 @@ class InputTextField extends StatelessWidget {
   final Icon? prefixIcon;
   final Icon? suffixIcon;
   final TextInputAction? textInputAction;
+  final TextStyle? textStyle;
   const InputTextField({
     Key? key,
     this.contentPadding,
@@ -23,6 +24,7 @@ class InputTextField extends StatelessWidget {
     this.suffixIcon,
     this.textInputAction,
     this.onTap,
+    this.textStyle = const TextStyle(fontSize: 10, color: Colors.black),
   }) : super(key: key);
 
   @override
@@ -31,10 +33,10 @@ class InputTextField extends StatelessWidget {
       onTap: onTap,
       controller: controller,
       maxLines: maxLines,
-      style: const TextStyle(
-        fontSize: 10,
-        color: Colors.black,
-      ),
+      // style: const TextStyle(
+      //   fontSize: 10,
+      //   color: Colors.black,
+      // ),
       decoration: InputDecoration(
         isDense: true,
         isCollapsed: true,

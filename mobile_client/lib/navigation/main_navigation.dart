@@ -4,6 +4,7 @@ import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_widget.dart';
 import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_model.dart';
 import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_widget.dart';
+import 'package:mobile_client/ui/widgets/feed/feed.dart';
 import 'package:mobile_client/ui/widgets/main_screen/main_screen_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_model.dart';
@@ -16,13 +17,15 @@ class MainNavigationRouteNames {
   //TODO Поработать с путем к редактированию профиля и созданию эссе
   static const profileRedaction = 'profileRedaction';
   static const essayCreation = 'essayCreation';
+  static const feed = 'feed';
 }
 
 class MainNavigation {
-  // String initialRoute(bool isAuth) => MainNavigationRouteNames.essayCreation;
-  String initialRoute(bool isAuth) => isAuth
-      ? MainNavigationRouteNames.mainScreen
-      : MainNavigationRouteNames.auth;
+  String initialRoute(bool isAuth) => MainNavigationRouteNames.feed;
+  //String initialRoute(bool isAuth) => MainNavigationRouteNames.essayCreation;
+  //String initialRoute(bool isAuth) => isAuth
+  //? MainNavigationRouteNames.mainScreen
+  //: MainNavigationRouteNames.auth;
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRouteNames.auth: (context) => NotifierProvider(
           model: AuthModel(),
@@ -36,7 +39,9 @@ class MainNavigation {
           model: EssayCreationModel(),
           child: const EssayCreationWidget(),
         ),
+
     // TODO Качественно переделать все, что ниже
+    MainNavigationRouteNames.feed: (context) => const FeedWidget(),
     MainNavigationRouteNames.mainScreen: (context) => const MainScreenWidget(),
     MainNavigationRouteNames.profileRedaction: (context) =>
         const ProfileRedactionWidget(),

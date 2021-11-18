@@ -17,7 +17,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        //TODO BottomNavigationBarTheme
+        // bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        //   backgroundColor: Color.fromRGBO(188, 0, 169, 1),
+        //   selectedItemColor: Color.fromRGBO(0, 22, 217, 0.5),
+        //   unselectedItemColor: Color.fromRGBO(136, 136, 136, 1),
+        // ),
       ),
+
       routes: mainNavigation.routes,
       initialRoute: mainNavigation.initialRoute(model.isAuth),
       //TODO указать onGenerateRoute

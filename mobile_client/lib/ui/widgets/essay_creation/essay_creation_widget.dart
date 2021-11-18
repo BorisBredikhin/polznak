@@ -19,40 +19,43 @@ class EssayCreationWidget extends StatelessWidget {
         decoration: AppColors.backgroundGradient,
         child: ListView(
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 15),
-                const Text(
-                  'Эссе',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Эссе',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 20),
-                const _ErrorMessageWidget(),
-                const SizedBox(height: 20),
-                InputTextField(
-                  controller: model?.titleTextController,
-                  hintText: 'Введите заголовок',
-                ),
-                const SizedBox(height: 20),
-                InputTextField(
-                  controller: model?.contentTextController,
-                  hintText: 'Напишите эссе',
-                  keyboardType: TextInputType.multiline,
-                  maxLines: 15,
-                ),
-                const SizedBox(height: 20),
-                SaveButtonWidget(
-                  onPressed: onPressed,
-                  isProgress: model!.isSaveProgress,
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  const _ErrorMessageWidget(),
+                  const SizedBox(height: 20),
+                  InputTextField(
+                    controller: model?.titleTextController,
+                    hintText: 'Введите заголовок',
+                  ),
+                  const SizedBox(height: 20),
+                  InputTextField(
+                    controller: model?.contentTextController,
+                    hintText: 'Напишите эссе',
+                    keyboardType: TextInputType.multiline,
+                    maxLines: 25,
+                  ),
+                  const SizedBox(height: 20),
+                  SaveButtonWidget(
+                    onPressed: onPressed,
+                    isProgress: model!.isSaveProgress,
+                  ),
+                ],
+              ),
             ),
           ],
         ),
