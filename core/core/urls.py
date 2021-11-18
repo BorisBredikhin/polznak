@@ -21,6 +21,8 @@ from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
+from recommendations.views import test as vbn
+
 schema_view = get_schema_view(
     openapi.Info(
         title="Snippets API",
@@ -43,4 +45,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('polznak_entities.urls')),
     path('api-token-auth/', rest_framework.authtoken.views.obtain_auth_token),
+    path('test/', vbn),
 ]
