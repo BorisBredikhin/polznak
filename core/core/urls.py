@@ -44,6 +44,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     path('api/', include('polznak_entities.urls')),
+    path('recommendations/', include('recommendations.urls')),
     path('api-token-auth/', rest_framework.authtoken.views.obtain_auth_token),
     path('test/', vbn),
 ]
