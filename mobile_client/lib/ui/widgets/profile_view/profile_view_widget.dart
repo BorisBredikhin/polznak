@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
-import 'package:mobile_client/ui/widgets/profile_redaction/profile_essay_redaction_widget.dart';
-import 'package:mobile_client/ui/widgets/profile_redaction/profile_info_widget.dart';
+import 'package:mobile_client/ui/widgets/profile_view/profile_essay_view.dart';
+import 'package:mobile_client/ui/widgets/profile_view/profile_info_view.dart';
 
-class ProfileRedactionWidget extends StatelessWidget {
-  const ProfileRedactionWidget({Key? key}) : super(key: key);
+class ProfileViewWidget extends StatelessWidget {
+  const ProfileViewWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +25,22 @@ class ProfileRedactionWidget extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const ProfileInfo(),
+                        const ProfileInfoView(),
                         Divider(),
                         const SizedBox(height: 6),
                         const Text(
                           'Мои эссе',
                           style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
-                        SizedBox(
-                          height: 280,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              SizedBox(height: 220, child: Essays()),
-                              //TODO Обработка нажатия
-                              // SaveButtonWidget(onPressed: () {}),
-                            ],
-                          ),
-                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 280,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        SizedBox(height: 220, child: EssaysView()),
                       ],
                     ),
                   ),

@@ -22,8 +22,8 @@ class FeedWidget extends StatelessWidget {
                     padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Publication(),
+                      children: const [
+                        Publication(),
                       ],
                     ),
                   ),
@@ -67,15 +67,15 @@ class Publication extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Заголовок',
                       style: TextStyle(
                         fontSize: 14,
@@ -85,15 +85,15 @@ class Publication extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 8,
               ),
               Divider(),
               const SizedBox(height: 10),
-              PublicationText(),
+              const PublicationText(),
               const SizedBox(height: 6),
               Divider(),
-              ButtonBar(),
+              const ButtonBar(),
             ],
           ),
         ),
@@ -129,7 +129,7 @@ class PublicationText extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: SingleChildScrollView(
               child: RichText(
-                text: TextSpan(
+                text: const TextSpan(
                   text:
                       ' текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи  текст статьи текст статьи текст статьи текст статьи текст статьи ',
                   style: TextStyle(fontSize: 14),
@@ -167,15 +167,15 @@ class ButtonBar extends StatelessWidget {
           children: [
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.thumb_down_alt_rounded),
+              icon: const Icon(Icons.thumb_down_alt_rounded),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.comment),
+              icon: const Icon(Icons.comment),
             ),
             IconButton(
               onPressed: () {},
-              icon: Icon(Icons.thumb_up_alt),
+              icon: const Icon(Icons.thumb_up_alt),
             ),
           ],
         ),

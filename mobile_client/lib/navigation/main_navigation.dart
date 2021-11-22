@@ -7,6 +7,7 @@ import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_widget.da
 import 'package:mobile_client/ui/widgets/feed/feed.dart';
 import 'package:mobile_client/ui/widgets/main_screen/main_screen_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_widget.dart';
+import 'package:mobile_client/ui/widgets/profile_view/profile_view_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_model.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_widget.dart';
 
@@ -14,14 +15,15 @@ class MainNavigationRouteNames {
   static const auth = 'auth';
   static const registration = 'registration';
   static const mainScreen = '/';
-  //TODO Поработать с путем к редактированию профиля и созданию эссе
+  //TODO Поработать с путем к редактированию профиля, создания эссе, просмотра профиля
   static const profileRedaction = 'profileRedaction';
   static const essayCreation = 'essayCreation';
   static const feed = 'feed';
+  static const profileView = 'profileView';
 }
 
 class MainNavigation {
-  String initialRoute(bool isAuth) => MainNavigationRouteNames.feed;
+  String initialRoute(bool isAuth) => MainNavigationRouteNames.profileView;
   //String initialRoute(bool isAuth) => MainNavigationRouteNames.essayCreation;
   //String initialRoute(bool isAuth) => isAuth
   //? MainNavigationRouteNames.mainScreen
@@ -45,6 +47,8 @@ class MainNavigation {
     MainNavigationRouteNames.mainScreen: (context) => const MainScreenWidget(),
     MainNavigationRouteNames.profileRedaction: (context) =>
         const ProfileRedactionWidget(),
+    MainNavigationRouteNames.profileView: (context) =>
+        const ProfileViewWidget(),
   };
   Route<Object> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
