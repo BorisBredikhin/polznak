@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework import serializers
 from typing import TypedDict
@@ -57,3 +58,17 @@ class LikeListRequestSerializer(serializers.Serializer):
         help_text="Идентификатор поста, для которого нужно получиить список лайков"
     )
 
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'first_name', 'last_name']
+
+
+class ProfileSerialzer(serializers.ModelSerializer):
+    user = UserSerializer()
+    # todo: Скрыть конфиенциальные анные
+    class Meta:
+        model = Profile
+        fields = '__all__'
+        depth = 2

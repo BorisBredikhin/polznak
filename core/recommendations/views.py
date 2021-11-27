@@ -5,7 +5,9 @@ from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 
 from polznak_entities.models import Profile
+from polznak_entities.serializers import ProfileSerialzer
 from recommendations.models import AuthorSpecialWords
+from recommendations.utils.likes import get_users_who_liked_user_posts
 
 
 def test(request):
@@ -20,9 +22,14 @@ class PersonalRecommendations(APIView):
                               "пользователя"
     )
     def get(self, request: Request):
+        profile = Profile.objects.get(user=request.user)
+
+        similar_profiles = get_users_who_liked_user_posts(profile)
+
         return Response(
-            AuthorSpecialWords \
-                .create_for_author(Profile.objects.get(user=request.user)) \
-                .get_unque_and_long_words(),
+            ProfileSerialzer(similar_profiles, many=True).data,
+            # AuthorSpecialWords \
+            #     .create_for_author(profile) \
+            #     .get_unque_and_long_words(),
             HTTP_200_OK,
         )
