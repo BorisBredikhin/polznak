@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK
 from rest_framework.views import APIView
 
-from polznak_entities.models import Profile
-from polznak_entities.serializers import ProfileSerialzer
+from polznak_entities.models import Profile, Post, UserOpinion
+from polznak_entities.serializers import ProfileSerialzer, PostSerializer
 from recommendations.models import AuthorSpecialWords
 from recommendations.utils.likes import get_users_who_liked_user_posts
 
@@ -25,11 +25,17 @@ class PersonalRecommendations(APIView):
         profile = Profile.objects.get(user=request.user)
 
         similar_profiles = get_users_who_liked_user_posts(profile)
+        similar_profiles_posts = Post.objects.filter(creator__in=similar_profiles).order_by('-created_at')
+        similar_profiles_posts_i_do_not_scored = similar_profiles_posts.exclude(pk__in=UserOpinion.objects.filter(sender=profile))
 
+        posts_data = PostSerializer(similar_profiles_posts_i_do_not_scored, many=True).data
+        # todo; отсортировать по любимым словам
+        # my_favorite_words = AuthorSpecialWords \
+        #     .create_for_author(profile) \
+        #     .get_unque_and_long_words()
         return Response(
-            ProfileSerialzer(similar_profiles, many=True).data,
-            # AuthorSpecialWords \
-            #     .create_for_author(profile) \
-            #     .get_unque_and_long_words(),
+            {
+                "posts": posts_data
+            },
             HTTP_200_OK,
         )
