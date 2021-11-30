@@ -1,6 +1,6 @@
 POST http://localhost:8000/api/posts/
 Content-Type: application/json
-Authorization: token 077e829e5c617e0385fe471f130e5f43f95ad0aa
+Authorization: token c94b17ecbfc8968346375cca5b2066ce6e045c95
 
 {
   "title": "Заголовок поста",

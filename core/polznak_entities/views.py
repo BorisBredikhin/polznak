@@ -29,7 +29,8 @@ class PostView(APIView):
 
     @swagger_auto_schema(
         operation_description="Список постов, рекомендованных для текущего "
-                              "пользователя",
+                              "пользователя\n"
+                              "**Внимание! метод может быть удалённж**",
         responses={
             HTTP_200_OK: PostSerializer(many=True)
         },
