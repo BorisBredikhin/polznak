@@ -44,7 +44,7 @@ class LikeRequestSerializer(serializers.Serializer):
         queryset=Post.objects.all(),
         help_text="Идентификатор поста, которому ставится оценка"
     )
-    grade = serializers.IntegerField(help_text="Оценка", min_value=1, max_value=5)
+    grade = serializers.IntegerField(help_text="Оценка", min_value=-1, max_value=1)
 
 
 class LikeListRequestSerializer(serializers.Serializer):
