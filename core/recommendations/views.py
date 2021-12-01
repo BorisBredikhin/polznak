@@ -26,7 +26,9 @@ class PersonalRecommendations(APIView):
 
         similar_profiles = get_users_who_liked_user_posts(profile)
         similar_profiles_posts = Post.objects.filter(creator__in=similar_profiles).order_by('-created_at')
-        similar_profiles_posts_i_do_not_scored = similar_profiles_posts.exclude(pk__in=UserOpinion.objects.filter(sender=profile))
+        similar_profiles_posts_i_do_not_scored = similar_profiles_posts.exclude(
+            pk__in=[x.post.pk for x in UserOpinion.objects.filter(sender=profile)]
+        )
 
         posts_data = PostSerializer(similar_profiles_posts_i_do_not_scored, many=True).data
         # todo; отсортировать по любимым словам

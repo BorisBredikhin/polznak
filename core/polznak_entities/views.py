@@ -59,7 +59,8 @@ class LikesView(APIView):
                               "с ключом `post_id`",
         request_body=LikeRequestSerializer,
         responses={
-            HTTP_200_OK: Schema(type='str')
+            HTTP_200_OK: Schema(type='str'),
+            HTTP_400_BAD_REQUEST: Schema(type='str'),
         }
     )
     def post(self, request: Request):
@@ -68,7 +69,13 @@ class LikesView(APIView):
             return Response(data.errors, HTTP_400_BAD_REQUEST)
 
         profile = Profile.objects.get(user=request.user)
-        opinion = UserOpinion(post=data.validated_data["post_id"],                              sender=profile, opinion=data.validated_data['grade'])
+
+        post = Post.objects.get(pk=data.validated_data["post_id"])
+
+        if post.creator == profile:
+            return Response("Can't like own post", HTTP_400_BAD_REQUEST)
+
+        opinion = UserOpinion(post=post,                              sender=profile, opinion=data.validated_data['grade'])
         opinion.save()
 
         return Response(None, HTTP_200_OK)
