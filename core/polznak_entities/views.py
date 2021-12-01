@@ -70,7 +70,7 @@ class LikesView(APIView):
 
         profile = Profile.objects.get(user=request.user)
 
-        post = Post.objects.get(pk=data.validated_data["post_id"])
+        post = data.validated_data["post_id"]
 
         if post.creator == profile:
             return Response("Can't like own post", HTTP_400_BAD_REQUEST)
