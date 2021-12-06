@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_widget.dart';
+import 'package:mobile_client/ui/widgets/chats/chats_widget.dart';
 import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_model.dart';
 import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_widget.dart';
 import 'package:mobile_client/ui/widgets/feed/feed.dart';
@@ -15,15 +16,16 @@ class MainNavigationRouteNames {
   static const auth = 'auth';
   static const registration = 'registration';
   static const mainScreen = '/';
-  //TODO Поработать с путем к редактированию профиля, создания эссе, просмотра профиля
+  //TODO Поработать с путем к редактированию профиля, создания эссе, просмотра профиля, чатов
   static const profileRedaction = 'profileRedaction';
   static const essayCreation = 'essayCreation';
   static const feed = 'feed';
   static const profileView = 'profileView';
+  static const chats = 'chats';
 }
 
 class MainNavigation {
-  String initialRoute(bool isAuth) => MainNavigationRouteNames.profileView;
+  String initialRoute(bool isAuth) => MainNavigationRouteNames.chats;
   //String initialRoute(bool isAuth) => MainNavigationRouteNames.essayCreation;
   //String initialRoute(bool isAuth) => isAuth
   //? MainNavigationRouteNames.mainScreen
@@ -44,6 +46,7 @@ class MainNavigation {
 
     // TODO Качественно переделать все, что ниже
     MainNavigationRouteNames.feed: (context) => const FeedWidget(),
+    MainNavigationRouteNames.chats: (context) => const ChatsWidget(),
     MainNavigationRouteNames.mainScreen: (context) => const MainScreenWidget(),
     MainNavigationRouteNames.profileRedaction: (context) =>
         const ProfileRedactionWidget(),
