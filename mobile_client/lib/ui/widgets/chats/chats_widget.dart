@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/chats/all_chats_widget.dart';
 import 'package:mobile_client/ui/widgets/chats/popular_chats_widget.dart';
 
@@ -10,7 +11,7 @@ class ChatsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: AppColors.backgroundGradient,
+        decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
             SizedBox(
@@ -34,7 +35,7 @@ class ChatsWidget extends StatelessWidget {
                         SizedBox(height: 10),
                         const Text(
                           'Беседы',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          style: TextStyles.whiteSize16,
                         ),
                         SizedBox(height: 6),
                         Chats(),

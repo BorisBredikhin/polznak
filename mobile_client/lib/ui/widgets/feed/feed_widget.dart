@@ -12,7 +12,7 @@ class FeedWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: AppColors.backgroundGradient,
+        decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
             Column(

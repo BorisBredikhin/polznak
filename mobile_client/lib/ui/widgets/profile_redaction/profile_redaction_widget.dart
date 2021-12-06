@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_essay_redaction_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_info_widget.dart';
 
@@ -10,7 +11,7 @@ class ProfileRedactionWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: AppColors.backgroundGradient,
+        decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
             SizedBox(
@@ -30,7 +31,7 @@ class ProfileRedactionWidget extends StatelessWidget {
                         const SizedBox(height: 6),
                         const Text(
                           'Мои эссе',
-                          style: TextStyle(fontSize: 16, color: Colors.white),
+                          style: TextStyles.whiteSize16,
                         ),
                         SizedBox(
                           height: 280,

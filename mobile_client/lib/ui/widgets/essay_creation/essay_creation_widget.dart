@@ -17,7 +17,7 @@ class EssayCreationWidget extends StatelessWidget {
         model.canStartSave == true ? () => model.savePost(context) : null;
     return Scaffold(
       body: DecoratedBox(
-        decoration: AppColors.backgroundGradient,
+        decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
             Padding(

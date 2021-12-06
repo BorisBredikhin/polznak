@@ -8,6 +8,8 @@ abstract class TextStyles {
     fontWeight: FontWeight.w700,
   );
 
+  static const whiteSize16 = TextStyle(fontSize: 16, color: Colors.white);
+
   static const blackSize10Weight400 = TextStyle(
     color: Colors.black,
     fontSize: 10,
