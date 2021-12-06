@@ -59,28 +59,31 @@ class PopularChat extends StatelessWidget {
     return SizedBox(
       width: 90,
       height: 120,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(),
-          const SizedBox(
-            width: 64,
-            height: 64,
-            child: Placeholder(), //(avatar)
-          ),
-          RichText(
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              text: chatName,
-              style: const TextStyle(
-                fontSize: 16,
+      child: InkWell(
+        onTap: () {}, //TODO: настроить клик
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const SizedBox(),
+            const SizedBox(
+              width: 64,
+              height: 64,
+              child: Placeholder(), //(avatar)
+            ),
+            RichText(
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                text: chatName,
+                style: const TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
