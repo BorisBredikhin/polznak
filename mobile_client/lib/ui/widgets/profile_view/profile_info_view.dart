@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/ui/widgets/profile_view/profile_view_model.dart';
+import 'package:provider/provider.dart';
 
 class ProfileInfoView extends StatelessWidget {
   const ProfileInfoView({Key? key}) : super(key: key);
@@ -50,6 +52,7 @@ class _ProfileAvatar extends StatelessWidget {
   const _ProfileAvatar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final model = context.read<ProfileViewModel>();
     return Stack(
       fit: StackFit.loose,
       children: [
@@ -67,7 +70,7 @@ class _ProfileAvatar extends StatelessWidget {
           child: IconButton(
             iconSize: 24,
             padding: EdgeInsets.zero,
-            onPressed: () {},
+            onPressed: () => model.redactionOnPressed(context),
             icon: const Icon(Icons.mode_sharp),
           ),
         ),

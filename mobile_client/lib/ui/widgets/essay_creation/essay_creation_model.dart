@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/domain/api_client/api_client.dart';
 import 'package:mobile_client/domain/data_providers/token_data_provider.dart';
-import 'package:mobile_client/navigation/main_navigation.dart';
 
 class EssayCreationModel extends ChangeNotifier {
   final _apiClient = ApiClient();
@@ -55,8 +54,8 @@ class EssayCreationModel extends ChangeNotifier {
       notifyListeners();
       return;
     }
-
-    Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+    titleTextController.clear();
+    contentTextController.clear();
+    notifyListeners();
   }
 }

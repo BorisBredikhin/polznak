@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static const BoxDecoration backgroundGradient = BoxDecoration(
+  static const backgroundGradient = BoxDecoration(
     gradient: LinearGradient(
       colors: <Color>[
         Color.fromRGBO(0, 22, 217, 0.38),
@@ -11,4 +11,8 @@ abstract class AppColors {
       end: Alignment(1, 1),
     ),
   );
+
+  static const textFieldFillColor = Color.fromRGBO(244, 244, 244, 1);
+
+  static const purpleForButtonsAndTexts = Color.fromRGBO(151, 62, 201, 1);
 }

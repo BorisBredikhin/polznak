@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/text_styles.dart';
 
 class InputTextField extends StatelessWidget {
   final EdgeInsets? contentPadding;
@@ -24,7 +26,7 @@ class InputTextField extends StatelessWidget {
     this.suffixIcon,
     this.textInputAction,
     this.onTap,
-    this.textStyle = const TextStyle(fontSize: 10, color: Colors.black),
+    this.textStyle = TextStyles.blackSize10Weight400,
   }) : super(key: key);
 
   @override
@@ -33,15 +35,12 @@ class InputTextField extends StatelessWidget {
       onTap: onTap,
       controller: controller,
       maxLines: maxLines,
-      // style: const TextStyle(
-      //   fontSize: 10,
-      //   color: Colors.black,
-      // ),
+      style: textStyle,
       decoration: InputDecoration(
         isDense: true,
         isCollapsed: true,
         contentPadding:
-            contentPadding == null ? const EdgeInsets.all(6) : contentPadding!,
+            contentPadding ?? const EdgeInsets.all(6),
         suffixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
           child: suffixIcon,
@@ -51,10 +50,7 @@ class InputTextField extends StatelessWidget {
           minHeight: 0,
         ),
         hintText: hintText,
-        hintStyle: const TextStyle(
-          fontSize: 9,
-          color: Color.fromRGBO(136, 136, 136, 1),
-        ),
+        hintStyle: TextStyles.textFieldHintStyle,
         prefixIcon: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
           child: prefixIcon,
@@ -64,7 +60,7 @@ class InputTextField extends StatelessWidget {
           minHeight: 0,
         ),
         filled: true,
-        fillColor: const Color.fromRGBO(244, 244, 244, 1),
+        fillColor: AppColors.textFieldFillColor,
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             style: BorderStyle.none,
@@ -74,7 +70,7 @@ class InputTextField extends StatelessWidget {
       ),
       keyboardType: keyboardType,
       textInputAction: textInputAction,
-      obscureText: isObscured == null ? false : isObscured!,
+      obscureText: isObscured ?? false,
       toolbarOptions: const ToolbarOptions(
         copy: true,
         cut: true,

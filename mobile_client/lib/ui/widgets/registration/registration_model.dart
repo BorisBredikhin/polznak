@@ -17,6 +17,15 @@ class RegistrationModel extends ChangeNotifier {
   final passwordTextController = TextEditingController();
   final repeatPasswordTextController = TextEditingController();
 
+  String? _errorMessage;
+  String? get errorMessage => _errorMessage;
+
+  bool _isRegistrationProgress = false;
+  bool get canStartRegistration => !_isRegistrationProgress;
+  bool get isRegistrationProgress => _isRegistrationProgress;
+
+  String? _token;
+
   DateTime selectedDate = DateTime(DateTime.now().year);
 
   Future<void> selectDate(BuildContext context) async {
@@ -37,20 +46,17 @@ class RegistrationModel extends ChangeNotifier {
     }
   }
 
-  void setGender(String value) {
-    genderTextController.text = value;
+  void setGender(String? value) {
+    if (value == null) {
+      genderTextController.text = '';
+    } else {
+      genderTextController.text = value;
+    }
   }
 
   void openAuthWidget(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(MainNavigationRouteNames.auth);
+    Navigator.of(context).pushReplacementNamed(Screens.auth);
   }
-
-  String? _errorMessage;
-  String? get errorMessage => _errorMessage;
-
-  bool _isRegistrationProgress = false;
-  bool get canStartRegistration => !_isRegistrationProgress;
-  bool get isRegistrationProgress => _isRegistrationProgress;
 
   Future<void> register(BuildContext context) async {
     final firstName = firstNameTextController.text;
@@ -61,11 +67,11 @@ class RegistrationModel extends ChangeNotifier {
         ? ''
         : genderTextController.text == 'Мужчина'
             ? 'M'
-            : 'Ж';
+            : 'F';
     final email = emailTextController.text;
     final password = passwordTextController.text;
     final repeatPassword = repeatPasswordTextController.text;
-    
+
     if (firstName.isEmpty ||
         lastName.isEmpty ||
         username.isEmpty ||
@@ -95,9 +101,8 @@ class RegistrationModel extends ChangeNotifier {
     _isRegistrationProgress = true;
     notifyListeners();
 
-    String? token;
     try {
-      token = await _apiClient.register(
+      _token = await _apiClient.register(
         firstName: firstName,
         lastName: lastName,
         username: username,
@@ -134,14 +139,14 @@ class RegistrationModel extends ChangeNotifier {
       return;
     }
 
-    if (token == null) {
+    if (_token == null) {
       _errorMessage = 'Неизвестная ошибка. Повторите попытку.';
       notifyListeners();
       return;
     }
 
-    await _tokenDataProvider.setToken(token);
+    await _tokenDataProvider.setToken(_token);
     Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+        .pushReplacementNamed(Screens.mainTabs);
   }
 }

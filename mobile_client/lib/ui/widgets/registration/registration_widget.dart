@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/button_styles.dart';
+import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/app_logo_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_form_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_model.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationWidget extends StatelessWidget {
   const RegistrationWidget({Key? key}) : super(key: key);
@@ -15,12 +17,12 @@ class RegistrationWidget extends StatelessWidget {
         decoration: AppColors.backgroundGradient,
         child: ListView(
           children: [
-            const SizedBox(height: 80),
             Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisSize: MainAxisSize.max,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // crossAxisAlignment: CrossAxisAlignment.center,
               children: const [
+                SizedBox(height: 80),
                 AppLogoWidget(),
                 SizedBox(height: 15),
                 Text('Название приложения'),
@@ -43,37 +45,24 @@ class _EnterRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<RegistrationModel>(context);
+    final model = context.read<RegistrationModel>();
     return SizedBox(
       height: 15,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
             'Уже зарегистрированы?',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyles.whiteSize10Weight700,
           ),
           TextButton(
-            onPressed: () => model?.openAuthWidget(context),
+            onPressed: () => model.openAuthWidget(context),
             child: const Text(
               'Войти',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-                fontSize: 10,
-                decoration: TextDecoration.underline,
-              ),
+              style: TextStyles.underlinedWhiteSize10Weight700,
             ),
-            style: ButtonStyle(
-              padding: MaterialStateProperty.all(
-                const EdgeInsets.symmetric(horizontal: 3),
-              ),
-              splashFactory: NoSplash.splashFactory,
-            ),
+            style: ButtonStyles.textButton,
           )
         ],
       ),

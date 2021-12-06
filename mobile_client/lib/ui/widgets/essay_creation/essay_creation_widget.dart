@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_model.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/save_button_widget.dart';
+import 'package:provider/provider.dart';
 //TODO Доработать верстку виджета
 
 class EssayCreationWidget extends StatelessWidget {
@@ -11,9 +12,9 @@ class EssayCreationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<EssayCreationModel>(context);
+    final model = context.watch<EssayCreationModel>();
     final onPressed =
-        model?.canStartSave == true ? () => model?.savePost(context) : null;
+        model.canStartSave == true ? () => model.savePost(context) : null;
     return Scaffold(
       body: DecoratedBox(
         decoration: AppColors.backgroundGradient,
@@ -39,12 +40,12 @@ class EssayCreationWidget extends StatelessWidget {
                   const _ErrorMessageWidget(),
                   const SizedBox(height: 20),
                   InputTextField(
-                    controller: model?.titleTextController,
+                    controller: model.titleTextController,
                     hintText: 'Введите заголовок',
                   ),
                   const SizedBox(height: 20),
                   InputTextField(
-                    controller: model?.contentTextController,
+                    controller: model.contentTextController,
                     hintText: 'Напишите эссе',
                     keyboardType: TextInputType.multiline,
                     maxLines: 25,
@@ -52,7 +53,7 @@ class EssayCreationWidget extends StatelessWidget {
                   const SizedBox(height: 20),
                   SaveButtonWidget(
                     onPressed: onPressed,
-                    isProgress: model!.isSaveProgress,
+                    isProgress: model.isSaveProgress,
                   ),
                 ],
               ),
@@ -69,17 +70,13 @@ class _ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final errorMessage =
-        NotifierProvider.watch<EssayCreationModel>(context)?.errorMessage;
+    final errorMessage = context.select((EssayCreationModel vm) => vm.errorMessage);
     if (errorMessage == null) return const SizedBox.shrink();
     return Column(
       children: [
         Text(
           errorMessage,
-          style: const TextStyle(
-            color: Colors.red,
-            fontSize: 12,
-          ),
+          style: TextStyles.errorTextStyle,
         ),
         const SizedBox(height: 20),
       ],

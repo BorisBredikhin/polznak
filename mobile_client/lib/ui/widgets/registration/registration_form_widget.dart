@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/Library/Widgets/Inherited/provider.dart';
+import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/button_styles.dart';
+import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 import 'package:mobile_client/ui/widgets/registration/registration_model.dart';
+import 'package:provider/provider.dart';
 
 class RegistrationFormWidget extends StatelessWidget {
   const RegistrationFormWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.read<RegistrationModel>(context);
+    final model = context.read<RegistrationModel>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 40),
       child: DecoratedBox(
@@ -19,59 +22,25 @@ class RegistrationFormWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: [
-              const _ErrorMessageWidget(),
-              InputTextField(
-                hintText: 'Имя',
-                controller: model?.firstNameTextController,
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 6),
-              InputTextField(
-                hintText: 'Фамилия',
-                controller: model?.lastNameTextController,
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 6),
-              InputTextField(
-                hintText: 'Имя пользователя',
-                controller: model?.userameTextController,
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 6),
-              InputTextField(
-                hintText: 'Дата рождения',
-                suffixIcon: const Icon(Icons.calendar_today),
-                controller: model?.dateOfBirthTextController,
-                keyboardType: TextInputType.none,
-                onTap: () => model?.selectDate(context),
-              ),
-              const SizedBox(height: 6),
-              const _GenderChoiceWidget(),
-              const SizedBox(height: 6),
-              InputTextField(
-                hintText: 'Email',
-                controller: model?.emailTextController,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 6),
-              InputTextField(
-                hintText: 'Пароль',
-                isObscured: true,
-                controller: model?.passwordTextController,
-                textInputAction: TextInputAction.next,
-              ),
-              const SizedBox(height: 6),
-              InputTextField(
-                hintText: 'Повторите пароль',
-                isObscured: true,
-                controller: model?.repeatPasswordTextController,
-              ),
-              const SizedBox(height: 6),
-              const _RegistrationButtonWidget(),
+            children: const [
+              _ErrorMessageWidget(),
+              _FirstNameFieldWidget(),
+              SizedBox(height: 6),
+              _LastNameFieldWidget(),
+              SizedBox(height: 6),
+              _UsernameFieldWidget(),
+              SizedBox(height: 6),
+              _DateOfBirthFieldWidget(),
+              SizedBox(height: 6),
+              _GenderChoiceWidget(),
+              SizedBox(height: 6),
+              _EmailTextFieldWidget(),
+              SizedBox(height: 6),
+              _PasswordFieldWidget(),
+              SizedBox(height: 6),
+              _RepeatPasswordFieldWidget(),
+              SizedBox(height: 6),
+              _RegistrationButtonWidget(),
             ],
           ),
         ),
@@ -80,18 +49,81 @@ class RegistrationFormWidget extends StatelessWidget {
   }
 }
 
-class _GenderChoiceWidget extends StatelessWidget {
-  const _GenderChoiceWidget({ Key? key }) : super(key: key);
+class _FirstNameFieldWidget extends StatelessWidget {
+  const _FirstNameFieldWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<RegistrationModel>(context);
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Имя',
+      controller: model.firstNameTextController,
+      keyboardType: TextInputType.name,
+      textInputAction: TextInputAction.next,
+    );
+  }
+}
+
+class _LastNameFieldWidget extends StatelessWidget {
+  const _LastNameFieldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Фамилия',
+      controller: model.lastNameTextController,
+      keyboardType: TextInputType.name,
+      textInputAction: TextInputAction.next,
+    );
+  }
+}
+
+class _UsernameFieldWidget extends StatelessWidget {
+  const _UsernameFieldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Имя пользователя',
+      controller: model.userameTextController,
+      textInputAction: TextInputAction.next,
+    );
+  }
+}
+
+class _DateOfBirthFieldWidget extends StatelessWidget {
+  const _DateOfBirthFieldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Дата рождения',
+      suffixIcon: const Icon(Icons.calendar_today),
+      controller: model.dateOfBirthTextController,
+      keyboardType: TextInputType.none,
+      onTap: () => model.selectDate(context),
+    );
+  }
+}
+
+class _GenderChoiceWidget extends StatelessWidget {
+  const _GenderChoiceWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    final dropdownItems = ["Мужчина", "Женщина"]
+        .map((label) => DropdownMenuItem(
+              child: Text(label),
+              value: label,
+            ))
+        .toList();
     return DropdownButtonFormField<String>(
       iconSize: 18,
-      style: const TextStyle(
-        fontSize: 10,
-        color: Colors.black,
-      ),
+      style: TextStyles.blackSize10Weight400,
       decoration: InputDecoration(
         isDense: true,
         contentPadding: const EdgeInsets.only(left: 12, right: 6),
@@ -100,12 +132,9 @@ class _GenderChoiceWidget extends StatelessWidget {
           minHeight: 0,
         ),
         hintText: 'Пол',
-        hintStyle: const TextStyle(
-          fontSize: 9,
-          color: Color.fromRGBO(136, 136, 136, 1),
-        ),
+        hintStyle: TextStyles.textFieldHintStyle,
         filled: true,
-        fillColor: const Color.fromRGBO(244, 244, 244, 1),
+        fillColor: AppColors.textFieldFillColor,
         enabledBorder: OutlineInputBorder(
           borderSide: const BorderSide(
             style: BorderStyle.none,
@@ -113,13 +142,52 @@ class _GenderChoiceWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(5),
         ),
       ),
-      items: ["Мужчина", "Женщина"]
-          .map((label) => DropdownMenuItem(
-                child: Text(label),
-                value: label,
-              ))
-          .toList(),
-      onChanged: (value) => model?.setGender(value!),
+      items: dropdownItems,
+      onChanged: (value) => model.setGender(value),
+    );
+  }
+}
+
+class _EmailTextFieldWidget extends StatelessWidget {
+  const _EmailTextFieldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Email',
+      controller: model.emailTextController,
+      keyboardType: TextInputType.emailAddress,
+      textInputAction: TextInputAction.next,
+    );
+  }
+}
+
+class _PasswordFieldWidget extends StatelessWidget {
+  const _PasswordFieldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Пароль',
+      isObscured: true,
+      controller: model.passwordTextController,
+      textInputAction: TextInputAction.next,
+    );
+  }
+}
+
+class _RepeatPasswordFieldWidget extends StatelessWidget {
+  const _RepeatPasswordFieldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<RegistrationModel>();
+    return InputTextField(
+      hintText: 'Повторите пароль',
+      isObscured: true,
+      controller: model.repeatPasswordTextController,
     );
   }
 }
@@ -131,11 +199,11 @@ class _RegistrationButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = NotifierProvider.watch<RegistrationModel>(context);
-    final onPressed = model?.canStartRegistration == true
-        ? () => model?.register(context)
+    final model = context.watch<RegistrationModel>();
+    final onPressed = model.canStartRegistration == true
+        ? () => model.register(context)
         : null;
-    final child = model?.isRegistrationProgress == true
+    final child = model.isRegistrationProgress == true
         ? const SizedBox(
             height: 10,
             width: 10,
@@ -143,11 +211,7 @@ class _RegistrationButtonWidget extends StatelessWidget {
           )
         : const Text(
             'Зарегистрироваться',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 10,
-              fontWeight: FontWeight.w700,
-            ),
+            style: TextStyles.whiteSize10Weight700,
           );
     return SizedBox(
       height: 28,
@@ -155,17 +219,7 @@ class _RegistrationButtonWidget extends StatelessWidget {
       child: OutlinedButton(
         onPressed: onPressed,
         child: child,
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-            const Color.fromRGBO(151, 62, 201, 1),
-          ),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-          )),
-          padding: MaterialStateProperty.all(
-            const EdgeInsets.symmetric(vertical: 6),
-          ),
-        ),
+        style: ButtonStyles.purpleOutlinedButton,
       ),
     );
   }
@@ -176,17 +230,15 @@ class _ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //TODO Попробовать сделать ErrorMessage универсальным
     final errorMessage =
-        NotifierProvider.watch<RegistrationModel>(context)?.errorMessage;
+        context.select((RegistrationModel vm) => vm.errorMessage);
     if (errorMessage == null) return const SizedBox.shrink();
     return Column(
       children: [
         Text(
           errorMessage,
-          style: const TextStyle(
-            color: Colors.red,
-            fontSize: 12,
-          ),
+          style: TextStyles.errorTextStyle,
         ),
         const SizedBox(height: 20),
       ],

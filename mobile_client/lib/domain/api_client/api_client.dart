@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:mobile_client/domain/entity/post.dart';
 
 enum ApiCLientExceptionType {
   network,
@@ -123,6 +124,58 @@ class ApiClient {
     try {
       await http.post(
         Uri.parse(_host + '/api/posts/'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'token $token',
+        },
+        body: jsonEncode(body),
+      );
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
+  Future<List<Post>> getPosts({
+    required String token,
+  }) async {
+    try {
+      final url = Uri.parse(_host + '/recommendations/personal/');
+      final response = await http.get(
+        url,
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'token $token',
+        },
+      );
+      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final jsonPostsList = json['posts'] as List<dynamic>;
+      List<Post> posts = [];
+      for (var jsonPost in jsonPostsList) {
+        posts.add(Post.fromJson(jsonPost as Map<String, dynamic>));
+      }
+      return posts;
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
+  Future<void> postLikeOrDislike({
+    required int grade,
+    required int postId,
+    required String token,
+  }) async {
+    final body = <String, dynamic>{
+      "post_id": postId,
+      "grade": grade,
+    };
+
+    try {
+      await http.post(
+        Uri.parse(_host + '/api/likes/'),
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'token $token',
