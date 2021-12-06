@@ -7,8 +7,8 @@ class AuthModel extends ChangeNotifier {
   final _apiClient = ApiClient();
   final _tokenDataProvider = TokenDataProvider();
 
-  final usernameTextController = TextEditingController(); //text: 'admin'
-  final passwordTextController = TextEditingController(); //text: 'AdMiN_PaSswd'
+  final usernameTextController = TextEditingController();
+  final passwordTextController = TextEditingController();
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
@@ -17,9 +17,11 @@ class AuthModel extends ChangeNotifier {
   bool get canStartAuth => !_isAuthProgress;
   bool get isAuthProgress => _isAuthProgress;
 
+  String? _token;
+
   void openRegistrationWidget(BuildContext context) {
     Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRouteNames.registration);
+        .pushReplacementNamed(Screens.registration);
   }
 
   Future<void> auth(BuildContext context) async {
@@ -36,9 +38,8 @@ class AuthModel extends ChangeNotifier {
     _isAuthProgress = true;
     notifyListeners();
 
-    String? token;
     try {
-      token = await _apiClient.auth(
+      _token = await _apiClient.auth(
         username: username,
         password: password,
       );
@@ -63,14 +64,14 @@ class AuthModel extends ChangeNotifier {
       return;
     }
 
-    if (token == null) {
+    if (_token == null) {
       _errorMessage = 'Неизвестная ошибка. Повторите попытку.';
       notifyListeners();
       return;
     }
 
-    await _tokenDataProvider.setToken(token);
+    await _tokenDataProvider.setToken(_token);
     Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRouteNames.mainScreen);
+        .pushReplacementNamed(Screens.mainTabs);
   }
 }
