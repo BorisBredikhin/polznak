@@ -23,7 +23,7 @@ class AuthorSpecialWords(models.Model):
         instance.unque_and_long_words = special_words
         return instance
 
-    def get_unque_and_long_words(self) -> typing.TypedDict('gUaLw', {'long_words': list[str], 'unique_words': list[str]}):
+    def get_unque_and_long_words(self) -> typing.TypedDict('gUaLw', {'long_words': list, 'unique_words': list}):
         #todo: нормалиовать слова,
         posts = Post.objects.filter(creator=self.author)
         unique_words = []

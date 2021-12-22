@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/button_styles.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
@@ -11,38 +12,31 @@ class RegistrationFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<RegistrationModel>();
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 40),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(17),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: const [
-              _ErrorMessageWidget(),
-              _FirstNameFieldWidget(),
-              SizedBox(height: 6),
-              _LastNameFieldWidget(),
-              SizedBox(height: 6),
-              _UsernameFieldWidget(),
-              SizedBox(height: 6),
-              _DateOfBirthFieldWidget(),
-              SizedBox(height: 6),
-              _GenderChoiceWidget(),
-              SizedBox(height: 6),
-              _EmailTextFieldWidget(),
-              SizedBox(height: 6),
-              _PasswordFieldWidget(),
-              SizedBox(height: 6),
-              _RepeatPasswordFieldWidget(),
-              SizedBox(height: 6),
-              _RegistrationButtonWidget(),
-            ],
-          ),
+    return DecoratedBox(
+      decoration: BoxDecorations.formBackground,
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          children: const [
+            _ErrorMessageWidget(),
+            _FirstNameFieldWidget(),
+            SizedBox(height: 16),
+            _LastNameFieldWidget(),
+            SizedBox(height: 16),
+            _UsernameFieldWidget(),
+            SizedBox(height: 16),
+            _DateOfBirthFieldWidget(),
+            SizedBox(height: 16),
+            _GenderChoiceWidget(),
+            SizedBox(height: 16),
+            _EmailTextFieldWidget(),
+            SizedBox(height: 16),
+            _PasswordFieldWidget(),
+            SizedBox(height: 16),
+            _RepeatPasswordFieldWidget(),
+            SizedBox(height: 16),
+            _RegistrationButtonWidget(),
+          ],
         ),
       ),
     );
@@ -117,33 +111,38 @@ class _GenderChoiceWidget extends StatelessWidget {
     final model = context.read<RegistrationModel>();
     final dropdownItems = ["Мужчина", "Женщина"]
         .map((label) => DropdownMenuItem(
-              child: Text(label),
+              child: Text(
+                label,
+                // style: TextStyles.bodyBlackTextStyle,
+              ),
               value: label,
             ))
         .toList();
-    return DropdownButtonFormField<String>(
-      iconSize: 18,
-      style: TextStyles.blackSize10Weight400,
-      decoration: InputDecoration(
-        isDense: true,
-        contentPadding: const EdgeInsets.only(left: 12, right: 6),
-        suffixIconConstraints: const BoxConstraints(
-          minWidth: 0,
-          minHeight: 0,
-        ),
-        hintText: 'Пол',
-        hintStyle: TextStyles.textFieldHintStyle,
-        filled: true,
-        fillColor: AppColors.textFieldFillColor,
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            style: BorderStyle.none,
+    return SizedBox(
+      height: 40,
+      child: DropdownButtonFormField<String>(
+        iconSize: 24,
+        style: TextStyles.bodyBlackTextStyle,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 8),
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
           ),
-          borderRadius: BorderRadius.circular(5),
+          hintText: 'Пол',
+          hintStyle: TextStyles.textFieldHintStyle,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              style: BorderStyle.solid,
+              color: AppColors.textFieldActive,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
         ),
+        items: dropdownItems,
+        onChanged: (value) => model.setGender(value),
       ),
-      items: dropdownItems,
-      onChanged: (value) => model.setGender(value),
     );
   }
 }
@@ -210,11 +209,11 @@ class _RegistrationButtonWidget extends StatelessWidget {
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : const Text(
-            'Зарегистрироваться',
-            style: TextStyles.whiteSize10Weight700,
+            'ЗАРЕГИСТРИРОВАТЬСЯ',
+            style: TextStyles.buttonTextStyle,
           );
     return SizedBox(
-      height: 28,
+      height: 48,
       width: double.infinity,
       child: OutlinedButton(
         onPressed: onPressed,

@@ -10,7 +10,7 @@ class InputTextField extends StatelessWidget {
   final TextInputType? keyboardType;
   final int? maxLines;
   final GestureTapCallback? onTap;
-  final Icon? prefixIcon;
+  // final Icon? prefixIcon;
   final Icon? suffixIcon;
   final TextInputAction? textInputAction;
   final TextStyle? textStyle;
@@ -22,60 +22,70 @@ class InputTextField extends StatelessWidget {
     this.hintText,
     this.keyboardType,
     this.maxLines = 1,
-    this.prefixIcon,
+    // this.prefixIcon,
     this.suffixIcon,
     this.textInputAction,
     this.onTap,
-    this.textStyle = TextStyles.blackSize10Weight400,
+    this.textStyle = TextStyles.bodyBlackTextStyle,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      onTap: onTap,
-      controller: controller,
-      maxLines: maxLines,
-      style: textStyle,
-      decoration: InputDecoration(
-        isDense: true,
-        isCollapsed: true,
-        contentPadding:
-            contentPadding ?? const EdgeInsets.all(6),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: suffixIcon,
-        ),
-        suffixIconConstraints: const BoxConstraints(
-          minWidth: 0,
-          minHeight: 0,
-        ),
-        hintText: hintText,
-        hintStyle: TextStyles.textFieldHintStyle,
-        prefixIcon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: prefixIcon,
-        ),
-        prefixIconConstraints: const BoxConstraints(
-          minWidth: 0,
-          minHeight: 0,
-        ),
-        filled: true,
-        fillColor: AppColors.textFieldFillColor,
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-            style: BorderStyle.none,
+    return SizedBox(
+      height: 40,
+      child: TextField(
+        onTap: onTap,
+        controller: controller,
+        maxLines: maxLines,
+        style: textStyle,
+        decoration: InputDecoration(
+          contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 8),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.all(8),
+            child: suffixIcon,
           ),
-          borderRadius: BorderRadius.circular(5),
+          suffixIconConstraints: const BoxConstraints(
+            minWidth: 0,
+            minHeight: 0,
+          ),
+          hintText: hintText,
+          hintStyle: TextStyles.textFieldHintStyle,
+          // prefixIcon: Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 6),
+          //   child: prefixIcon,
+          // ),
+          // prefixIconConstraints: const BoxConstraints(
+          //   minWidth: 0,
+          //   minHeight: 0,
+          // ),
+          // filled: true,
+          // fillColor: AppColors.textFieldFillColor,
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              style: BorderStyle.solid,
+              color: AppColors.textFieldActive,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(
+              style: BorderStyle.solid,
+              color: AppColors.textFieldActive,
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
         ),
-      ),
-      keyboardType: keyboardType,
-      textInputAction: textInputAction,
-      obscureText: isObscured ?? false,
-      toolbarOptions: const ToolbarOptions(
-        copy: true,
-        cut: true,
-        paste: true,
-        selectAll: true,
+        keyboardType: keyboardType,
+        textInputAction: textInputAction,
+        obscureText: isObscured ?? false,
+        toolbarOptions: const ToolbarOptions(
+          copy: true,
+          cut: true,
+          paste: true,
+          selectAll: true,
+        ),
       ),
     );
   }

@@ -17,21 +17,21 @@ class RegistrationWidget extends StatelessWidget {
         decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
-            Column(
-              // mainAxisSize: MainAxisSize.max,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                SizedBox(height: 80),
-                AppLogoWidget(),
-                SizedBox(height: 15),
-                Text('Название приложения'),
-                SizedBox(height: 60),
-                RegistrationFormWidget(),
-                SizedBox(height: 5),
-                _EnterRow(),
-                SizedBox(height: 5),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+              child: Column(
+                // mainAxisSize: MainAxisSize.max,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  AppLogoWidget(),
+                  SizedBox(height: 16),
+                  RegistrationFormWidget(),
+                  SizedBox(height: 16),
+                  _EnterRow(),
+                  SizedBox(height: 16),
+                ],
+              ),
             ),
           ],
         ),
@@ -47,24 +47,14 @@ class _EnterRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<RegistrationModel>();
     return SizedBox(
-      height: 15,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Уже зарегистрированы?',
-            style: TextStyles.whiteSize10Weight700,
-          ),
-          TextButton(
-            onPressed: () => model.openAuthWidget(context),
-            child: const Text(
-              'Войти',
-              style: TextStyles.underlinedWhiteSize10Weight700,
-            ),
-            style: ButtonStyles.textButton,
-          )
-        ],
+      height: 20,
+      child: TextButton(
+        onPressed: () => model.openAuthWidget(context),
+        child: const Text(
+          'Войти',
+          style: TextStyles.bodyWhiteTextStyle,
+        ),
+        style: ButtonStyles.textButton,
       ),
     );
   }

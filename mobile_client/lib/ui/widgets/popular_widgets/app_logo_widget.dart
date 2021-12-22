@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/resources/resources.dart';
 
 class AppLogoWidget extends StatelessWidget {
   const AppLogoWidget({
@@ -7,10 +8,6 @@ class AppLogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
-      height: 130,
-      width: 130,
-      child: Placeholder(),
-    );
+    return Image.asset(AppImages.appLogo);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract class AppTheme {
   //TODO Доработать цвета темы
   static final light = ThemeData(
+    fontFamily: 'Montserrat',
     primarySwatch: Colors.purple,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color.fromRGBO(188, 0, 169, 1),

@@ -4,14 +4,11 @@ import 'package:mobile_client/ui/Theme/app_colors.dart';
 abstract class ButtonStyles {
   static final purpleOutlinedButton = ButtonStyle(
     backgroundColor: MaterialStateProperty.all(
-      AppColors.purpleForButtonsAndTexts,
+      AppColors.purple,
     ),
     shape: MaterialStateProperty.all(RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(5),
+      borderRadius: BorderRadius.circular(4),
     )),
-    padding: MaterialStateProperty.all(
-      const EdgeInsets.symmetric(vertical: 9),
-    ),
   );
 
   static final textButton = ButtonStyle(

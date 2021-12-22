@@ -35,7 +35,6 @@ class _EssaysState extends State<Essays> {
                                 width: 320,
                                 child: InputTextField(
                                   controller: _essayTextController,
-                                  prefixIcon: const Icon(Icons.tag),
                                   contentPadding: const EdgeInsets.all(10),
                                   hintText: 'Введите тему эссе',
                                 ),

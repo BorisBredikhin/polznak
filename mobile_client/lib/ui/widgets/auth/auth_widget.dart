@@ -18,24 +18,24 @@ class AuthWidget extends StatelessWidget {
         decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
-            Column(
-              // mainAxisSize: MainAxisSize.max,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                SizedBox(height: 80),
-                AppLogoWidget(),
-                SizedBox(height: 15),
-                Text('Название приложения'),
-                SizedBox(height: 60),
-                AuthFormWidget(),
-                SizedBox(height: 5),
-                _RegistrationRow(),
-                SizedBox(height: 45),
-                _LoginMethodsDividerWidget(),
-                SizedBox(height: 20),
-                _LoginMethodsWidget()
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 16),
+              child: Column(
+                // mainAxisSize: MainAxisSize.max,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  AppLogoWidget(),
+                  SizedBox(height: 16),
+                  AuthFormWidget(),
+                  SizedBox(height: 16),
+                  _RegistrationRow(),
+                  SizedBox(height: 16),
+                  _LoginMethodsDividerWidget(),
+                  SizedBox(height: 16),
+                  _LoginMethodsWidget()
+                ],
+              ),
             ),
           ],
         ),
@@ -51,24 +51,14 @@ class _RegistrationRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<AuthModel>();
     return SizedBox(
-      height: 15,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Новый пользователь?',
-            style: TextStyles.whiteSize10Weight700,
-          ),
-          const SizedBox(width: 3),
-          TextButton(
-            onPressed: () => model.openRegistrationWidget(context),
-            child: const Text(
-              'Зарегистрироваться',
-              style: TextStyles.underlinedWhiteSize10Weight700,
-            ),
-            style: ButtonStyles.textButton,
-          )
-        ],
+      height: 20,
+      child: TextButton(
+        onPressed: () => model.openRegistrationWidget(context),
+        child: const Text(
+          'Зарегистрироваться',
+          style: TextStyles.bodyWhiteTextStyle,
+        ),
+        style: ButtonStyles.textButton,
       ),
     );
   }
@@ -80,7 +70,6 @@ class _LoginMethodsDividerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final divider = Container(
-      margin: const EdgeInsets.symmetric(horizontal: 15),
       color: Colors.white,
       height: 1,
     );
@@ -88,9 +77,12 @@ class _LoginMethodsDividerWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Expanded(child: divider),
-        const Text(
-          'Или войдите с помощью',
-          style: TextStyles.whiteSize10Weight700,
+        const Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8),
+          child: Text(
+            'Или войдите с помощью',
+            style: TextStyles.bodyWhiteTextStyle,
+          ),
         ),
         Expanded(child: divider),
       ],
@@ -109,9 +101,9 @@ class _LoginMethodsWidget extends StatelessWidget {
         _LoginMethodsButtonWidget(
           image: Image.asset(AppImages.googleIcon),
         ),
-        const SizedBox(width: 40),
+        const SizedBox(width: 24),
         _LoginMethodsButtonWidget(
-          image: Image.asset(AppImages.mailRuLogo),
+          image: Image.asset(AppImages.mailIcon),
         ),
       ],
     );
@@ -124,13 +116,12 @@ class _LoginMethodsButtonWidget extends StatelessWidget {
     Key? key,
     required this.image,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {},
       icon: image,
-      iconSize: 60,
+      iconSize: 48,
       padding: const EdgeInsets.all(0),
     );
   }

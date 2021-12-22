@@ -65,7 +65,7 @@ class _Chat extends StatelessWidget {
                       BoxShadow(
                           color: Colors.black12,
                           blurRadius: 4,
-                          offset: const Offset(0, 4)),
+                          offset: Offset(0, 4)),
                     ],
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     gradient: LinearGradient(
@@ -120,7 +120,7 @@ class _Chat extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            SizedBox(height: 52),
+                            const SizedBox(height: 52),
                             RichText(
                               maxLines: 1,
                               text: TextSpan(

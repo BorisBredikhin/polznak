@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/button_styles.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
@@ -10,27 +11,21 @@ class AuthFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 60),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(17),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: const [
-              _ErrorMessageWidget(),
-              _UsernameFieldWidget(),
-              SizedBox(height: 6),
-              _PasswordFieldWidget(),
-              SizedBox(height: 6),
-              _AuthButtonWidget(),
-              SizedBox(height: 6),
-              _ResetPasswordButtonWidget(),
-            ],
-          ),
+    return DecoratedBox(
+      decoration: BoxDecorations.formBackground,
+      child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(
+          children: const [
+            _ErrorMessageWidget(),
+            _UsernameFieldWidget(),
+            SizedBox(height: 16),
+            _PasswordFieldWidget(),
+            SizedBox(height: 16),
+            _AuthButtonWidget(),
+            SizedBox(height: 16),
+            _ResetPasswordButtonWidget(),
+          ],
         ),
       ),
     );
@@ -63,7 +58,6 @@ class _UsernameFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<AuthModel>();
     return InputTextField(
-      prefixIcon: const Icon(Icons.person),
       hintText: 'Имя пользователя',
       controller: model.usernameTextController,
       textInputAction: TextInputAction.next,
@@ -78,7 +72,6 @@ class _PasswordFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<AuthModel>();
     return InputTextField(
-      prefixIcon: const Icon(Icons.password),
       hintText: 'Пароль',
       isObscured: true,
       controller: model.passwordTextController,
@@ -101,11 +94,11 @@ class _AuthButtonWidget extends StatelessWidget {
             child: CircularProgressIndicator(strokeWidth: 2),
           )
         : const Text(
-            'Войти',
-            style: TextStyles.whiteSize10Weight700,
+            'ВОЙТИ',
+            style: TextStyles.buttonTextStyle,
           );
     return SizedBox(
-      height: 28,
+      height: 48,
       width: double.infinity,
       child: OutlinedButton(
         onPressed: onPressed,
@@ -124,12 +117,12 @@ class _ResetPasswordButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 10,
+      height: 20,
       child: TextButton(
         onPressed: () {},
         child: const Text(
           'Забыли пароль?',
-          style: TextStyles.purpleSize10Weight700,
+          style: TextStyles.bodyPurpleTextStyle,
         ),
         style: ButtonStyles.textButton,
       ),
