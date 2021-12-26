@@ -122,7 +122,7 @@ class _GenderChoiceWidget extends StatelessWidget {
       height: 40,
       child: DropdownButtonFormField<String>(
         iconSize: 24,
-        style: TextStyles.bodyBlackTextStyle,
+        style: TextStyles.bodyBlack,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 8),
           suffixIconConstraints: const BoxConstraints(
@@ -130,7 +130,7 @@ class _GenderChoiceWidget extends StatelessWidget {
             minHeight: 0,
           ),
           hintText: 'Пол',
-          hintStyle: TextStyles.textFieldHintStyle,
+          hintStyle: TextStyles.textFieldHint,
           enabledBorder: OutlineInputBorder(
             borderSide: const BorderSide(
               style: BorderStyle.solid,
@@ -210,7 +210,7 @@ class _RegistrationButtonWidget extends StatelessWidget {
           )
         : const Text(
             'ЗАРЕГИСТРИРОВАТЬСЯ',
-            style: TextStyles.buttonTextStyle,
+            style: TextStyles.button,
           );
     return SizedBox(
       height: 48,

@@ -95,7 +95,7 @@ class _AuthButtonWidget extends StatelessWidget {
           )
         : const Text(
             'ВОЙТИ',
-            style: TextStyles.buttonTextStyle,
+            style: TextStyles.button,
           );
     return SizedBox(
       height: 48,
@@ -122,7 +122,7 @@ class _ResetPasswordButtonWidget extends StatelessWidget {
         onPressed: () {},
         child: const Text(
           'Забыли пароль?',
-          style: TextStyles.bodyPurpleTextStyle,
+          style: TextStyles.bodyPurple,
         ),
         style: ButtonStyles.textButton,
       ),

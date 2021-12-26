@@ -14,34 +14,32 @@ class ChatsWidget extends StatelessWidget {
         decoration: AppColors.scaffoldGradient,
         child: ListView(
           children: [
-            SizedBox(
-              width: double.infinity,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                            width: 360,
-                            height: 120,
-                            child: PopularChatsWidget()),
-                        const SizedBox(height: 15),
-                        Divider(),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Беседы',
-                          style: TextStyles.whiteSize16,
-                        ),
-                        const SizedBox(height: 6),
-                        const Chats(),
-                      ],
-                    ),
+                  Row(
+                    children: const [
+                      Text(
+                        'Активные',
+                        style: TextStyles.bodyWhite,
+                      ),
+                    ],
                   ),
+                  const SizedBox(height: 8),
+                  const PopularChatsWidget(),
+                  const SizedBox(height: 16),
+                  // _Chats(),
+                  Row(
+                    children: const [
+                      Text(
+                        'Беседы',
+                        style: TextStyles.bodyWhite,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Chats(),
                 ],
               ),
             ),
@@ -52,22 +50,68 @@ class ChatsWidget extends StatelessWidget {
   }
 }
 
-class Divider extends StatelessWidget {
-  final _divider = Container(
-    color: const Color.fromRGBO(22, 1, 255, 0.5),
-    height: 1,
-  );
+//TODO TabBar если останется время
+class _Chats extends StatefulWidget {
+  const _Chats({Key? key}) : super(key: key);
 
-  Divider({
-    Key? key,
-  }) : super(key: key);
+  @override
+  __ChatsState createState() => __ChatsState();
+}
+
+class __ChatsState extends State<_Chats> with TickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Expanded(child: _divider),
+        TabBar(
+          controller: _tabController,
+          indicatorWeight: 1,
+          tabs: const [
+            Tab(
+              height: 24,
+              child: Text(
+                'Непрочитанные',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  height: 1.25,
+                ),
+              ),
+            ),
+            Tab(
+              height: 24,
+              child: Text(
+                'Все',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  height: 1.25,
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 16),
+        //TODO Важно ограничить размеры как-то
+        SizedBox(
+          width: 100,
+          height: 100,
+          child: TabBarView(
+            controller: _tabController,
+            children: const [
+              Text("It's cloudy here"),
+              Text("It's rainy here"),
+            ],
+          ),
+        ),
       ],
     );
   }

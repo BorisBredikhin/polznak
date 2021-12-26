@@ -52,7 +52,7 @@ class _EnterRow extends StatelessWidget {
         onPressed: () => model.openAuthWidget(context),
         child: const Text(
           'Войти',
-          style: TextStyles.bodyWhiteTextStyle,
+          style: TextStyles.bodyWhite,
         ),
         style: ButtonStyles.textButton,
       ),

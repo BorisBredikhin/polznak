@@ -2,28 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
 
 abstract class TextStyles {
-  static const bodyWhiteTextStyle = TextStyle(
+  static const bodyWhite = TextStyle(
     fontWeight: FontWeight.w400,
     color: Colors.white,
     fontSize: 16,
     height: 1.25,
   );
 
-  static const bodyPurpleTextStyle = TextStyle(
+  static const bodyPurple = TextStyle(
     fontWeight: FontWeight.w400,
     color: AppColors.purple,
     fontSize: 16,
     height: 1.25,
   );
 
-  static const bodyBlackTextStyle = TextStyle(
+  static const bodyBlack = TextStyle(
     fontWeight: FontWeight.w400,
     color: Colors.black,
     fontSize: 16,
     height: 1.25,
   );
 
-  static const buttonTextStyle = TextStyle(
+  static const hintWhite = TextStyle(
+    fontWeight: FontWeight.w300,
+    color: Colors.white,
+    fontSize: 12,
+    height: 1.333,
+  );
+
+  static const button = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.white,
     fontSize: 14,
@@ -31,9 +38,30 @@ abstract class TextStyles {
     height: 1.25,
   );
 
-  static const textFieldHintStyle = TextStyle(
+  static const textFieldHint = TextStyle(
     fontWeight: FontWeight.w400,
     color: Color.fromRGBO(136, 136, 136, 1),
+    fontSize: 16,
+    height: 1.25,
+  );
+
+  static const headline5White = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+    fontSize: 24,
+    height: 1.167,
+  );
+
+  static const headline6White = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
+    fontSize: 20,
+    height: 1.2,
+  );
+
+  static const headline7White = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.white,
     fontSize: 16,
     height: 1.25,
   );

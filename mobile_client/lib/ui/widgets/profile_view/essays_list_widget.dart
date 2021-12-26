@@ -1,66 +1,99 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/ui/Theme/app_colors.dart';
-import 'package:mobile_client/ui/Theme/box_shadows.dart';
+import 'package:mobile_client/resources/resources.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 
 class EssaysListWidget extends StatelessWidget {
   const EssaysListWidget({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemCount:
-            12, //временно, будет изменяться пользователем при редактировании профиля
-        itemBuilder: (context, index) {
-          return const _EssayRowWidget();
-        });
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount:
+          12, //TODO временно, будет изменяться пользователем при редактировании профиля
+      itemBuilder: (context, index) {
+        return InkWell(
+          //TODO OnTap на каждое эссе
+          onTap: () {},
+          child: const _EssayCardWidget(),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Column(
+          children: const [
+            SizedBox(height: 16),
+            _EssayDividerWidget(),
+            SizedBox(height: 16),
+          ],
+        );
+      },
+    );
   }
 }
 
-class _EssayRowWidget extends StatelessWidget {
-  const _EssayRowWidget({Key? key}) : super(key: key);
+class _EssayCardWidget extends StatelessWidget {
+  const _EssayCardWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final boxDecoration = BoxDecoration(
-      boxShadow: BoxShadows.boxShadowForGradientField,
-      borderRadius: const BorderRadius.all(Radius.circular(5)),
-      gradient: AppColors.essayThemeGradient,
-    );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
-      child: DecoratedBox(
-        decoration: boxDecoration,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Icon(Icons.tag),
-              const Expanded(
-                child: Text(
-                  'Заголовок',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.whiteSize16,
-                ),
+    return Row(
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              _PublicationTimeWidget(),
+              SizedBox(height: 8),
+              Text(
+                'Заголовок эссе',
+                style: TextStyles.headline7White,
               ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search),
-                splashRadius: 1,
-                constraints: const BoxConstraints(
-                  minHeight: 0,
-                  minWidth: 0,
-                ),
-                padding: const EdgeInsets.all(0),
+              SizedBox(height: 8),
+              Text(
+                'Будет отображаться только одна строка текста, пишу его чтобы проверить, как лишний текст будет скрываться',
+                style: TextStyles.hintWhite,
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),
         ),
-      ),
+        const SizedBox(width: 8),
+        Image.asset(AppImages.chevronRight),
+      ],
+    );
+  }
+}
+
+class _PublicationTimeWidget extends StatelessWidget {
+  const _PublicationTimeWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(AppImages.clock),
+        const SizedBox(width: 8),
+        const Text(
+          '15.09.2021 21:17',
+          style: TextStyles.hintWhite,
+        ),
+      ],
+    );
+  }
+}
+
+class _EssayDividerWidget extends StatelessWidget {
+  const _EssayDividerWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color.fromRGBO(0, 0, 0, 0.25),
+      height: 1,
     );
   }
 }

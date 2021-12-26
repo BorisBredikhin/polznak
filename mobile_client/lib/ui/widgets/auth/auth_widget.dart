@@ -56,7 +56,7 @@ class _RegistrationRow extends StatelessWidget {
         onPressed: () => model.openRegistrationWidget(context),
         child: const Text(
           'Зарегистрироваться',
-          style: TextStyles.bodyWhiteTextStyle,
+          style: TextStyles.bodyWhite,
         ),
         style: ButtonStyles.textButton,
       ),
@@ -81,7 +81,7 @@ class _LoginMethodsDividerWidget extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 8),
           child: Text(
             'Или войдите с помощью',
-            style: TextStyles.bodyWhiteTextStyle,
+            style: TextStyles.bodyWhite,
           ),
         ),
         Expanded(child: divider),

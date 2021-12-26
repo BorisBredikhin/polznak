@@ -26,7 +26,7 @@ class InputTextField extends StatelessWidget {
     this.suffixIcon,
     this.textInputAction,
     this.onTap,
-    this.textStyle = TextStyles.bodyBlackTextStyle,
+    this.textStyle = TextStyles.bodyBlack,
   }) : super(key: key);
 
   @override
@@ -49,7 +49,7 @@ class InputTextField extends StatelessWidget {
             minHeight: 0,
           ),
           hintText: hintText,
-          hintStyle: TextStyles.textFieldHintStyle,
+          hintStyle: TextStyles.textFieldHint,
           // prefixIcon: Padding(
           //   padding: const EdgeInsets.symmetric(horizontal: 6),
           //   child: prefixIcon,
