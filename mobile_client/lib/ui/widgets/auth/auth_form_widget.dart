@@ -95,7 +95,7 @@ class _AuthButtonWidget extends StatelessWidget {
           )
         : const Text(
             'ВОЙТИ',
-            style: TextStyles.button,
+            style: TextStyles.whiteButtonText,
           );
     return SizedBox(
       height: 48,

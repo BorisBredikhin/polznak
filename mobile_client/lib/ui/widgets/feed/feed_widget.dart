@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/feed/feed_model.dart';
 import 'package:provider/provider.dart';
@@ -11,25 +12,86 @@ class FeedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: const _FloatingButtonsWidget(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: DecoratedBox(
-        decoration: AppColors.scaffoldGradient,
+        decoration: const BoxDecoration(color: Colors.white),
         child: ListView(
           children: [
-            Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      _Publication(),
-                    ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 128),
+              child: Column(
+                children: const [
+                  Text(
+                    'Тема',
+                    style: TextStyles.headline6Black,
                   ),
+                  Text(
+                    'Заголовок',
+                    style: TextStyles.headline7Black,
+                  ),
+                  //TODO Не получается сделать расстоние между абзацами, равное пустой строке
+                  Text(
+                    'Пример текста Эссе. Пишу этот текст, чтоб посмотреть, как будут выглядеть переносы. Кажется, приемлемо. В любом случае получается куда лучше, чем было.\n\nИнтересно получаются переносы - будто бы один абзац остается пустым. Надо посмотреть, как это исправить. Думаю, в верстке непосредственно вряд ли столкнемся с этим, так что приоритет не самый высокий.\n\nЕще не очень нравится выравнивание по левому краю, но выравнивание по ширине еще некрасивее, так что терпим. Пример текста Эссе. Пишу этот текст, чтоб посмотреть, как будут выглядеть переносы. Кажется, приемлемо. В любом случае получается куда лучше, чем было.\n\nИнтересно получаются переносы - будто бы один абзац остается пустым. Надо посмотреть, как это исправить. Думаю, в верстке непосредственно вряд ли столкнемся с этим, так что приоритет не самый высокий.\n\nПример текста Эссе. Пишу этот текст, чтоб посмотреть, как будут выглядеть переносы. Кажется, приемлемо. В любом случае получается куда лучше, чем было.\n\nИнтересно получаются переносы - будто бы один абзац остается пустым. Надо посмотреть, как это исправить. Думаю, в верстке непосредственно вряд ли столкнемся с этим, так что приоритет не самый высокий.\n\nЕще не очень нравится выравнивание по левому краю, но выравнивание по ширине еще некрасивее, так что терпим. Пример текста Эссе. Пишу этот текст, чтоб посмотреть, как будут выглядеть переносы. Кажется, приемлемо. В любом случае получается куда лучше, чем было.\n\nИнтересно получаются переносы - будто бы один абзац остается пустым. Надо посмотреть, как это исправить. Думаю, в верстке непосредственно вряд ли столкнемся с этим, так что приоритет не самый высокий.',
+                    style: TextStyles.bodyBlack,
+                  ),
+                  // _Publication(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FloatingButtonsWidget extends StatelessWidget {
+  const _FloatingButtonsWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: BoxDecorations.feedFloatingButtonsGradient,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(
+                  Icons.thumb_down_rounded,
+                  size: 40,
                 ),
-              ],
+              ),
+            ),
+            const SizedBox(width: 48),
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(
+                  Icons.mode_comment,
+                  size: 40,
+                ),
+              ),
+            ),
+            const SizedBox(width: 48),
+            SizedBox(
+              width: 80,
+              height: 80,
+              child: FloatingActionButton(
+                onPressed: () {},
+                child: const Icon(
+                  Icons.thumb_up_rounded,
+                  size: 40,
+                ),
+              ),
             ),
           ],
         ),
@@ -49,54 +111,42 @@ class _Publication extends StatelessWidget {
     if (post == null) return const _ErrorMessageWidget();
     return Padding(
       padding: const EdgeInsets.symmetric(),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            gradient: LinearGradient(
-              colors: <Color>[
-                Color.fromRGBO(22, 1, 255, 0.2),
-                Color.fromRGBO(255, 0, 214, 0.15),
-              ],
-              begin: Alignment(-0.8, -1),
-              end: Alignment(1, 1),
-            )),
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const Text(
-                'Тема',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Тема',
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.white,
               ),
-              const SizedBox(height: 8),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      post.title,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    post.title,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 8),
-              _Divider(),
-              const SizedBox(height: 10),
-              const _PublicationText(),
-              const SizedBox(height: 6),
-              _Divider(),
-              const _ButtonBar(),
-            ],
-          ),
+            ),
+            const SizedBox(height: 8),
+            _Divider(),
+            const SizedBox(height: 10),
+            const _PublicationText(),
+            const SizedBox(height: 6),
+            _Divider(),
+            const _ButtonBar(),
+          ],
         ),
       ),
     );
@@ -114,30 +164,18 @@ class _PublicationText extends StatelessWidget {
     final post = model.getCurrentPost();
     return Padding(
       padding: const EdgeInsets.symmetric(),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            gradient: LinearGradient(
-              colors: <Color>[
-                Color.fromRGBO(22, 1, 255, 0.15),
-                Color.fromRGBO(255, 0, 214, 0.1),
-              ],
-              begin: Alignment(-0.8, -1),
-              end: Alignment(1, 1),
-            )),
-        child: SizedBox(
-          width: double.infinity,
-          height: 450,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SingleChildScrollView(
-              child: RichText(
-                text: TextSpan(
-                  text: post?.content,
-                  style: const TextStyle(fontSize: 14),
-                ),
-                maxLines: 40,
+      child: SizedBox(
+        width: double.infinity,
+        height: 450,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: RichText(
+              text: TextSpan(
+                text: post?.content,
+                style: const TextStyle(fontSize: 14),
               ),
+              maxLines: 40,
             ),
           ),
         ),

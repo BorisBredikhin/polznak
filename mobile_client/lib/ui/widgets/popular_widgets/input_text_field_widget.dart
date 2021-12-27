@@ -14,6 +14,7 @@ class InputTextField extends StatelessWidget {
   final Icon? suffixIcon;
   final TextInputAction? textInputAction;
   final TextStyle? textStyle;
+  final double? height;
   const InputTextField({
     Key? key,
     this.contentPadding,
@@ -27,19 +28,21 @@ class InputTextField extends StatelessWidget {
     this.textInputAction,
     this.onTap,
     this.textStyle = TextStyles.bodyBlack,
+    this.height = 40,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 40,
+      height: height,
       child: TextField(
         onTap: onTap,
         controller: controller,
         maxLines: maxLines,
         style: textStyle,
         decoration: InputDecoration(
-          contentPadding: contentPadding ?? const EdgeInsets.symmetric(horizontal: 8),
+          contentPadding:
+              contentPadding ?? const EdgeInsets.symmetric(horizontal: 8),
           suffixIcon: Padding(
             padding: const EdgeInsets.all(8),
             child: suffixIcon,

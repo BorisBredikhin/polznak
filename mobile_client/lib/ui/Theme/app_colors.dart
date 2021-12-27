@@ -5,17 +5,9 @@ abstract class AppColors {
 
   static const purple = Color.fromRGBO(151, 62, 201, 1);
 
-  static const scaffoldGradient = BoxDecoration(
-    gradient: LinearGradient(
-      colors: <Color>[
-        Color.fromRGBO(0, 22, 217, 0.38),
-        Color.fromRGBO(188, 0, 169, 1),
-      ],
-      begin: Alignment(-0.8, -1),
-      end: Alignment(1, 1),
-    ),
-  );
+  
 
+  
   static const bottomNavigationBarGradient = BoxDecoration(
     gradient: LinearGradient(
       colors: <Color>[

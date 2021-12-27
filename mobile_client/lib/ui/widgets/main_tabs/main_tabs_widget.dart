@@ -11,14 +11,15 @@ class MainTabsWidget extends StatelessWidget {
     final model = context.read<MainTabsViewModel>();
     final bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => model.logout(context),
-          ),
-        ],
-      ),
+      // extendBody: true,
+      // appBar: AppBar(
+      //   actions: [
+      //     IconButton(
+      //       icon: const Icon(Icons.logout),
+      //       onPressed: () => model.logout(context),
+      //     ),
+      //   ],
+      // ),
       body: const _BodyWidget(),
       bottomNavigationBar: const _BottomNavigationBarWidget(),
       // floatingActionButton: Visibility(
@@ -95,6 +96,7 @@ class _BottomNavigationBarWidget extends StatelessWidget {
     // final cuurentIndex =
     //     context.select((MainTabsViewModel vm) => vm.currentTabIndex);
     // return BottomAppBar(
+    //   color: Colors.transparent,
     //   child: IconTheme(
     //     data: IconThemeData(),
     //     child: Row(

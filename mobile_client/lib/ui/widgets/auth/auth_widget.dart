@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/resources/resources.dart';
-import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/button_styles.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/auth/auth_model.dart';
@@ -15,7 +15,7 @@ class AuthWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: AppColors.scaffoldGradient,
+        decoration: BoxDecorations.scaffoldGradient,
         child: ListView(
           children: [
             Padding(

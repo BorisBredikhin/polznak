@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/resources/resources.dart';
-import 'package:mobile_client/ui/Theme/app_colors.dart';
+import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/profile_view/essays_list_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_view/profile_view_model.dart';
@@ -13,7 +13,7 @@ class ProfileViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: DecoratedBox(
-        decoration: AppColors.scaffoldGradient,
+        decoration: BoxDecorations.scaffoldGradient,
         child: ListView(
           children: [
             Padding(

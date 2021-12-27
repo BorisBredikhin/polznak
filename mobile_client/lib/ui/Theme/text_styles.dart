@@ -21,6 +21,7 @@ abstract class TextStyles {
     color: Colors.black,
     fontSize: 16,
     height: 1.25,
+    
   );
 
   static const hintWhite = TextStyle(
@@ -30,12 +31,21 @@ abstract class TextStyles {
     height: 1.333,
   );
 
-  static const button = TextStyle(
+  static const whiteButtonText = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.white,
     fontSize: 14,
     letterSpacing: 0.5,
     height: 1.25,
+  );
+
+  static const blackButtonText = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    fontSize: 14,
+    letterSpacing: 0.5,
+    height: 1.25,
+    
   );
 
   static const textFieldHint = TextStyle(
@@ -62,6 +72,20 @@ abstract class TextStyles {
   static const headline7White = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.white,
+    fontSize: 16,
+    height: 1.25,
+  );
+
+  static const headline6Black = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    fontSize: 20,
+    height: 1.2,
+  );
+
+  static const headline7Black = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
     fontSize: 16,
     height: 1.25,
   );

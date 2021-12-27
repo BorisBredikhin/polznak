@@ -210,7 +210,7 @@ class _RegistrationButtonWidget extends StatelessWidget {
           )
         : const Text(
             'ЗАРЕГИСТРИРОВАТЬСЯ',
-            style: TextStyles.button,
+            style: TextStyles.whiteButtonText,
           );
     return SizedBox(
       height: 48,
