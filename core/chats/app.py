@@ -4,6 +4,7 @@ from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
 from chats.db import get_db, models
+from starlette.websockets import WebSocket
 
 app = FastAPI()
 
@@ -14,8 +15,6 @@ def read_root(db: Session = Depends(get_db)):
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
-
-
+@app.websocket("/ws")
+async def websocket_endpoint(webscket: WebSocket):
+    await webscket.accept()

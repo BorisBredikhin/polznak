@@ -1,21 +1,30 @@
-[tool.poetry]
-name = "polznak-core"
-version = "0.1.0"
+[project]
+name = ""
+version = ""
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = [
+    {name = "ABD", email = "n"},
+]
+dependencies = [
+    "Django~=3.2",
+    "django-token>=0.1.3",
+    "djangorestframework~=3.12.0",
+    "uvicorn>=0.16.0",
+    "fastapi>=0.70.1",
+    "sqlalchemy>=1.4.29",
+    "drf-yasg>=1.20.0",
+    "psycopg2-binary>=2.9.3",
+    "nltk>=3.6.7",
+]
+requires-python = ">=3.9"
+license = {text = "Apache-2.0"}
 
-[tool.poetry.dependencies]
-python = "^3.8"
-Django = "~=4.0"
-djangorestframework = "~=3.12.4"
-uvicorn = "~=0.16.0"
-nltk = "~=3.6.5"
-fastapi = "~=0.70.1"
-SQLAlchemy = "^1.4.28"
-sqlacodegen = "^2.3.0"
+[project.urls]
+homepage = ""
 
-[tool.poetry.dev-dependencies]
+[tool]
+[tool.pdm]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"

@@ -76,7 +76,7 @@ class Post(models.Model):
 
 class Conversation(models.Model):
     participants = models.ManyToManyField('Profile')
-    initiator = models.ForeignKey('Post', on_delete=models.CASCADE)
+    initiator = models.ForeignKey('Post', on_delete=models.CASCADE, null=True)
 
 
 class Message(models.Model):
