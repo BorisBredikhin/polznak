@@ -109,20 +109,20 @@ class ChatListView(APIView):
         profile = Profile.objects.get(user=request.user)
 
         other_users = get_cross_likes_users(profile)
-        conversations = []
         for i in other_users:
-            convs = Conversation.objects.filter(participants__in=[p.pk for p in other_users])
+            convs = Conversation.objects \
+                .filter(participants__in=[profile.pk]) \
+                .filter(participants__in=[i.pk])
             if convs.count() == 0:
                 conv = Conversation()
                 conv.save()
                 conv.participants.add(profile)
                 conv.participants.add(i)
                 conv.save()
-            convs = Conversation.objects.filter(participants__in=[p.pk for p in other_users])
-            conversations.extend(list(convs))
+        convs = Conversation.objects.filter(participants__in=[profile.pk])
         return Response({
             'conversations': [{'id': c.pk, 'participants': ProfileSerialzer(c.participants, many=True).data} for c in
-                              conversations]
+                              convs]
         })
 
 
