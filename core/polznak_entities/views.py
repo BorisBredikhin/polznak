@@ -121,8 +121,12 @@ class ChatListView(APIView):
                 conv.save()
         convs = Conversation.objects.filter(participants__in=[profile.pk])
         return Response({
-            'conversations': [{'id': c.pk, 'participants': ProfileSerialzer(c.participants, many=True).data} for c in
-                              convs]
+            'conversations': [
+                {
+                    'id':           c.pk,
+                    'participants': ProfileSerialzer(c.participants, many=True).data,
+                }
+                for c in convs]
         })
 
 
@@ -146,6 +150,7 @@ class ChatView(APIView):
         message.body = data.validated_data['text']
         message.save()
         return Response(status=201)
+
     @swagger_auto_schema(
             manual_parameters=[
                 Parameter('chat_id', 'path', 'chat_id', required=True, type='number'),
@@ -189,3 +194,16 @@ class RegisterView(APIView):
             return Response(Token.objects.get(user=user).key, status=HTTP_201_CREATED)
         except IntegrityError:
             return Response("Пользователь с такими данными уже зарегистрирован")
+
+
+class ProfileView(APIView):
+    @swagger_auto_schema(
+            manual_parameters=[
+                Parameter('user_id', 'query', 'user_id', type='number'),
+            ],
+    )
+    def get(self, request: Request):
+        profile = Profile.objects.get(user_id=request.query_params['user_id']) \
+            if 'user_id' in request.query_params.keys() \
+            else Profile.objects.get(user=request.user)
+        return Response(ProfileSerialzer(profile).data)
