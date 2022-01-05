@@ -6,6 +6,7 @@ class Screens {
   static const registration = 'registration';
   static const mainTabs = '/';
   static const profileRedaction = '/profileRedaction';
+  static const personalMessages = '/personalMessages';
 }
 
 class MainNavigation {
@@ -16,6 +17,7 @@ class MainNavigation {
         Screens.auth: (_) => _screenFactory.makeAuth(),
         Screens.registration: (_) => _screenFactory.makeRegistration(),
         Screens.profileRedaction: (_) => _screenFactory.makeProfileRedaction(),
+        Screens.personalMessages: (_) => _screenFactory.makePersonalMessages(),
       };
       
   String initialRoute(bool isAuth) =>

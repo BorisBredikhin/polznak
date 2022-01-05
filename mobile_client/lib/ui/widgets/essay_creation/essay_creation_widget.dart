@@ -36,45 +36,47 @@ class EssayCreationWidget extends StatelessWidget {
       ),
       body: DecoratedBox(
         decoration: BoxDecorations.scaffoldGradient,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Column(
-                children: [
-                  const _ErrorMessageWidget(),
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
+        child: SafeArea(
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                child: Column(
+                  children: [
+                    const _ErrorMessageWidget(),
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: InputTextField(
+                        controller: model.titleTextController,
+                        hintText: 'Введите заголовок',
+                      ),
                     ),
-                    child: InputTextField(
-                      controller: model.titleTextController,
-                      hintText: 'Введите заголовок',
+                    const SizedBox(height: 16),
+                    DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: InputTextField(
+                        controller: model.contentTextController,
+                        hintText: 'Напишите эссе',
+                        height: 440,
+                        maxLines: 22,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(4),
+                    const SizedBox(height: 24),
+                    WhiteButtonWidget(
+                      onPressed: onPressed,
+                      isProgress: model.isSaveProgress,
                     ),
-                    child: InputTextField(
-                      controller: model.contentTextController,
-                      hintText: 'Напишите эссе',
-                      height: 440,
-                      maxLines: 22,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  WhiteButtonWidget(
-                    onPressed: onPressed,
-                    isProgress: model.isSaveProgress,
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

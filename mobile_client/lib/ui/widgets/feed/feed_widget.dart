@@ -62,6 +62,7 @@ class _FloatingButtonsWidget extends StatelessWidget {
               width: 80,
               height: 80,
               child: FloatingActionButton(
+                heroTag: 'btn1',
                 onPressed: () {},
                 child: const Icon(
                   Icons.thumb_down_rounded,
@@ -74,6 +75,7 @@ class _FloatingButtonsWidget extends StatelessWidget {
               width: 80,
               height: 80,
               child: FloatingActionButton(
+                heroTag: 'btn2',
                 onPressed: () {},
                 child: const Icon(
                   Icons.mode_comment,
@@ -86,6 +88,7 @@ class _FloatingButtonsWidget extends StatelessWidget {
               width: 80,
               height: 80,
               child: FloatingActionButton(
+                heroTag: 'btn3',
                 onPressed: () {},
                 child: const Icon(
                   Icons.thumb_up_rounded,

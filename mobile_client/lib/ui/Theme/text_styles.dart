@@ -31,6 +31,13 @@ abstract class TextStyles {
     height: 1.333,
   );
 
+  static const hintBlack = TextStyle(
+    fontWeight: FontWeight.w300,
+    color: Colors.black,
+    fontSize: 12,
+    height: 1.333,
+  );
+
   static const whiteButtonText = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.white,

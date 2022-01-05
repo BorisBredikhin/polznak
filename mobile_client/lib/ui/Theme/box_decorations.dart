@@ -12,6 +12,17 @@ abstract class BoxDecorations {
     ),
   );
 
+  static const bottomNavBarGradient = BoxDecoration(
+    gradient: LinearGradient(
+      colors: <Color>[
+        Color.fromRGBO(142, 78, 205, 1),
+        Color.fromRGBO(180, 1, 162, 1),
+      ],
+      begin: Alignment(-1, 0),
+      end: Alignment(1, 0),
+    ),
+  );
+
   static const feedFloatingButtonsGradient = BoxDecoration(
     gradient: LinearGradient(
       colors: [

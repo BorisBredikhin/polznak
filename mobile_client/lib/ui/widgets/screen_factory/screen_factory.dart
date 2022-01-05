@@ -9,6 +9,8 @@ import 'package:mobile_client/ui/widgets/feed/feed_model.dart';
 import 'package:mobile_client/ui/widgets/feed/feed_widget.dart';
 import 'package:mobile_client/ui/widgets/main_tabs/main_tabs_view_model.dart';
 import 'package:mobile_client/ui/widgets/main_tabs/main_tabs_widget.dart';
+import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_model.dart';
+import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_model.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_view/profile_view_model.dart';
@@ -56,5 +58,10 @@ class ScreenFactory {
   Widget makeChats() => ChangeNotifierProvider(
         create: (_) => ChatsModel(),
         child: const ChatsWidget(),
+      );
+
+  Widget makePersonalMessages() => ChangeNotifierProvider(
+        create: (_) => PersonalMessagesModel(),
+        child: const PersonalMessagesWidget(),
       );
 }

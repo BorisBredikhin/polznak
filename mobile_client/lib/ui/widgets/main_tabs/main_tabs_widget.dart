@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/resources/resources.dart';
+import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/widgets/main_tabs/main_tabs_view_model.dart';
 import 'package:mobile_client/ui/widgets/screen_factory/screen_factory.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +23,7 @@ class MainTabsWidget extends StatelessWidget {
       //   ],
       // ),
       body: const _BodyWidget(),
-      bottomNavigationBar: const _BottomNavigationBarWidget(),
+      bottomNavigationBar: const _NavBarWidget(),
       // floatingActionButton: Visibility(
       //   visible: !keyboardIsOpen,
       //   child: FloatingActionButton(
@@ -30,6 +32,82 @@ class MainTabsWidget extends StatelessWidget {
       //   ),
       // ),
       // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+    );
+  }
+}
+
+class _NavBarWidget extends StatelessWidget {
+  const _NavBarWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.read<MainTabsViewModel>();
+    final currentIndex =
+        context.select((MainTabsViewModel vm) => vm.currentTabIndex);
+    final theme = Theme.of(context).bottomNavigationBarTheme;
+    final buttons = [
+      _BottomNavigationBarItemFactory(AppImages.sendIcon, 'Расписание'),
+      _BottomNavigationBarItemFactory(AppImages.sendIcon, 'Расписание'),
+      _BottomNavigationBarItemFactory(AppImages.sendIcon, 'Расписание'),
+      _BottomNavigationBarItemFactory(AppImages.sendIcon, 'Расписание'),
+      _BottomNavigationBarItemFactory(AppImages.sendIcon, 'Расписание'),
+    ]
+        .asMap()
+        .map((index, value) {
+          return MapEntry(index, value.build(index, currentIndex, theme));
+        })
+        .values
+        .toList();
+    return SizedBox(
+      height: 56,
+      child: DecoratedBox(
+        decoration: BoxDecorations.bottomNavBarGradient,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.home)),
+            ],
+          ),
+        ),
+      ),
+    );
+    // return BottomNavigationBar(
+    //   currentIndex: currentIndex,
+    //   onTap: model.setCurrentTabIndex,
+    //   items: buttons,
+    // );
+  }
+}
+
+class _BottomNavigationBarItemFactory {
+  final String iconName;
+  final String tooltip;
+
+  _BottomNavigationBarItemFactory(this.iconName, this.tooltip);
+
+  BottomNavigationBarItem build(
+    int index,
+    int currentIndex,
+    BottomNavigationBarThemeData theme,
+  ) {
+    final color = index == currentIndex
+        ? theme.selectedItemColor
+        : theme.unselectedItemColor;
+    return BottomNavigationBarItem(
+      label: '',
+      icon: Image.asset(
+        iconName,
+        color: color,
+      ),
+      tooltip: tooltip,
     );
   }
 }
@@ -68,6 +146,7 @@ class _BottomNavigationBarWidget extends StatelessWidget {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
       currentIndex: cuurentIndex,
+      unselectedItemColor: Colors.white,
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

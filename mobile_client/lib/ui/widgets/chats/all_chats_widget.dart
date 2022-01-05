@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/navigation/main_navigation.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 
 class Chats extends StatelessWidget {
@@ -13,7 +14,7 @@ class Chats extends StatelessWidget {
       itemBuilder: (context, index) {
         return InkWell(
           //TODO OnTap на каждое эссе
-          onTap: () {},
+          onTap: () => Navigator.of(context).pushNamed(Screens.personalMessages),
           child: const _ChatCardWidget(),
         );
       },
