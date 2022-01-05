@@ -144,6 +144,8 @@ class ChatView(APIView):
             return Response(data.errors, HTTP_400_BAD_REQUEST)
         profile = Profile.objects.get(user=request.user)
         chat = Conversation.objects.get(pk=chat_id)
+        if profile not in chat.participants.iterator():
+            return Response(status=HTTP_400_BAD_REQUEST)
         message = Message()
         message.conversation = chat
         message.sender = profile
@@ -158,6 +160,9 @@ class ChatView(APIView):
     )
     def get(self, request: Request, chat_id: int):
         chat = Conversation.objects.get(pk=chat_id)
+        profile = Profile.objects.get(user=request.user)
+        if profile not in chat.participants.iterator():
+            return Response(status=HTTP_400_BAD_REQUEST)
         messages = Message.objects.filter(conversation=chat).order_by('-send_at')[:100]
         return Response({'messages': MessageSerializer(messages, many=True).data})
 
