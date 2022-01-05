@@ -18,6 +18,6 @@ def get_cross_likes_users(me: Profile) -> set:
 
     return get_users_who_liked_user_posts(me) \
            & set(
-        l.post.creator
-        for l in UserOpinion.objects.filter(sender=me, opinion=1)
+            l.post.creator
+            for l in UserOpinion.objects.filter(sender=me, opinion=1)
     )

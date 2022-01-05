@@ -1,6 +1,7 @@
 import typing
 
 import nltk
+import nltk
 from django.db import models
 from nltk import SnowballStemmer
 
