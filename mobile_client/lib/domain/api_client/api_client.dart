@@ -51,9 +51,9 @@ class ApiClient {
       );
       if (response.statusCode != 200) {
         throw ApiCLientException(ApiCLientExceptionType.auth);
-        // throw Exception(response.body);
+        // throw Exception(utf8.decode(response.bodyBytes));
       }
-      final token = jsonDecode(response.body)['token'] as String;
+      final token = jsonDecode(utf8.decode(response.bodyBytes))['token'] as String;
       return token;
     } on SocketException {
       throw ApiCLientException(ApiCLientExceptionType.network);
@@ -95,14 +95,14 @@ class ApiClient {
 
       if (response.statusCode == 200) {
         throw ApiCLientException(ApiCLientExceptionType.existingAccount);
-        // throw Exception(response.body);
+        // throw Exception(utf8.decode(response.bodyBytes));
       } else if (response.statusCode == 400) {
-        final json = jsonDecode(response.body) as Map<String, dynamic>;
+        final json = jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
         json.keys.contains('email')
             ? throw ApiCLientException(ApiCLientExceptionType.incorrectEmail)
             : throw ApiCLientException(ApiCLientExceptionType.incorrectData);
       }
-      final token = jsonDecode(response.body) as String;
+      final token = jsonDecode(utf8.decode(response.bodyBytes)) as String;
       return token;
     } on SocketException {
       throw ApiCLientException(ApiCLientExceptionType.network);
@@ -151,7 +151,7 @@ class ApiClient {
           'Authorization': 'token $token',
         },
       );
-      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final json = await jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       final jsonPostsList = json['posts'] as List<dynamic>;
       List<Post> posts = [];
       for (var jsonPost in jsonPostsList) {
@@ -176,7 +176,7 @@ class ApiClient {
           'Authorization': 'token $token',
         },
       );
-      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final json = await jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       final jsonConversationsList = json['conversations'] as List<dynamic>;
       List<Conversation> conversations = [];
       for (var jsonConversation in jsonConversationsList) {
@@ -202,7 +202,7 @@ class ApiClient {
           'Authorization': 'token $token',
         },
       );
-      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final json = await jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       final jsonParticipantsList = json['data'] as List<dynamic>;
       List<Participant> paticipants = [];
       for (var jsonParticipant in jsonParticipantsList) {
@@ -227,7 +227,7 @@ class ApiClient {
           'Authorization': 'token $token',
         },
       );
-      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final json = await jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       final userInfo = Participant.fromJson(json);
       return userInfo;
     } on SocketException {
@@ -249,7 +249,7 @@ class ApiClient {
           'Authorization': 'token $token',
         },
       );
-      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final json = await jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
       final jsonMessagesList = json['messages'] as List<dynamic>;
       List<Message> messages = [];
       for (var jsonMessage in jsonMessagesList) {
