@@ -3,6 +3,7 @@ import 'package:mobile_client/domain/api_client/api_client.dart';
 import 'package:mobile_client/domain/data_providers/token_data_provider.dart';
 import 'package:mobile_client/domain/entity/conversation.dart';
 import 'package:mobile_client/domain/entity/message.dart';
+import 'package:mobile_client/navigation/main_navigation.dart';
 
 class PersonalMessagesModel extends ChangeNotifier {
   final _apiClient = ApiClient();
@@ -65,6 +66,7 @@ class PersonalMessagesModel extends ChangeNotifier {
       for (Participant participant in participants) {
         if (participant.id != _userInfo?.id) {
           _interlocutorInfo = participant;
+          notifyListeners();
         }
       }
     } on ApiCLientException catch (e) {
@@ -154,5 +156,13 @@ class PersonalMessagesModel extends ChangeNotifier {
     //TODO Переделать чтобы работал скролл вниз после отправки сообщения, обновляется весь список сообщений и соответственно виджет мигает когда происходит ребилд
     getMessagesFromServer();
     notifyListeners();
+  }
+
+  void onProfileTap(BuildContext context) {
+    final userId = _interlocutorInfo?.user.id;
+    Navigator.of(context).pushNamed(
+      Screens.interlocutorProfile,
+      arguments: userId,
+    );
   }
 }

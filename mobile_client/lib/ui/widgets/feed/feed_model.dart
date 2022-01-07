@@ -7,7 +7,7 @@ class FeedModel extends ChangeNotifier {
   final _apiClient = ApiClient();
   final _tokenDataProvider = TokenDataProvider();
 
-  List<Post> _posts = [];
+  final _posts = <Post>[];
   int _index = 0;
 
   bool isLoadingProgress = false;
@@ -16,7 +16,7 @@ class FeedModel extends ChangeNotifier {
 
   Future<void> getPosts() async {
     final token = await _tokenDataProvider.getToken();
-    if (token == null) return; //TODO Выкинуть на страницу авторизации
+    if (token == null) return;
     _posts.clear();
     try {
       final posts = await _apiClient.getPosts(token: token);

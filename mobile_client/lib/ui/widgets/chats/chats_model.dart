@@ -39,7 +39,7 @@ class ChatsModel extends ChangeNotifier {
 
   Future<void> getConversations() async {
     final token = await _tokenDataProvider.getToken();
-    if (token == null) return; //TODO Выкинуть на страницу авторизации
+    if (token == null) return;
     _conversations.clear();
     try {
       final conversations = await _apiClient.getConversations(token: token);
@@ -105,7 +105,7 @@ class ChatsModel extends ChangeNotifier {
     final token = await _tokenDataProvider.getToken();
     if (token == null) {
       return <Message>[];
-    } //TODO Выкинуть на страницу авторизации
+    }
     final conversationId = _conversations[index].id;
     _messages.clear();
     try {

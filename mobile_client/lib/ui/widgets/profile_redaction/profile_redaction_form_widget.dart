@@ -106,12 +106,12 @@ class _GenderChoiceWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ProfileRedactionModel>();
-    final dropdownItems = ["Мужчина", "Женщина"]
+    final model = context.watch<ProfileRedactionModel>();
+    final dropdownItems = ['', "Мужчина", "Женщина"]
         .map((label) => DropdownMenuItem(
               child: Text(
                 label,
-                // style: TextStyles.bodyBlackTextStyle,
+                style: TextStyles.bodyBlack,
               ),
               value: label,
             ))
@@ -138,6 +138,7 @@ class _GenderChoiceWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(4),
           ),
         ),
+        value: model.genderTextController.text,
         items: dropdownItems,
         onChanged: (value) => model.setGender(value),
       ),
@@ -186,7 +187,7 @@ class _SaveButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<ProfileRedactionModel>();
     final onPressed = model.canStartRegistration == true
-        ? () => model.register(context)
+        ? () {}
         : null;
     final child = model.isRegistrationProgress == true
         ? const SizedBox(

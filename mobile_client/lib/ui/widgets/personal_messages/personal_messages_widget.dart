@@ -47,28 +47,31 @@ class _AppBarTitleWidget extends StatelessWidget {
     if (interlocutorInfo == null) return const SizedBox.shrink();
     final interlocutorFullName =
         interlocutorInfo.user.firstName + ' ' + interlocutorInfo.user.lastName;
-    return Row(
-      children: [
-        const CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.white,
-        ),
-        const SizedBox(width: 8),
-        Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              interlocutorFullName,
-              style: TextStyles.headline7White,
-            ),
-            const Text(
-              'Бизнес',
-              style: TextStyles.hintBlack,
-            ),
-          ],
-        ))
-      ],
+    return InkWell(
+      onTap: () => model.onProfileTap(context),
+      child: Row(
+        children: [
+          const CircleAvatar(
+            radius: 20,
+            backgroundColor: Colors.white,
+          ),
+          const SizedBox(width: 8),
+          Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                interlocutorFullName,
+                style: TextStyles.headline7White,
+              ),
+              const Text(
+                'Бизнес',
+                style: TextStyles.hintBlack,
+              ),
+            ],
+          ))
+        ],
+      ),
     );
   }
 }

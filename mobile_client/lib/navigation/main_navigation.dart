@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view.dart';
+import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view_model.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_model.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_widget.dart';
 import 'package:mobile_client/ui/widgets/screen_factory/screen_factory.dart';
@@ -10,6 +12,7 @@ class Screens {
   static const mainTabs = '/';
   static const profileRedaction = '/profileRedaction';
   static const personalMessages = '/personalMessages';
+  static const interlocutorProfile = '/interlocutorProfile';
 }
 
 class MainNavigation {
@@ -20,6 +23,7 @@ class MainNavigation {
         Screens.auth: (_) => _screenFactory.makeAuth(),
         Screens.registration: (_) => _screenFactory.makeRegistration(),
         Screens.profileRedaction: (_) => _screenFactory.makeProfileRedaction(),
+        // Screens.interlocutorProfile: (_) => _screenFactory.makeInterlocutorProfileView(),
         // Screens.personalMessages: (_) => _screenFactory.makePersonalMessages(),
       };
       
@@ -42,6 +46,15 @@ class MainNavigation {
           builder: (context) => ChangeNotifierProvider(
             create: (_) => PersonalMessagesModel(conversationId),
             child: const PersonalMessagesWidget(),
+          ),
+        );
+      case Screens.interlocutorProfile:
+      final arguments = settings.arguments;
+        final userId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (_) => InterlocutorProfileViewModel(userId),
+            child: const InterlocutorProfileViewWidget(),
           ),
         );
       default:

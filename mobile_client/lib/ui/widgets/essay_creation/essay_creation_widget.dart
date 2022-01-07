@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/ui/Theme/app_colors.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/essay_creation/essay_creation_model.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/input_text_field_widget.dart';
 import 'package:mobile_client/ui/widgets/popular_widgets/white_button_widget.dart';
 import 'package:provider/provider.dart';
-//TODO Доработать верстку виджета
 
 class EssayCreationWidget extends StatelessWidget {
   const EssayCreationWidget({Key? key}) : super(key: key);
