@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 
 from polznak_entities.models import Profile, Post, UserOpinion, Conversation, Message
 from polznak_entities.serializers import PostSerializer, RegisterSerializer, LikeRequestSerializer, \
-    UserOpinionSerializer, ProfileSerialzer, SendMessageRequestSerializer, MessageSerializer
+    UserOpinionSerializer, ProfileSerialzer, SendMessageRequestSerializer, MessageSerializer, ConversationSerializer
 
 
 class PostView(APIView):
@@ -101,11 +101,19 @@ class LikesView(APIView):
 class ChatListView(APIView):
     @swagger_auto_schema(
             operation_description="Получает информацию о доступных чатах",
+            manual_parameters=[
+                Parameter('chat_id', 'query', 'Идентификатор чата',
+                          required=False, type='number'),
+            ],
             responses={
                 HTTP_200_OK: ""
             }
     )
     def get(self, request: Request):
+        if 'chat_id' in request.query_params.keys():
+            cnversation = Conversation.objects.get(pk=int(request.query_params['chat_id']))
+            return Response({'data': ProfileSerialzer(cnversation.participants, many=True).data})
+
         profile = Profile.objects.get(user=request.user)
 
         other_users = get_cross_likes_users(profile)
