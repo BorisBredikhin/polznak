@@ -3,7 +3,7 @@ from rest_framework.relations import PrimaryKeyRelatedField
 from rest_framework import serializers
 from typing import TypedDict
 
-from polznak_entities.models import Post, Profile, UserOpinion, Message
+from polznak_entities.models import Post, Profile, UserOpinion, Message, Conversation
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -24,10 +24,17 @@ class UserOpinionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ConversationSerializer(serializers.Serializer):
+    class Meta:
+        model = Conversation
+        fields = '__all__'
+
+
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
+        depth=2
 
 
 class RegisterSerializer(serializers.Serializer):

@@ -18,8 +18,8 @@ def test(request):
 
 class PersonalRecommendations(APIView):
     @swagger_auto_schema(
-        operation_description="Персjнальные рекомеендации для текуoего "
-                              "пользователя"
+            operation_description="Персональные рекомендации для текущего "
+                                  "пользователя"
     )
     def get(self, request: Request):
         profile = Profile.objects.get(user=request.user)
@@ -27,22 +27,28 @@ class PersonalRecommendations(APIView):
         similar_profiles = get_users_who_liked_user_posts(profile)
         similar_profiles_posts = Post.objects \
             .filter(creator__in=similar_profiles) \
-            .order_by('-created_at')
+            .order_by('-created_at', '-likes', 'dislikes')
         similar_profiles_posts_i_do_not_scored = similar_profiles_posts.exclude(
-            pk__in=[x.post.pk for x in UserOpinion.objects.filter(sender=profile)]
+                pk__in=[x.post.pk for x in UserOpinion.objects.filter(sender=profile)]
         )
 
         posts_data = PostSerializer(
-            similar_profiles_posts_i_do_not_scored[:10],
-            many=True
+                similar_profiles_posts_i_do_not_scored[:10],
+                many=True
         ).data
 
         if len(posts_data) == 0:
             posts_data = PostSerializer(
-                Post.objects \
-                    .order_by('-created_at') \
-                    .exclude(creator=profile)[:10],
-                many=True
+                    Post.objects
+                        .order_by('-created_at')
+                        .exclude(creator=profile)
+                        .exclude(
+                            pk__in=[
+                                x.post.pk
+                                for x in UserOpinion.objects.filter(sender=profile)
+                            ]
+                    )[:10],
+                    many=True
             ).data
 
         # todo; отсортировать по любимым словам
@@ -50,8 +56,8 @@ class PersonalRecommendations(APIView):
         #     .create_for_author(profile) \
         #     .get_unque_and_long_words()
         return Response(
-            {
-                "posts": posts_data
-            },
-            HTTP_200_OK,
+                {
+                    "posts": posts_data
+                },
+                HTTP_200_OK,
         )
