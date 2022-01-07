@@ -15,6 +15,7 @@ dependencies = [
     "drf-yasg>=1.20.0",
     "psycopg2-binary>=2.9.3",
     "nltk>=3.6.7",
+    "django-cors-headers>=3.10.1",
 ]
 requires-python = ">=3.9"
 license = {text = "Apache-2.0"}

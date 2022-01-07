@@ -19,7 +19,7 @@ class ApiCLientException implements Exception {
 }
 
 class ApiClient {
-  static const _host = 'http://192.168.56.1:8000';
+  static const _host = 'http://localhost:8000';
 
   Future<String> auth({
     required String username,
