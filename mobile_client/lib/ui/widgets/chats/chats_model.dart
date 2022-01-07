@@ -10,10 +10,18 @@ import 'package:mobile_client/navigation/main_navigation.dart';
 //TODO По возможности отрефакторить
 class ChatsModel extends ChangeNotifier {
 
+Timer? timer;
+
   ChatsModel() {
-    // Timer.periodic(const Duration(seconds: 1), (Timer t) => getConversations());
-    getConversations();
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => getConversations());
+    // getConversations();
     getUserInfo();
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
   }
 
   final _apiClient = ApiClient();

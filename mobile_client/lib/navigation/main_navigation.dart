@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view.dart';
+import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view_widget.dart';
 import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view_model.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_model.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_widget.dart';

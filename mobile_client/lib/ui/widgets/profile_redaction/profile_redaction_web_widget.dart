@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_form_widget.dart';
 
-class ProfileRedactionWidget extends StatelessWidget {
-  const ProfileRedactionWidget({Key? key}) : super(key: key);
+class ProfileRedactionWebWidget extends StatelessWidget {
+  const ProfileRedactionWebWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

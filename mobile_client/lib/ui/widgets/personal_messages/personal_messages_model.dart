@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:mobile_client/domain/api_client/api_client.dart';
 import 'package:mobile_client/domain/data_providers/token_data_provider.dart';
@@ -16,11 +18,19 @@ class PersonalMessagesModel extends ChangeNotifier {
   final int _conversationId;
   int get conversationId => _conversationId;
 
+  Timer? timer;
+
   PersonalMessagesModel(this._conversationId) {
     getUserInfo();
     getInerlocutorInfo();
-    // Timer.periodic(const Duration(seconds: 5), (Timer t) => getMessagesFromServer());
-    getMessagesFromServer();
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => getMessagesFromServer());
+    // getMessagesFromServer();
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
   }
 
   final _messagesList = <Message>[];
