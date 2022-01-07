@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_model.dart';
+import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_widget.dart';
 import 'package:mobile_client/ui/widgets/screen_factory/screen_factory.dart';
+import 'package:provider/provider.dart';
 
 class Screens {
   static const auth = 'auth';
@@ -17,7 +20,7 @@ class MainNavigation {
         Screens.auth: (_) => _screenFactory.makeAuth(),
         Screens.registration: (_) => _screenFactory.makeRegistration(),
         Screens.profileRedaction: (_) => _screenFactory.makeProfileRedaction(),
-        Screens.personalMessages: (_) => _screenFactory.makePersonalMessages(),
+        // Screens.personalMessages: (_) => _screenFactory.makePersonalMessages(),
       };
       
   String initialRoute(bool isAuth) =>
@@ -32,6 +35,15 @@ class MainNavigation {
       //   return MaterialPageRoute(
       //     builder: (context) => MovieDetailsWidget(movieId: movieId),
       //   );
+      case Screens.personalMessages:
+        final arguments = settings.arguments;
+        final conversationId = arguments is int ? arguments : 0;
+        return MaterialPageRoute(
+          builder: (context) => ChangeNotifierProvider(
+            create: (_) => PersonalMessagesModel(conversationId),
+            child: const PersonalMessagesWidget(),
+          ),
+        );
       default:
         const widget = Text('Navigation error!!!');
         return MaterialPageRoute(builder: (context) => widget);

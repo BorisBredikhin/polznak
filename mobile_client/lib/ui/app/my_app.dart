@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.light,
       routes: mainNavigation.routes,
       initialRoute: mainNavigation.initialRoute(model.isAuth),
-      //TODO указать onGenerateRoute
+      onGenerateRoute: mainNavigation.onGenerateRoute,
     );
   }
 }

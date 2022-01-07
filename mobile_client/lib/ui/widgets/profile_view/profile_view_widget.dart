@@ -11,7 +11,23 @@ class ProfileViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.read<ProfileViewModel>();
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        actions: [
+          IconButton(
+            onPressed: () => model.redactionOnPressed(context),
+            icon: const Icon(Icons.mode),
+          ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () => model.logout(context),
+          ),
+        ],
+      ),
       body: DecoratedBox(
         decoration: BoxDecorations.scaffoldGradient,
         child: ListView(
@@ -24,8 +40,8 @@ class ProfileViewWidget extends StatelessWidget {
                   SizedBox(height: 24),
                   _SectionTitleWidget(title: 'Аккаунт'),
                   _UsernameWidget(),
-                  _PurpleDividerWidget(),
-                  _EmailWidget(),
+                  // _PurpleDividerWidget(),
+                  // _EmailWidget(),
                   _PurpleDividerWidget(),
                   _AboutMeWidget(),
                   _SectionTitleWidget(title: 'Личные данные'),
@@ -50,12 +66,16 @@ class _MainInformationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final model = context.watch<ProfileViewModel>();
+    final userInfo = model.userInfo;
+    if (userInfo == null) return SizedBox.shrink();
+    final userFullName = userInfo.user.firstName + ' ' + userInfo.user.lastName;
     return Column(
-      children: const [
+      children: [
         _ProfileAvatar(),
         SizedBox(height: 16),
         Text(
-          'Иванов Иван',
+          userFullName,
           style: TextStyles.headline5White,
         ),
       ],
@@ -121,7 +141,11 @@ class _PersonalDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ProfileViewModel>();
+    final model = context.watch<ProfileViewModel>();
+    final userInfo = model.userInfo;
+    if (userInfo == null) return SizedBox.shrink();
+    final gender = userInfo.gender == 'M' ? 'Мужчина' : 'Женщина';
+    final birthDate = userInfo.birthDate;
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -131,8 +155,8 @@ class _PersonalDataWidget extends StatelessWidget {
             children: [
               Image.asset(AppImages.personalDataGender),
               const SizedBox(height: 8),
-              const Text(
-                'Мужчина',
+              Text(
+                gender,
                 style: TextStyles.bodyWhite,
               ),
             ],
@@ -145,8 +169,8 @@ class _PersonalDataWidget extends StatelessWidget {
             children: [
               Image.asset(AppImages.personalDataDateOfBirth),
               const SizedBox(height: 8),
-              const Text(
-                '11.11.1971',
+              Text(
+                birthDate,
                 style: TextStyles.bodyWhite,
               ),
             ],
@@ -162,27 +186,30 @@ class _UsernameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ProfileViewModel>();
+    final model = context.watch<ProfileViewModel>();
+    final userInfo = model.userInfo;
+    if (userInfo == null) return SizedBox.shrink();
+    final username = userInfo.user.username;
     return InkWell(
       //TODO onTap
       onTap: () => model.redactionOnPressed(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             height: 16,
             width: double.infinity,
           ),
-          Text(
+          const Text(
             'Имя пользователя',
             style: TextStyles.hintWhite,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
-            'usernameExample',
+            username,
             style: TextStyles.bodyWhite,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -194,7 +221,9 @@ class _EmailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ProfileViewModel>();
+    final model = context.watch<ProfileViewModel>();
+    final userInfo = model.userInfo;
+    if (userInfo == null) return SizedBox.shrink();
     return InkWell(
       //TODO onTap
       onTap: () => model.redactionOnPressed(context),
@@ -226,27 +255,31 @@ class _AboutMeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final model = context.read<ProfileViewModel>();
+    final model = context.watch<ProfileViewModel>();
+    final userInfo = model.userInfo;
+    if (userInfo == null) return SizedBox.shrink();
+    final details =
+        userInfo.details.isEmpty ? 'Информация не заполнена' : userInfo.details;
     return InkWell(
       //TODO onTap
       onTap: () => model.redactionOnPressed(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             height: 16,
             width: double.infinity,
           ),
-          Text(
+          const Text(
             'О себе',
             style: TextStyles.hintWhite,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
-            'Этот текст написан для демонстрации раздела с дополнительной информацией о пользователе',
+            details,
             style: TextStyles.bodyWhite,
           ),
-          SizedBox(height: 24),
+          const SizedBox(height: 24),
         ],
       ),
     );

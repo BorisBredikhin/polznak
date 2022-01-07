@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:mobile_client/domain/entity/conversation.dart';
+import 'package:mobile_client/domain/entity/message.dart';
 import 'package:mobile_client/domain/entity/post.dart';
 
 enum ApiCLientExceptionType {
@@ -163,6 +165,78 @@ class ApiClient {
     }
   }
 
+  Future<List<Conversation>> getConversations({
+    required String token,
+  }) async {
+    try {
+      final url = Uri.parse(_host + '/api/messages/chat_list');
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'token $token',
+        },
+      );
+      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final jsonConversationsList = json['conversations'] as List<dynamic>;
+      List<Conversation> conversations = [];
+      for (var jsonConversation in jsonConversationsList) {
+        conversations.add(Conversation.fromJson(jsonConversation as Map<String, dynamic>));
+      }
+      return conversations;
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
+  Future<Participant> getUserInfo({
+    required String token,
+  }) async {
+    try {
+      final url = Uri.parse(_host + '/api/profile/');
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'token $token',
+        },
+      );
+      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final userInfo = Participant.fromJson(json);
+      return userInfo;
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
+  Future<List<Message>> getMessages({
+    required String token,
+    required int conversationId,
+  }) async {
+    try {
+      final url = Uri.parse(_host + '/api/messages/chat/$conversationId');
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'token $token',
+        },
+      );
+      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final jsonMessagesList = json['messages'] as List<dynamic>;
+      List<Message> messages = [];
+      for (var jsonMessage in jsonMessagesList) {
+        messages.add(Message.fromJson(jsonMessage as Map<String, dynamic>));
+      }
+      return messages;
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
   Future<void> postLikeOrDislike({
     required int grade,
     required int postId,
@@ -182,6 +256,32 @@ class ApiClient {
         },
         body: jsonEncode(body),
       );
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
+  Future<void> sendMessage({
+    required String token,
+    required int conversationId,
+    required String messageText,
+  }) async {
+    final body = <String, dynamic>{
+      "text": messageText,
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(_host + '/api/messages/chat/$conversationId'),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'token $token',
+        },
+        body: jsonEncode(body),
+      );
+      print('object');
     } on SocketException {
       throw ApiCLientException(ApiCLientExceptionType.network);
     } catch (e) {
