@@ -60,8 +60,8 @@ class ScreenFactory {
         child: const ChatsWidget(),
       );
 
-  Widget makePersonalMessages() => ChangeNotifierProvider(
-        create: (_) => PersonalMessagesModel(),
-        child: const PersonalMessagesWidget(),
-      );
+  // Widget makePersonalMessages() => ChangeNotifierProvider(
+  //       create: (_) => PersonalMessagesModel(),
+  //       child: const PersonalMessagesWidget(),
+  //     );
 }

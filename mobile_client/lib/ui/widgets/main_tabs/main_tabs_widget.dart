@@ -12,18 +12,10 @@ class MainTabsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.read<MainTabsViewModel>();
     final bool keyboardIsOpen = MediaQuery.of(context).viewInsets.bottom != 0;
-    return Scaffold(
+    return const Scaffold(
       // extendBody: true,
-      // appBar: AppBar(
-      //   actions: [
-      //     IconButton(
-      //       icon: const Icon(Icons.logout),
-      //       onPressed: () => model.logout(context),
-      //     ),
-      //   ],
-      // ),
-      body: const _BodyWidget(),
-      bottomNavigationBar: const _NavBarWidget(),
+      body: _BodyWidget(),
+      bottomNavigationBar: _BottomNavigationBarWidget(),
       // floatingActionButton: Visibility(
       //   visible: !keyboardIsOpen,
       //   child: FloatingActionButton(
