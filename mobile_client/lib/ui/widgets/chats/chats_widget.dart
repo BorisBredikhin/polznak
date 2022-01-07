@@ -98,15 +98,6 @@ class _ChatCardWidget extends StatelessWidget {
     final interlocutorFullName =
         interlocutorInfo.user.firstName + ' ' + interlocutorInfo.user.lastName;
 
-    final conversationId = model.conversations[index].id;
-    final lastMessagesList = model.lastMessagesInEachConversation;
-
-    final lastMessage = lastMessagesList[conversationId];
-    final messageBody =
-        lastMessage == null ? 'Начните общение прямо сейчас' : lastMessage.body;
-    final messageTime = lastMessage == null
-        ? ''
-        : lastMessage.sendAt.split('T')[1].substring(0, 5);
     return Row(
       children: [
         const CircleAvatar(
@@ -125,12 +116,7 @@ class _ChatCardWidget extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              Text(
-                messageBody,
-                style: TextStyles.hintWhite,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
+              _MessageBodyWidget(index: index),
             ],
           ),
         ),
@@ -138,15 +124,61 @@ class _ChatCardWidget extends StatelessWidget {
         Column(
           children: [
             const SizedBox(height: 20),
-            Text(
-              messageTime,
-              style: TextStyles.hintWhite,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
+            _MessageTimeWidget(index: index),
           ],
         ),
       ],
+    );
+  }
+}
+
+class _MessageBodyWidget extends StatelessWidget {
+  final int index;
+  const _MessageBodyWidget({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<ChatsModel>();
+    final lastMessagesList = model.lastMessagesInEachConversation;
+
+    final conversationId = model.conversations[index].id;
+    final lastMessage = lastMessagesList[conversationId];
+    final messageBody =
+        lastMessage == null ? 'Начните общение прямо сейчас' : lastMessage.body;
+    return Text(
+      messageBody,
+      style: TextStyles.hintWhite,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
+
+class _MessageTimeWidget extends StatelessWidget {
+  final int index;
+  const _MessageTimeWidget({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<ChatsModel>();
+    final lastMessagesList = model.lastMessagesInEachConversation;
+
+    final conversationId = model.conversations[index].id;
+    final lastMessage = lastMessagesList[conversationId];
+    final messageTime = lastMessage == null
+        ? ''
+        : lastMessage.sendAt.split('T')[1].substring(0, 5);
+    return Text(
+      messageTime,
+      style: TextStyles.hintWhite,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

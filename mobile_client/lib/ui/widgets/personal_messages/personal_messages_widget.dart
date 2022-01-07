@@ -10,10 +10,6 @@ class PersonalMessagesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final messageBubbleWidth = screenWidth * 3 / 4;
-    final model = context.watch<PersonalMessagesModel>();
-    final messagesList = model.messagesList;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -31,105 +27,13 @@ class PersonalMessagesWidget extends StatelessWidget {
       body: DecoratedBox(
         decoration: BoxDecorations.scaffoldGradient,
         child: Stack(
-          children: [
-            //TODO не обернул в паддинг стек потому что пока не разобрался как по-другому сделать отправку сообщения, она двигается вмесет со всем контенотом и остается отступ снизу
-            SafeArea(
-              child: ListView(
-                children: [
-                  //TODO Времееный виджет об отсутствии сообщений, исправить после рефаткоринга
-                  _EmptyMessageListWidget(),
-                  Padding(
-                    //TODO Разобраться с нижним паддингом
-                    padding: const EdgeInsets.fromLTRB(16, 24, 16, 60),
-                    child: ListView.builder(
-                      reverse: true,
-                      itemCount: messagesList.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        final model = context.watch<PersonalMessagesModel>();
-                        final userInfo = model.userInfo;
-                        if (userInfo == null || messagesList.isEmpty)
-                          return const SizedBox.shrink();
-                        final alignment = messagesList[index].sender ==
-                                    userInfo.id
-                                ? Alignment.topRight
-                                : Alignment.topLeft;
-                        final messageBody = messagesList[index].body;   
-                        return Container(
-                          padding: const EdgeInsets.only(bottom: 8),
-                          child: Align(
-                            alignment: alignment,
-                            child: Container(
-                              constraints:
-                                  BoxConstraints(maxWidth: messageBubbleWidth),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                color: Colors.white,
-                              ),
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                messageBody,
-                                style: TextStyles.bodyBlack,
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child: Container(
-                padding: const EdgeInsets.only(left: 16),
-                height: 56,
-                width: double.infinity,
-                color: Colors.white,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: TextField(
-                        controller: model.messageTextController,
-                        decoration: const InputDecoration(
-                            hintText: "Введите текст сообщения",
-                            hintStyle: TextStyles.textFieldHint,
-                            border: InputBorder.none),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    IconButton(
-                      onPressed: () => model.sendMessage(),
-                      icon: Image.asset(AppImages.sendIcon),
-                      padding: EdgeInsets.zero,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+          children: const [
+            _MessagesListWidget(),
+            _MessageInputWidget(),
           ],
         ),
       ),
     );
-  }
-}
-
-class _EmptyMessageListWidget extends StatelessWidget {
-  const _EmptyMessageListWidget({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final model = context.watch<PersonalMessagesModel>();
-    final messagesList = model.messagesList;
-    if (messagesList.isEmpty) {
-      return Center(
-        child: Text('Сообщений пока нет'),
-      );
-    } else {
-      return SizedBox.shrink();
-    }
   }
 }
 
@@ -149,15 +53,6 @@ class _AppBarTitleWidget extends StatelessWidget {
           radius: 20,
           backgroundColor: Colors.white,
         ),
-        //TODO Заменить аналогичные контейнеры на CircleAvatar
-        // Container(
-        //   width: 40,
-        //   height: 40,
-          // decoration: const BoxDecoration(
-          //   color: Colors.white,
-          //   shape: BoxShape.circle,
-        //   ),
-        // ),
         const SizedBox(width: 8),
         Expanded(
             child: Column(
@@ -174,6 +69,127 @@ class _AppBarTitleWidget extends StatelessWidget {
           ],
         ))
       ],
+    );
+  }
+}
+
+class _MessagesListWidget extends StatelessWidget {
+  const _MessagesListWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final messageBubbleWidth = screenWidth * 3 / 4;
+    final model = context.watch<PersonalMessagesModel>();
+    final messagesList = model.messagesList;
+    final scrollController = model.scrollController;
+    if (messagesList.isEmpty) {
+      return const Center(
+        child: Text(
+          'Сообщений пока нет. Начните общение прямо сейчас.',
+          style: TextStyles.bodyWhite,
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+    return SafeArea(
+      child: ListView.builder(
+        padding: const EdgeInsets.fromLTRB(16, 24, 16, 60),
+        controller: scrollController,
+        reverse: true,
+        itemCount: messagesList.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return _MessageBubbleWidget(
+            index: index,
+            messageBubbleWidth: messageBubbleWidth,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _MessageBubbleWidget extends StatelessWidget {
+  const _MessageBubbleWidget({
+    Key? key,
+    required this.index,
+    required this.messageBubbleWidth,
+  }) : super(key: key);
+
+  final int index;
+  final double messageBubbleWidth;
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<PersonalMessagesModel>();
+    final messagesList = model.messagesList;
+    if (messagesList.isEmpty) return const SizedBox.shrink();
+
+    final userInfo = model.userInfo;
+    if (userInfo == null) return const SizedBox.shrink();
+
+    final alignment = messagesList[index].sender == userInfo.id
+        ? Alignment.topRight
+        : Alignment.topLeft;
+
+    final messageBody = messagesList[index].body;
+    return Container(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Align(
+        alignment: alignment,
+        child: Container(
+          constraints: BoxConstraints(maxWidth: messageBubbleWidth),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(16),
+            color: Colors.white,
+          ),
+          padding: const EdgeInsets.all(8),
+          child: Text(
+            messageBody,
+            style: TextStyles.bodyBlack,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _MessageInputWidget extends StatelessWidget {
+  const _MessageInputWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final model = context.watch<PersonalMessagesModel>();
+    return Align(
+      alignment: Alignment.bottomLeft,
+      child: Container(
+        padding: const EdgeInsets.only(left: 16),
+        height: 56,
+        width: double.infinity,
+        color: Colors.white,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: TextField(
+                controller: model.messageTextController,
+                decoration: const InputDecoration(
+                    hintText: "Введите текст сообщения",
+                    hintStyle: TextStyles.textFieldHint,
+                    border: InputBorder.none),
+              ),
+            ),
+            const SizedBox(width: 8),
+            IconButton(
+              onPressed: () => model.sendMessage(),
+              icon: Image.asset(AppImages.sendIcon),
+              padding: EdgeInsets.zero,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

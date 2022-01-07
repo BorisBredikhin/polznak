@@ -10,12 +10,15 @@ class PersonalMessagesModel extends ChangeNotifier {
 
   final messageTextController = TextEditingController();
 
+  final scrollController = ScrollController();
+
   final int _conversationId;
   int get conversationId => _conversationId;
 
   PersonalMessagesModel(this._conversationId) {
     getUserInfo();
     getInerlocutorInfo();
+    // Timer.periodic(const Duration(seconds: 5), (Timer t) => getMessagesFromServer());
     getMessagesFromServer();
   }
 
@@ -129,6 +132,8 @@ class PersonalMessagesModel extends ChangeNotifier {
         conversationId: conversationId,
         messageText: messageText,
       );
+      // scrollController.animateTo(scrollController.position.maxScrollExtent,
+      //     duration: const Duration(milliseconds: 500), curve: Curves.easeOut);
       messageTextController.clear();
     } on ApiCLientException catch (e) {
       switch (e.type) {
@@ -146,6 +151,7 @@ class PersonalMessagesModel extends ChangeNotifier {
       notifyListeners();
       return;
     }
+    //TODO Переделать чтобы работал скролл вниз после отправки сообщения, обновляется весь список сообщений и соответственно виджет мигает когда происходит ребилд
     getMessagesFromServer();
     notifyListeners();
   }

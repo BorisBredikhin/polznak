@@ -11,7 +11,7 @@ import 'package:mobile_client/navigation/main_navigation.dart';
 class ChatsModel extends ChangeNotifier {
 
   ChatsModel() {
-    // Timer.periodic(const Duration(seconds: 5), (Timer t) => getConversations());
+    // Timer.periodic(const Duration(seconds: 1), (Timer t) => getConversations());
     getConversations();
     getUserInfo();
   }
