@@ -190,6 +190,32 @@ class ApiClient {
     }
   }
 
+  Future<List<Participant>> getConversationParticipants({
+    required String token,
+    required int chatId,
+  }) async {
+    try {
+      final url = Uri.parse(_host + '/api/messages/chat_list?chat_id=$chatId');
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'token $token',
+        },
+      );
+      final json = await jsonDecode(response.body) as Map<String, dynamic>;
+      final jsonParticipantsList = json['data'] as List<dynamic>;
+      List<Participant> paticipants = [];
+      for (var jsonParticipant in jsonParticipantsList) {
+        paticipants.add(Participant.fromJson(jsonParticipant as Map<String, dynamic>));
+      }
+      return paticipants;
+    } on SocketException {
+      throw ApiCLientException(ApiCLientExceptionType.network);
+    } catch (e) {
+      throw ApiCLientException(ApiCLientExceptionType.other);
+    }
+  }
+
   Future<Participant> getUserInfo({
     required String token,
   }) async {

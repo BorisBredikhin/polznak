@@ -9,12 +9,13 @@ class PersonalMessagesModel extends ChangeNotifier {
   final _tokenDataProvider = TokenDataProvider();
 
   final messageTextController = TextEditingController();
-  
+
   final int _conversationId;
   int get conversationId => _conversationId;
 
   PersonalMessagesModel(this._conversationId) {
     getUserInfo();
+    getInerlocutorInfo();
     getMessagesFromServer();
   }
 
@@ -23,6 +24,9 @@ class PersonalMessagesModel extends ChangeNotifier {
 
   Participant? _userInfo;
   Participant? get userInfo => _userInfo;
+
+  Participant? _interlocutorInfo;
+  Participant? get interlocutorInfo => _interlocutorInfo;
 
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
@@ -49,14 +53,33 @@ class PersonalMessagesModel extends ChangeNotifier {
     }
   }
 
-  // Participant? getInterlocutorInfo() {
-  //   final participants = _conversations[index].participants;
-  //   for (Participant participant in participants) {
-  //     if (participant.id != userInfo?.id) {
-  //       return participant;
-  //     }
-  //   }
-  // }
+  Future<void> getInerlocutorInfo() async {
+    final token = await _tokenDataProvider.getToken();
+    if (token == null) return;
+    try {
+      final participants = await _apiClient.getConversationParticipants(
+          token: token, chatId: conversationId);
+      for (Participant participant in participants) {
+        if (participant.id != _userInfo?.id) {
+          _interlocutorInfo = participant;
+        }
+      }
+    } on ApiCLientException catch (e) {
+      switch (e.type) {
+        case ApiCLientExceptionType.network:
+          _errorMessage =
+              'Сервер недоступен. Проверьте подключение к интернету.';
+          break;
+        default:
+          _errorMessage = 'Произошла ошибка, попробуйте еще раз.';
+          break;
+      }
+    }
+
+    if (_errorMessage != null) {
+      notifyListeners();
+    }
+  }
 
   Future<List<Message>?> getMessagesFromServer() async {
     final token = await _tokenDataProvider.getToken();

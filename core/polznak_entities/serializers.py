@@ -34,7 +34,7 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = '__all__'
-        depth=2
+        # depth=2
 
 
 class RegisterSerializer(serializers.Serializer):
