@@ -12,6 +12,21 @@ abstract class BoxDecorations {
     ),
   );
 
+  static const darkScaffoldGradient = BoxDecoration(
+    gradient: LinearGradient(
+      colors: <Color>[
+        Color.fromRGBO(155, 162, 229, 1),
+        Color.fromRGBO(83, 4, 78, 1),
+      ],
+      begin: Alignment(-0.8, -1),
+      end: Alignment(1, 1),
+    ),
+  );
+
+  static const whiteScaffold = BoxDecoration(
+    color: Colors.white,
+  );
+
   static const bottomNavBarGradient = BoxDecoration(
     gradient: LinearGradient(
       colors: <Color>[
@@ -35,7 +50,13 @@ abstract class BoxDecorations {
   );
 
   static final formBackground = BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      );
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(16),
+  );
+
+//костыль для web'a
+  static final webFormBackground = BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(25),
+  );
 }

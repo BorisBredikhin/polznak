@@ -6,52 +6,72 @@ import 'package:mobile_client/ui/widgets/profile_view/essays_list_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_view/profile_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'essay_web_list_widget.dart';
+
 class ProfileViewWebWidget extends StatelessWidget {
   const ProfileViewWebWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final model = context.read<ProfileViewModel>();
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        actions: [
-          IconButton(
-            onPressed: () => model.redactionOnPressed(context),
-            icon: const Icon(Icons.mode),
-          ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () => model.logout(context),
-          ),
-        ],
-      ),
-      body: DecoratedBox(
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: DecoratedBox(
         decoration: BoxDecorations.scaffoldGradient,
-        child: ListView(
+        child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24, top: 0),
-              child: Column(
-                children: const [
-                  _MainInformationWidget(),
-                  SizedBox(height: 24),
-                  _SectionTitleWidget(title: 'Аккаунт'),
-                  _UsernameWidget(),
-                  // _PurpleDividerWidget(),
-                  // _EmailWidget(),
-                  _PurpleDividerWidget(),
-                  _AboutMeWidget(),
-                  _SectionTitleWidget(title: 'Личные данные'),
-                  SizedBox(height: 16),
-                  _PersonalDataWidget(),
-                  SizedBox(height: 24),
-                  _SectionTitleWidget(title: 'Мои эссе'),
-                  SizedBox(height: 16),
-                  EssaysListWidget(),
-                ],
+            SizedBox(
+              width: 1024,
+              height: 948.6,
+              child: Scaffold(
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  actions: [
+                    IconButton(
+                      onPressed: () => model.redactionOnPressed(context),
+                      icon: const Icon(Icons.mode),
+                      color: Colors.purple,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.logout),
+                      onPressed: () => model.logout(context),
+                      color: Colors.purple,
+                    ),
+                  ],
+                ),
+                body: DecoratedBox(
+                  decoration: BoxDecorations.whiteScaffold,
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 24, top: 0),
+                        child: Column(
+                          children: const [
+                            _MainInformationWidget(),
+                            SizedBox(height: 24),
+                            _SectionTitleWidget(title: 'Аккаунт'),
+                            _UsernameWidget(),
+                            // _PurpleDividerWidget(),
+                            // _EmailWidget(),
+                            _PurpleDividerWidget(),
+                            _AboutMeWidget(),
+                            _SectionTitleWidget(title: 'Личные данные'),
+                            SizedBox(height: 16),
+                            _PersonalDataWidget(),
+                            SizedBox(height: 24),
+                            _SectionTitleWidget(title: 'Мои эссе'),
+                            SizedBox(height: 16),
+                            WebEssaysListWidget(),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           ],
@@ -76,7 +96,7 @@ class _MainInformationWidget extends StatelessWidget {
         const SizedBox(height: 16),
         Text(
           userFullName,
-          style: TextStyles.headline5White,
+          style: TextStyles.headline5Purple,
         ),
       ],
     );
@@ -91,7 +111,7 @@ class _ProfileAvatar extends StatelessWidget {
       width: 160,
       height: 160,
       decoration: const BoxDecoration(
-        color: Colors.white,
+        color: Colors.purple,
         shape: BoxShape.circle,
       ),
     );
@@ -121,7 +141,7 @@ class _PersonalDataWidget extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 gender,
-                style: TextStyles.bodyWhite,
+                style: TextStyles.bodyPurple,
               ),
             ],
           ),
@@ -135,7 +155,7 @@ class _PersonalDataWidget extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 birthDate,
-                style: TextStyles.bodyWhite,
+                style: TextStyles.bodyPurple,
               ),
             ],
           ),
@@ -165,12 +185,12 @@ class _UsernameWidget extends StatelessWidget {
           ),
           const Text(
             'Имя пользователя',
-            style: TextStyles.hintWhite,
+            style: TextStyles.hintPurple,
           ),
           const SizedBox(height: 8),
           Text(
             username,
-            style: TextStyles.bodyWhite,
+            style: TextStyles.bodyPurple,
           ),
           const SizedBox(height: 16),
         ],
@@ -199,12 +219,12 @@ class _EmailWidget extends StatelessWidget {
           ),
           Text(
             'Адрес электронной почты',
-            style: TextStyles.hintWhite,
+            style: TextStyles.hintPurple,
           ),
           SizedBox(height: 8),
           Text(
             '1034example@mail.ru',
-            style: TextStyles.bodyWhite,
+            style: TextStyles.bodyPurple,
           ),
           SizedBox(height: 16),
         ],
@@ -235,12 +255,12 @@ class _AboutMeWidget extends StatelessWidget {
           ),
           const Text(
             'О себе',
-            style: TextStyles.hintWhite,
+            style: TextStyles.hintPurple,
           ),
           const SizedBox(height: 8),
           Text(
             details,
-            style: TextStyles.bodyWhite,
+            style: TextStyles.bodyPurple,
           ),
           const SizedBox(height: 24),
         ],
@@ -260,7 +280,7 @@ class _SectionTitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final divider = Container(
-      color: Colors.white,
+      color: Colors.purple,
       height: 1,
     );
     return Row(
@@ -271,7 +291,7 @@ class _SectionTitleWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Text(
             title,
-            style: TextStyles.headline6White,
+            style: TextStyles.headline6Purple,
           ),
         ),
         Expanded(child: divider),
@@ -288,7 +308,7 @@ class _PurpleDividerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color.fromRGBO(20, 0, 255, 0.26),
+      color: Colors.purple,
       height: 1,
     );
   }

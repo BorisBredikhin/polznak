@@ -21,12 +21,18 @@ abstract class TextStyles {
     color: Colors.black,
     fontSize: 16,
     height: 1.25,
-    
   );
 
   static const hintWhite = TextStyle(
     fontWeight: FontWeight.w300,
     color: Colors.white,
+    fontSize: 12,
+    height: 1.333,
+  );
+
+  static const hintPurple = TextStyle(
+    fontWeight: FontWeight.w300,
+    color: Colors.purple,
     fontSize: 12,
     height: 1.333,
   );
@@ -52,7 +58,6 @@ abstract class TextStyles {
     fontSize: 14,
     letterSpacing: 0.5,
     height: 1.25,
-    
   );
 
   static const textFieldHint = TextStyle(
@@ -69,6 +74,13 @@ abstract class TextStyles {
     height: 1.167,
   );
 
+  static const headline5Purple = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.purple,
+    fontSize: 24,
+    height: 1.167,
+  );
+
   static const headline6White = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.white,
@@ -76,9 +88,23 @@ abstract class TextStyles {
     height: 1.2,
   );
 
+  static const headline6Purple = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.purple,
+    fontSize: 20,
+    height: 1.2,
+  );
+
   static const headline7White = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.white,
+    fontSize: 16,
+    height: 1.25,
+  );
+
+  static const headline7Purple = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.purple,
     fontSize: 16,
     height: 1.25,
   );
@@ -96,9 +122,6 @@ abstract class TextStyles {
     fontSize: 16,
     height: 1.25,
   );
-
-
-
 
   static const whiteSize10Weight700 = TextStyle(
     color: Colors.white,

@@ -4,10 +4,8 @@ abstract class AppColors {
   static const textFieldActive = Color.fromRGBO(192, 192, 192, 1);
 
   static const purple = Color.fromRGBO(151, 62, 201, 1);
+  static const white = Color.fromARGB(255, 255, 255, 255); //костыль для web'a
 
-  
-
-  
   static const bottomNavigationBarGradient = BoxDecoration(
     gradient: LinearGradient(
       colors: <Color>[
@@ -18,9 +16,6 @@ abstract class AppColors {
       end: Alignment(1, 0.5),
     ),
   );
-
-
-
 
   static const profileInfoGradient = LinearGradient(
     colors: <Color>[

@@ -11,6 +11,46 @@ abstract class ButtonStyles {
     )),
   );
 
+  //костыль для web'a
+  static final webRightPurpleOutlinedButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+      AppColors.purple,
+    ),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      borderRadius: const BorderRadius.only(topRight: Radius.circular(25)),
+    )),
+  );
+
+  //костыль для web'a
+  static final webLeftPurpleOutlinedButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+      AppColors.purple,
+    ),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      borderRadius: const BorderRadius.only(topLeft: Radius.circular(25)),
+    )),
+  );
+
+  //костыль для web'a
+  static final webLeftWhiteOutlinedButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+      AppColors.white,
+    ),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      borderRadius: const BorderRadius.only(topLeft: Radius.circular(25)),
+    )),
+  );
+
+  //костыль для web'a
+  static final webRightWhiteOutlinedButton = ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(
+      AppColors.white,
+    ),
+    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+      borderRadius: const BorderRadius.only(topRight: Radius.circular(25)),
+    )),
+  );
+
   static final textButton = ButtonStyle(
     padding: MaterialStateProperty.all(
       const EdgeInsets.all(0),

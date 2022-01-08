@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_form_widget.dart';
+import 'package:mobile_client/ui/widgets/profile_redaction/profile_redaction_web_form_widget.dart';
 
 class ProfileRedactionWebWidget extends StatelessWidget {
   const ProfileRedactionWebWidget({Key? key}) : super(key: key);
@@ -13,25 +14,43 @@ class ProfileRedactionWebWidget extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent,
       ),
-      body: DecoratedBox(
-        decoration: BoxDecorations.scaffoldGradient,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 24),
-              child: Column(
-                // mainAxisSize: MainAxisSize.max,
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  _ProfileAvatar(),
-                  SizedBox(height: 32),
-                  ProfileRedactionFormWidget(),
-                  SizedBox(height: 16),
-                ],
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: DecoratedBox(
+          decoration: BoxDecorations.darkScaffoldGradient,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 360,
+                height: 696,
+                child: DecoratedBox(
+                  decoration: BoxDecorations.webFormBackground,
+                  child: ListView(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 16),
+                        child: Column(
+                          // mainAxisSize: MainAxisSize.max,
+                          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            _ProfileAvatar(),
+                            //SizedBox(height: 32),
+                            WebProfileRedactionFormWidget(),
+                            SizedBox(height: 16),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
