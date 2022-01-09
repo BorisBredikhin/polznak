@@ -38,7 +38,19 @@ class _PublicationWidget extends StatelessWidget {
     final model = context.watch<FeedModel>();
     //TODO Подумать, как можно исправить
     final post = model.getCurrentPost();
-    if (post == null) return const _ErrorMessageWidget();
+    // if (post == null) return const _ErrorMessageWidget();
+    if (post == null) {
+      final screenHeight = MediaQuery.of(context).size.height - 56;
+      return SizedBox(
+        height: screenHeight,
+        child: const Center(
+          child: Text(
+            'Вы посмотрели все доступные публикации',
+            style: TextStyles.headline7Black,
+          ),
+        ),
+      );
+    }
     return Column(
       children: [
         const Text(

@@ -1,11 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mobile_client/domain/api_client/api_client.dart';
 import 'package:mobile_client/domain/data_providers/token_data_provider.dart';
 import 'package:mobile_client/domain/entity/post.dart';
 
 class FeedModel extends ChangeNotifier {
+  FeedModel() {
+    timer = Timer.periodic(
+        const Duration(seconds: 1), (Timer t) {
+          if (_posts.isEmpty) getPosts();
+        });
+  }
+
+  @override
+  void dispose() {
+    timer!.cancel();
+    super.dispose();
+  }
+
   final _apiClient = ApiClient();
   final _tokenDataProvider = TokenDataProvider();
+
+  Timer? timer;
 
   final _posts = <Post>[];
   int _index = 0;
@@ -17,9 +34,9 @@ class FeedModel extends ChangeNotifier {
   Future<void> getPosts() async {
     final token = await _tokenDataProvider.getToken();
     if (token == null) return;
-    _posts.clear();
     try {
       final posts = await _apiClient.getPosts(token: token);
+      _posts.clear();
       _posts.addAll(posts);
       var postsAmount = _posts.length;
       _index = postsAmount - 1;
@@ -39,10 +56,6 @@ class FeedModel extends ChangeNotifier {
     if (_errorMessage != null) {
       notifyListeners();
     }
-  }
-
-  FeedModel() {
-    getPosts();
   }
 
   String? get errorMessage => _errorMessage;

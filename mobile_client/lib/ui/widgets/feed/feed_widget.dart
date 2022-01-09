@@ -38,7 +38,19 @@ class _PublicationWidget extends StatelessWidget {
     final model = context.watch<FeedModel>();
     //TODO Подумать, как можно исправить
     final post = model.getCurrentPost();
-    if (post == null) return const _ErrorMessageWidget();
+    // if (post == null) return const _ErrorMessageWidget();
+    if (post == null) {
+      final screenHeight = MediaQuery.of(context).size.height - 56;
+      return SizedBox(
+        height: screenHeight,
+        child: const Center(
+          child: Text(
+            'Вы посмотрели все доступные публикации',
+            style: TextStyles.headline7Black,
+          ),
+        ),
+      );
+    }
     return Column(
       children: [
         const Text(
@@ -80,7 +92,7 @@ class _FloatingButtonsWidget extends StatelessWidget {
               height: 80,
               child: FloatingActionButton(
                 heroTag: 'btn1',
-                onPressed:() => model.sendLikeOrDislike(false, post.id),
+                onPressed: () => model.sendLikeOrDislike(false, post.id),
                 child: const Icon(
                   Icons.thumb_down_rounded,
                   size: 40,
@@ -119,7 +131,6 @@ class _FloatingButtonsWidget extends StatelessWidget {
     );
   }
 }
-
 
 class _ErrorMessageWidget extends StatelessWidget {
   const _ErrorMessageWidget({Key? key}) : super(key: key);

@@ -23,7 +23,8 @@ class PersonalMessagesModel extends ChangeNotifier {
   PersonalMessagesModel(this._conversationId) {
     getUserInfo();
     getInerlocutorInfo();
-    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => getMessagesFromServer());
+    timer = Timer.periodic(
+        const Duration(seconds: 1), (Timer t) => getMessagesFromServer());
     // getMessagesFromServer();
   }
 
@@ -102,9 +103,9 @@ class PersonalMessagesModel extends ChangeNotifier {
       return null;
     } //TODO Выкинуть на страницу авторизации
     try {
-      _messagesList.clear();
       final messages = await _apiClient.getMessages(
           token: token, conversationId: conversationId);
+      _messagesList.clear();
       _messagesList.addAll(messages);
       notifyListeners();
     } on ApiCLientException catch (e) {

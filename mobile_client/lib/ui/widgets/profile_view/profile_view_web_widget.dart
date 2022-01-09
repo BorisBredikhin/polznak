@@ -23,7 +23,7 @@ class ProfileViewWebWidget extends StatelessWidget {
           children: [
             SizedBox(
               width: 1024,
-              height: 948.6,
+              height: MediaQuery.of(context).size.height - 56,
               child: Scaffold(
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(

@@ -101,6 +101,7 @@ Timer? timer;
   }
 
   Participant? getInterlocutorInfo(int index) {
+    if (index > _conversations.length - 1) return null;
     final participants = _conversations[index].participants;
     for (Participant participant in participants) {
       if (participant.id != userInfo?.id) {
@@ -114,6 +115,7 @@ Timer? timer;
     if (token == null) {
       return <Message>[];
     }
+    if (index > _conversations.length - 1) return null;
     final conversationId = _conversations[index].id;
     _messages.clear();
     try {
@@ -137,6 +139,7 @@ Timer? timer;
   }
 
   void onConversationTap(BuildContext context, int index) {
+    if (index > _conversations.length - 1) return;
     final id = _conversations[index].id;
     Navigator.of(context).pushNamed(
       Screens.personalMessages,
