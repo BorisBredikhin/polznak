@@ -7,10 +7,9 @@ import 'package:mobile_client/domain/entity/post.dart';
 
 class FeedModel extends ChangeNotifier {
   FeedModel() {
-    timer = Timer.periodic(
-        const Duration(seconds: 1), (Timer t) {
-          if (_posts.isEmpty) getPosts();
-        });
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
+      if (_posts.isEmpty) getPosts();
+    });
   }
 
   @override
@@ -27,7 +26,8 @@ class FeedModel extends ChangeNotifier {
   final _posts = <Post>[];
   int _index = 0;
 
-  bool isLoadingProgress = false;
+  bool _isLoadingProgress = true;
+  bool get isLoadingProgress => _isLoadingProgress;
 
   String? _errorMessage;
 
@@ -35,11 +35,12 @@ class FeedModel extends ChangeNotifier {
     final token = await _tokenDataProvider.getToken();
     if (token == null) return;
     try {
-      final posts = await _apiClient.getPosts(token: token);
       _posts.clear();
+      final posts = await _apiClient.getPosts(token: token);
       _posts.addAll(posts);
       var postsAmount = _posts.length;
       _index = postsAmount - 1;
+      _isLoadingProgress = false;
       notifyListeners();
     } on ApiCLientException catch (e) {
       switch (e.type) {
@@ -51,6 +52,8 @@ class FeedModel extends ChangeNotifier {
           _errorMessage = 'Произошла ошибка, попробуйте еще раз.';
           break;
       }
+    } catch (e) {
+      return;
     }
 
     if (_errorMessage != null) {
@@ -81,6 +84,8 @@ class FeedModel extends ChangeNotifier {
       if (_index > 0) {
         _index -= 1;
       } else {
+        _isLoadingProgress = true;
+        notifyListeners();
         getPosts();
       }
       notifyListeners();

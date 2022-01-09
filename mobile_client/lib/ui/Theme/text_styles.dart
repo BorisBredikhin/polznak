@@ -23,6 +23,20 @@ abstract class TextStyles {
     height: 1.25,
   );
 
+  static const bottomBarUnselectedLabel = TextStyle(
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+    fontSize: 10,
+    height: 1.2,
+  );
+
+  static const bottomBarSelectedLabel = TextStyle(
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+    fontSize: 10,
+    height: 1.2,
+  );
+
   static const hintWhite = TextStyle(
     fontWeight: FontWeight.w300,
     color: Colors.white,

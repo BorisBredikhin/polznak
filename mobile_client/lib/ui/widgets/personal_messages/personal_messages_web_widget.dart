@@ -5,8 +5,8 @@ import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_model.dart';
 import 'package:provider/provider.dart';
 
-class PersonalMessagesWidget extends StatelessWidget {
-  const PersonalMessagesWidget({Key? key}) : super(key: key);
+class PersonalMessagesWebWidget extends StatelessWidget {
+  const PersonalMessagesWebWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

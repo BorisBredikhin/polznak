@@ -13,12 +13,18 @@ class FeedWidget extends StatelessWidget {
     return Scaffold(
       floatingActionButton: const _FloatingButtonsWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        leading: const BackButton(color: Color.fromRGBO(169, 24, 175, 1)),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+      ),
       body: DecoratedBox(
         decoration: const BoxDecoration(color: Colors.white),
         child: ListView(
           children: const [
             Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 16, 128),
+              padding: EdgeInsets.fromLTRB(16, 0, 16, 128),
               child: _PublicationWidget(),
             ),
           ],
@@ -36,11 +42,20 @@ class _PublicationWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.watch<FeedModel>();
-    //TODO Подумать, как можно исправить
     final post = model.getCurrentPost();
-    // if (post == null) return const _ErrorMessageWidget();
-    if (post == null) {
-      final screenHeight = MediaQuery.of(context).size.height - 56;
+    final screenHeight = MediaQuery.of(context).size.height-80;
+    if (model.isLoadingProgress) {
+      return SizedBox(
+        height: screenHeight,
+        child: const Center(
+          child: SizedBox(
+            height: 120,
+            width: 120,
+            child: CircularProgressIndicator(strokeWidth: 2),
+          ),
+        ),
+      );
+    } else if (post == null) {
       return SizedBox(
         height: screenHeight,
         child: const Center(

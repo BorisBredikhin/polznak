@@ -71,6 +71,8 @@ Timer? timer;
           _errorMessage = 'Произошла ошибка, попробуйте еще раз.';
           break;
       }
+    } catch (e) {
+      return;
     }
     if (_errorMessage != null) {
       notifyListeners();

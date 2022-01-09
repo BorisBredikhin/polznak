@@ -20,6 +20,9 @@ class PersonalMessagesModel extends ChangeNotifier {
 
   Timer? timer;
 
+  bool _isLoadingProgress = true;
+  bool get isLoadingProgress => _isLoadingProgress;
+
   PersonalMessagesModel(this._conversationId) {
     getUserInfo();
     getInerlocutorInfo();
@@ -97,16 +100,17 @@ class PersonalMessagesModel extends ChangeNotifier {
     }
   }
 
-  Future<List<Message>?> getMessagesFromServer() async {
+  Future<void> getMessagesFromServer() async {
     final token = await _tokenDataProvider.getToken();
     if (token == null) {
-      return null;
+      return;
     } //TODO Выкинуть на страницу авторизации
     try {
       final messages = await _apiClient.getMessages(
           token: token, conversationId: conversationId);
       _messagesList.clear();
       _messagesList.addAll(messages);
+      _isLoadingProgress = false;
       notifyListeners();
     } on ApiCLientException catch (e) {
       switch (e.type) {
@@ -118,6 +122,8 @@ class PersonalMessagesModel extends ChangeNotifier {
           _errorMessage = 'Произошла ошибка, попробуйте еще раз.';
           break;
       }
+    } catch (e) {
+      return;
     }
     if (_errorMessage != null) {
       notifyListeners();

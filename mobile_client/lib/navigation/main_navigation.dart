@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view_web_widget.dart';
 import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view_widget.dart';
 import 'package:mobile_client/ui/widgets/interlocutor_profile_view/interlocutor_profile_view_model.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_model.dart';
+import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_web_widget.dart';
 import 'package:mobile_client/ui/widgets/personal_messages/personal_messages_widget.dart';
 import 'package:mobile_client/ui/widgets/screen_factory/screen_factory.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +13,8 @@ class Screens {
   static const auth = 'auth';
   static const registration = 'registration';
   static const mainTabs = '/';
+  static const feed = '/feed';
+  static const essayCreation = '/essayCreation';
   static const profileRedaction = '/profileRedaction';
   static const personalMessages = '/personalMessages';
   static const interlocutorProfile = '/interlocutorProfile';
@@ -23,8 +28,8 @@ class MainNavigation {
         Screens.auth: (_) => _screenFactory.makeAuth(),
         Screens.registration: (_) => _screenFactory.makeRegistration(),
         Screens.profileRedaction: (_) => _screenFactory.makeProfileRedaction(),
-        // Screens.interlocutorProfile: (_) => _screenFactory.makeInterlocutorProfileView(),
-        // Screens.personalMessages: (_) => _screenFactory.makePersonalMessages(),
+        Screens.feed: (_) => _screenFactory.makeFeed(),
+        Screens.essayCreation: (_) => _screenFactory.makeEssayCreation(),
       };
       
   String initialRoute(bool isAuth) =>
@@ -45,7 +50,7 @@ class MainNavigation {
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
             create: (_) => PersonalMessagesModel(conversationId),
-            child: const PersonalMessagesWidget(),
+            child: kIsWeb ? const PersonalMessagesWebWidget() : const PersonalMessagesWidget(),
           ),
         );
       case Screens.interlocutorProfile:
@@ -54,7 +59,7 @@ class MainNavigation {
         return MaterialPageRoute(
           builder: (context) => ChangeNotifierProvider(
             create: (_) => InterlocutorProfileViewModel(userId),
-            child: const InterlocutorProfileViewWidget(),
+            child: kIsWeb ? const InterlocutorProfileViewWebWidget() : const InterlocutorProfileViewWidget(),
           ),
         );
       default:
