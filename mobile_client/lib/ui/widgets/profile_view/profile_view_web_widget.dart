@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/resources/resources.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
-import 'package:mobile_client/ui/widgets/profile_view/essays_list_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_view/profile_view_model.dart';
 import 'package:provider/provider.dart';
-
-import 'essay_web_list_widget.dart';
+import 'package:mobile_client/ui/widgets/profile_view/essay_web_list_widget.dart';
 
 class ProfileViewWebWidget extends StatelessWidget {
   const ProfileViewWebWidget({Key? key}) : super(key: key);
@@ -16,14 +14,14 @@ class ProfileViewWebWidget extends StatelessWidget {
     final model = context.read<ProfileViewModel>();
     return SizedBox(
       width: double.infinity,
-      height: double.infinity,
+      height: 696,
       child: DecoratedBox(
         decoration: BoxDecorations.scaffoldGradient,
         child: Column(
           children: [
             SizedBox(
               width: 1024,
-              height: MediaQuery.of(context).size.height - 56,
+              height: 696,
               child: Scaffold(
                 extendBodyBehindAppBar: true,
                 appBar: AppBar(

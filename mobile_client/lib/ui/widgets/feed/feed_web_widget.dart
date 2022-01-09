@@ -10,16 +10,41 @@ class FeedWebWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: const _FloatingButtonsWidget(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      body: DecoratedBox(
-        decoration: const BoxDecoration(color: Colors.white),
-        child: ListView(
-          children: const [
-            Padding(
-              padding: EdgeInsets.fromLTRB(16, 24, 16, 128),
-              child: _PublicationWidget(),
+    return DecoratedBox(
+      decoration: BoxDecorations.scaffoldGradient,
+      child: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 1024,
+              height: 696,
+              child: Scaffold(
+                floatingActionButton: const _FloatingButtonsWidget(),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                extendBodyBehindAppBar: true,
+                appBar: AppBar(
+                  leading:
+                      const BackButton(color: Color.fromRGBO(169, 24, 175, 1)),
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                ),
+                body: DecoratedBox(
+                  decoration: const BoxDecoration(color: Colors.white),
+                  child: ListView(
+                    children: const [
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(16, 0, 16, 128),
+                        child: _PublicationWidget(),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -37,7 +62,7 @@ class _PublicationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<FeedModel>();
     final post = model.getCurrentPost();
-    final screenHeight = MediaQuery.of(context).size.height-80;
+    final screenHeight = MediaQuery.of(context).size.height - 80;
     if (model.isLoadingProgress) {
       return SizedBox(
         height: screenHeight,
@@ -101,7 +126,7 @@ class _FloatingButtonsWidget extends StatelessWidget {
               height: 80,
               child: FloatingActionButton(
                 heroTag: 'btn1',
-                onPressed:() => model.sendLikeOrDislike(false, post.id),
+                onPressed: () => model.sendLikeOrDislike(false, post.id),
                 child: const Icon(
                   Icons.thumb_down_rounded,
                   size: 40,
@@ -140,7 +165,6 @@ class _FloatingButtonsWidget extends StatelessWidget {
     );
   }
 }
-
 
 class _ErrorMessageWidget extends StatelessWidget {
   const _ErrorMessageWidget({Key? key}) : super(key: key);
