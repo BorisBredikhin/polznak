@@ -4,7 +4,6 @@ import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/feed/feed_model.dart';
 import 'package:provider/provider.dart';
 
-//TODO Доработать верстку ленты
 class FeedWidget extends StatelessWidget {
   const FeedWidget({Key? key}) : super(key: key);
 
@@ -13,18 +12,19 @@ class FeedWidget extends StatelessWidget {
     return Scaffold(
       floatingActionButton: const _FloatingButtonsWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        leading: const BackButton(color: Color.fromRGBO(169, 24, 175, 1)),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
+      // Раскомментировать в случае если делать ленту как новую страницу, а не как часть IndexedStack
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   leading: const BackButton(color: Color.fromRGBO(169, 24, 175, 1)),
+      //   elevation: 0,
+      //   backgroundColor: Colors.transparent,
+      // ),
       body: DecoratedBox(
         decoration: const BoxDecoration(color: Colors.white),
         child: ListView(
           children: const [
             Padding(
-              padding: EdgeInsets.fromLTRB(16, 0, 16, 128),
+              padding: EdgeInsets.fromLTRB(16, 24, 16, 128),
               child: _PublicationWidget(),
             ),
           ],
@@ -94,7 +94,7 @@ class _FloatingButtonsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<FeedModel>();
     final post = model.getCurrentPost();
-    if (post == null) return const _ErrorMessageWidget();
+    if (post == null) return const SizedBox.shrink();
     return DecoratedBox(
       decoration: BoxDecorations.feedFloatingButtonsGradient,
       child: Padding(
@@ -114,19 +114,19 @@ class _FloatingButtonsWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 48),
-            SizedBox(
-              width: 80,
-              height: 80,
-              child: FloatingActionButton(
-                heroTag: 'btn2',
-                onPressed: () {},
-                child: const Icon(
-                  Icons.mode_comment,
-                  size: 40,
-                ),
-              ),
-            ),
+            // const SizedBox(width: 48),
+            // SizedBox(
+            //   width: 80,
+            //   height: 80,
+            //   child: FloatingActionButton(
+            //     heroTag: 'btn2',
+            //     onPressed: () {},
+            //     child: const Icon(
+            //       Icons.mode_comment,
+            //       size: 40,
+            //     ),
+            //   ),
+            // ),
             const SizedBox(width: 48),
             SizedBox(
               width: 80,

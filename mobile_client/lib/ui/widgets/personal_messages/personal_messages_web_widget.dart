@@ -10,28 +10,42 @@ class PersonalMessagesWebWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        title: const _AppBarTitleWidget(),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(0),
-          child: Divider(
-            color: Color.fromRGBO(20, 0, 255, 0.26),
-            height: 0,
+    return DecoratedBox(
+      decoration: BoxDecorations.scaffoldGradient,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 430,
+            height: 753.5,
+            child: Scaffold(
+              extendBodyBehindAppBar: true,
+              appBar: AppBar(
+                leading: const BackButton(color: Colors.purple),
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                title: const _AppBarTitleWidget(),
+                bottom: const PreferredSize(
+                  preferredSize: Size.fromHeight(0),
+                  child: Divider(
+                    color: Colors.purple,
+                    height: 0,
+                  ),
+                ),
+              ),
+              body: DecoratedBox(
+                decoration: BoxDecorations.whiteScaffold,
+                child: Stack(
+                  children: const [
+                    _MessagesListWidget(),
+                    _MessageInputWidget(),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-      body: DecoratedBox(
-        decoration: BoxDecorations.scaffoldGradient,
-        child: Stack(
-          children: const [
-            _MessagesListWidget(),
-            _MessageInputWidget(),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -53,7 +67,7 @@ class _AppBarTitleWidget extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 20,
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.purple,
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -62,11 +76,11 @@ class _AppBarTitleWidget extends StatelessWidget {
             children: [
               Text(
                 interlocutorFullName,
-                style: TextStyles.headline7White,
+                style: TextStyles.headline7Purple,
               ),
               const Text(
                 'Бизнес',
-                style: TextStyles.hintBlack,
+                style: TextStyles.hintWhite,
               ),
             ],
           ))
@@ -100,7 +114,7 @@ class _MessagesListWidget extends StatelessWidget {
       return const Center(
         child: Text(
           'Сообщений пока нет. Начните общение прямо сейчас.',
-          style: TextStyles.bodyWhite,
+          style: TextStyles.bodyPurple,
           textAlign: TextAlign.center,
         ),
       );
@@ -155,12 +169,12 @@ class _MessageBubbleWidget extends StatelessWidget {
           constraints: BoxConstraints(maxWidth: messageBubbleWidth),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            color: Colors.white,
+            color: Colors.purple,
           ),
           padding: const EdgeInsets.all(8),
           child: Text(
             messageBody,
-            style: TextStyles.bodyBlack,
+            style: TextStyles.bodyWhite,
           ),
         ),
       ),

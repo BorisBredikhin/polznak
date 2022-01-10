@@ -1,7 +1,7 @@
 import json
 from api_types import JSONType, FakeUser, get_token, create_post
 
-file = open('data.json', 'r')
+file = open('data.json', 'r', encoding="utf8")
 data: JSONType = json.load(file)
 file.close()
 
@@ -9,12 +9,12 @@ users = data['users']
 posts = data['notes']
 del data
 
-file = open('fake_users.json', 'r')
+file = open('fake_users.json', 'r', encoding="utf8")
 data2 = json.load(file)
 file.close()
 
-fusers: dict[str, FakeUser] = data2['users']
-tokens: dict[str, str] = {}
+fusers: dict = data2['users']
+tokens: dict = {}
 
 ids = {}
 

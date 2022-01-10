@@ -74,6 +74,7 @@ class ProfileRedactionModel extends ChangeNotifier {
       userameTextController.text = _userInfo!.user.username;
       dateOfBirthTextController.text = _userInfo!.birthDate;
       genderTextController.text = _userInfo!.gender == 'M' ? 'Мужчина' : 'Женщина';
+      emailTextController.text = _userInfo!.user.email;
       descriptionTextController.text = _userInfo!.details;
       notifyListeners();
     } on ApiCLientException catch (e) {

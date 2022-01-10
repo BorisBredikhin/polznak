@@ -19,4 +19,5 @@ class AppImages {
   static const String sendIcon = 'images/send_icon.png';
   static const String webclock = 'images/webclock.png';
   static const String webGoogleIcon = 'images/web_google_icon.png';
+  static const String webLogo = 'images/web_logo.png';
 }

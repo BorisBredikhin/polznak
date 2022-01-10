@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/chats/chats_model.dart';
-import 'package:mobile_client/ui/widgets/chats/popular_chats_widget.dart';
+import 'package:mobile_client/ui/widgets/chats/popular_chats_web_widget.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/web_app_bar_widget.dart';
 import 'package:provider/src/provider.dart';
 
 class ChatsWebWidget extends StatelessWidget {
@@ -11,39 +12,54 @@ class ChatsWebWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: WebAppBarWidget(context: context, barElementIndex: 2),
+      ),
       body: DecoratedBox(
         decoration: BoxDecorations.scaffoldGradient,
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Column(
+        child: SizedBox(
+          width: 430,
+          height: MediaQuery.of(context).size.height,
+          child: Scaffold(
+            body: DecoratedBox(
+              decoration: BoxDecorations.whiteScaffold,
+              child: ListView(
                 children: [
-                  Row(
-                    children: const [
-                      Text(
-                        'Активные',
-                        style: TextStyles.bodyWhite,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 24),
+                    child: Column(
+                      children: [
+                        // Row(
+                        //   children: const [
+                        //     Text(
+                        //       'Активные',
+                        //       style: TextStyles.bodyPurple,
+                        //     ),
+                        //   ],
+                        // ),
+                        // const SizedBox(height: 8),
+                        // const WebPopularChatsWidget(),
+                        // const SizedBox(height: 16),
+                        Row(
+                          children: const [
+                            Text(
+                              'Беседы',
+                              style: TextStyles.bodyPurple,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        const _ChatsWidget(),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 8),
-                  const PopularChatsWidget(),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: const [
-                      Text(
-                        'Беседы',
-                        style: TextStyles.bodyWhite,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  const _ChatsWidget(),
                 ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -60,7 +76,7 @@ class _ChatsWidget extends StatelessWidget {
       return const Center(
         child: Text(
           'Здесь появятся ваши диалоги',
-          style: TextStyles.bodyWhite,
+          style: TextStyles.bodyPurple,
         ),
       );
     }
@@ -102,7 +118,7 @@ class _ChatCardWidget extends StatelessWidget {
       children: [
         const CircleAvatar(
           radius: 28,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.purple,
         ),
         const SizedBox(width: 8),
         Expanded(
@@ -112,7 +128,7 @@ class _ChatCardWidget extends StatelessWidget {
             children: [
               Text(
                 interlocutorFullName,
-                style: TextStyles.bodyWhite,
+                style: TextStyles.bodyPurple,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -150,7 +166,7 @@ class _MessageBodyWidget extends StatelessWidget {
         lastMessage == null ? 'Начните общение прямо сейчас' : lastMessage.body;
     return Text(
       messageBody,
-      style: TextStyles.hintWhite,
+      style: TextStyles.hintPurple,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
@@ -176,7 +192,7 @@ class _MessageTimeWidget extends StatelessWidget {
         : lastMessage.sendAt.split('T')[1].substring(0, 5);
     return Text(
       messageTime,
-      style: TextStyles.hintWhite,
+      style: TextStyles.hintPurple,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );

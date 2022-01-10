@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/resources/resources.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/web_app_bar_widget.dart';
 import 'package:mobile_client/ui/widgets/profile_view/profile_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:mobile_client/ui/widgets/profile_view/essay_web_list_widget.dart';
@@ -12,67 +13,74 @@ class ProfileViewWebWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final model = context.read<ProfileViewModel>();
-    return SizedBox(
-      width: double.infinity,
-      height: 696,
-      child: DecoratedBox(
-        decoration: BoxDecorations.scaffoldGradient,
-        child: Column(
-          children: [
-            SizedBox(
-              width: 1024,
-              height: 696,
-              child: Scaffold(
-                extendBodyBehindAppBar: true,
-                appBar: AppBar(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  actions: [
-                    IconButton(
-                      onPressed: () => model.redactionOnPressed(context),
-                      icon: const Icon(Icons.mode),
-                      color: Colors.purple,
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.logout),
-                      onPressed: () => model.logout(context),
-                      color: Colors.purple,
-                    ),
-                  ],
-                ),
-                body: DecoratedBox(
-                  decoration: BoxDecorations.whiteScaffold,
-                  child: ListView(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 24, top: 0),
-                        child: Column(
-                          children: const [
-                            _MainInformationWidget(),
-                            SizedBox(height: 24),
-                            _SectionTitleWidget(title: 'Аккаунт'),
-                            _UsernameWidget(),
-                            // _PurpleDividerWidget(),
-                            // _EmailWidget(),
-                            _PurpleDividerWidget(),
-                            _AboutMeWidget(),
-                            _SectionTitleWidget(title: 'Личные данные'),
-                            SizedBox(height: 16),
-                            _PersonalDataWidget(),
-                            SizedBox(height: 24),
-                            _SectionTitleWidget(title: 'Мои эссе'),
-                            SizedBox(height: 16),
-                            WebEssaysListWidget(),
-                          ],
-                        ),
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: WebAppBarWidget(context: context, barElementIndex: 3),
+      ),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: DecoratedBox(
+          decoration: BoxDecorations.scaffoldGradient,
+          child: Column(
+            children: [
+              SizedBox(
+                width: 1024,
+                height: MediaQuery.of(context).size.height,
+                child: Scaffold(
+                  extendBodyBehindAppBar: true,
+                  appBar: AppBar(
+                    elevation: 0,
+                    backgroundColor: Colors.transparent,
+                    actions: [
+                      IconButton(
+                        onPressed: () => model.redactionOnPressed(context),
+                        icon: const Icon(Icons.mode),
+                        color: Colors.purple,
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.logout),
+                        onPressed: () => model.logout(context),
+                        color: Colors.purple,
                       ),
                     ],
                   ),
+                  body: DecoratedBox(
+                    decoration: BoxDecorations.whiteScaffold,
+                    child: ListView(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 16, right: 16, bottom: 24, top: 0),
+                          child: Column(
+                            children: const [
+                              _MainInformationWidget(),
+                              SizedBox(height: 24),
+                              _SectionTitleWidget(title: 'Аккаунт'),
+                              _UsernameWidget(),
+                              _PurpleDividerWidget(),
+                              _EmailWidget(),
+                              _PurpleDividerWidget(),
+                              _AboutMeWidget(),
+                              _SectionTitleWidget(title: 'Личные данные'),
+                              SizedBox(height: 16),
+                              _PersonalDataWidget(),
+                              // SizedBox(height: 24),
+                              // _SectionTitleWidget(title: 'Мои эссе'),
+                              // SizedBox(height: 16),
+                              // WebEssaysListWidget(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -205,26 +213,27 @@ class _EmailWidget extends StatelessWidget {
     final model = context.watch<ProfileViewModel>();
     final userInfo = model.userInfo;
     if (userInfo == null) return SizedBox.shrink();
+    final email = userInfo.user.email;
     return InkWell(
       //TODO onTap
       onTap: () => model.redactionOnPressed(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             height: 16,
             width: double.infinity,
           ),
-          Text(
+          const Text(
             'Адрес электронной почты',
             style: TextStyles.hintPurple,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
-            '1034example@mail.ru',
+            email,
             style: TextStyles.bodyPurple,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );

@@ -88,6 +88,13 @@ abstract class TextStyles {
     height: 1.167,
   );
 
+  static const headline5Black = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: Colors.black,
+    fontSize: 24,
+    height: 1.167,
+  );
+
   static const headline5Purple = TextStyle(
     fontWeight: FontWeight.w500,
     color: Colors.purple,

@@ -3,7 +3,7 @@ import random
 
 from api_types import JSONType, FakeUser, get_token, like_post
 
-file = open('data.json', 'r')
+file = open('data.json', 'r', encoding="utf8")
 data: JSONType = json.load(file)
 file.close()
 
@@ -11,17 +11,17 @@ users = data['users']
 posts = data['notes']
 del data
 
-file = open('fake_users.json', 'r')
+file = open('fake_users.json', 'r', encoding="utf8")
 data2 = json.load(file)
 file.close()
 
-file = open('post_ids.json', 'r')
+file = open('post_ids.json', 'r', encoding="utf8")
 data3 = json.load(file)
 file.close()
 
-fusers: dict[str, FakeUser] = data2['users']
-tokens: dict[str, str] = {}
-ids: dict[str, int] = data3['ids']
+fusers: dict = data2['users']
+tokens: dict = {}
+ids: dict = data3['ids']
 
 for n, post in enumerate(posts):
     for like in post['liked_by']:

@@ -29,8 +29,8 @@ class InterlocutorProfileViewWebWidget extends StatelessWidget {
                   SizedBox(height: 24),
                   _SectionTitleWidget(title: 'Аккаунт'),
                   _UsernameWidget(),
-                  // _PurpleDividerWidget(),
-                  // _EmailWidget(),
+                  _PurpleDividerWidget(),
+                  _EmailWidget(),
                   _PurpleDividerWidget(),
                   _AboutMeWidget(),
                   _SectionTitleWidget(title: 'Личные данные'),
@@ -167,23 +167,24 @@ class _EmailWidget extends StatelessWidget {
     final model = context.watch<InterlocutorProfileViewModel>();
     final userInfo = model.userInfo;
     if (userInfo == null) return const SizedBox.shrink();
+    final email = userInfo.user.email;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        SizedBox(
+      children: [
+        const SizedBox(
           height: 16,
           width: double.infinity,
         ),
-        Text(
+        const Text(
           'Адрес электронной почты',
           style: TextStyles.hintWhite,
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         Text(
-          '1034example@mail.ru',
+          email,
           style: TextStyles.bodyWhite,
         ),
-        SizedBox(height: 16),
+        const SizedBox(height: 16),
       ],
     );
   }

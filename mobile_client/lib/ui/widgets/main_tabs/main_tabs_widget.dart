@@ -32,11 +32,11 @@ class _FigmaBottomBarWidget extends StatelessWidget {
           height: 56,
           child: Row(
             children: [
-              _BottomNavBarItem(index: 4, imageName: AppImages.homeIcon, label: 'Лента', onTap: () => model.feedButtonOnTap(context)),
-              _BottomNavBarItem(index: 0, imageName: AppImages.searchIcon, label: 'Поиск', onTap: () => model.setCurrentTabIndex(0)),
-              _BottomNavBarItem(index: 1, imageName: AppImages.addEssayIcon, label: 'Эссе', onTap: () => model.setCurrentTabIndex(1)),
-              _BottomNavBarItem(index: 2, imageName: AppImages.chatsIcon, label: 'Беседы', onTap: () => model.setCurrentTabIndex(2)),
-              _BottomNavBarItem(index: 3, imageName: AppImages.profileIcon, label: 'Профиль', onTap: () => model.setCurrentTabIndex(3)),
+              _BottomNavBarItem(index: 0, imageName: AppImages.homeIcon, label: 'Лента', onTap: () => model.setCurrentTabIndex(0)),
+              _BottomNavBarItem(index: 1, imageName: AppImages.searchIcon, label: 'Поиск', onTap: () => model.setCurrentTabIndex(1)),
+              _BottomNavBarItem(index: 2, imageName: AppImages.addEssayIcon, label: 'Эссе', onTap: () => model.setCurrentTabIndex(2)),
+              _BottomNavBarItem(index: 3, imageName: AppImages.chatsIcon, label: 'Беседы', onTap: () => model.setCurrentTabIndex(3)),
+              _BottomNavBarItem(index: 4, imageName: AppImages.profileIcon, label: 'Профиль', onTap: () => model.setCurrentTabIndex(4)),
             ],
           ),
         ),
@@ -116,7 +116,7 @@ class _BodyWidget extends StatelessWidget {
     return IndexedStack(
       index: currentTabIndex,
       children: [
-        // _screenFactory.makeFeed(),
+        _screenFactory.makeFeed(),
         const Center(child: Text('Поиск')),
         _screenFactory.makeEssayCreation(),
         _screenFactory.makeChats(),

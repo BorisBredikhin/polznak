@@ -40,17 +40,17 @@ class ProfileViewWidget extends StatelessWidget {
                   SizedBox(height: 24),
                   _SectionTitleWidget(title: 'Аккаунт'),
                   _UsernameWidget(),
-                  // _PurpleDividerWidget(),
-                  // _EmailWidget(),
+                  _PurpleDividerWidget(),
+                  _EmailWidget(),
                   _PurpleDividerWidget(),
                   _AboutMeWidget(),
                   _SectionTitleWidget(title: 'Личные данные'),
                   SizedBox(height: 16),
                   _PersonalDataWidget(),
-                  SizedBox(height: 24),
-                  _SectionTitleWidget(title: 'Мои эссе'),
-                  SizedBox(height: 16),
-                  EssaysListWidget(),
+                  // SizedBox(height: 24),
+                  // _SectionTitleWidget(title: 'Мои эссе'),
+                  // SizedBox(height: 16),
+                  // EssaysListWidget(),
                 ],
               ),
             ),
@@ -187,26 +187,27 @@ class _EmailWidget extends StatelessWidget {
     final model = context.watch<ProfileViewModel>();
     final userInfo = model.userInfo;
     if (userInfo == null) return SizedBox.shrink();
+    final email = userInfo.user.email;
     return InkWell(
       //TODO onTap
       onTap: () => model.redactionOnPressed(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
-          SizedBox(
+        children: [
+          const SizedBox(
             height: 16,
             width: double.infinity,
           ),
-          Text(
+          const Text(
             'Адрес электронной почты',
             style: TextStyles.hintWhite,
           ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
           Text(
-            '1034example@mail.ru',
+            email,
             style: TextStyles.bodyWhite,
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
         ],
       ),
     );

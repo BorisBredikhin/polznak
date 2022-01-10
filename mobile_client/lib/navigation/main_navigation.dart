@@ -18,6 +18,9 @@ class Screens {
   static const profileRedaction = '/profileRedaction';
   static const personalMessages = '/personalMessages';
   static const interlocutorProfile = '/interlocutorProfile';
+  static const chats = 'chats';
+  static const profileView = 'profileView';
+
 }
 
 class MainNavigation {
@@ -30,6 +33,8 @@ class MainNavigation {
         Screens.profileRedaction: (_) => _screenFactory.makeProfileRedaction(),
         Screens.feed: (_) => _screenFactory.makeFeed(),
         Screens.essayCreation: (_) => _screenFactory.makeEssayCreation(),
+        Screens.chats: (_) => _screenFactory.makeChats(),
+        Screens.profileView: (_) => _screenFactory.makeProfileView(),
       };
       
   String initialRoute(bool isAuth) =>

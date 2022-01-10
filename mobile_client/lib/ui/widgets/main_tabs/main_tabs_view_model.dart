@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/navigation/main_navigation.dart';
 
 class MainTabsViewModel extends ChangeNotifier {
-  var _currentTabIndex = 1;
+  var _currentTabIndex = 0;
 
   int get currentTabIndex => _currentTabIndex;
   

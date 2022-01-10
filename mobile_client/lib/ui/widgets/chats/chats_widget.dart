@@ -19,17 +19,17 @@ class ChatsWidget extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
               child: Column(
                 children: [
-                  Row(
-                    children: const [
-                      Text(
-                        'Активные',
-                        style: TextStyles.bodyWhite,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  const PopularChatsWidget(),
-                  const SizedBox(height: 16),
+                  // Row(
+                  //   children: const [
+                  //     Text(
+                  //       'Активные',
+                  //       style: TextStyles.bodyWhite,
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 8),
+                  // const PopularChatsWidget(),
+                  // const SizedBox(height: 16),
                   Row(
                     children: const [
                       Text(

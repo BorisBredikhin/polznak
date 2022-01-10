@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_client/ui/Theme/box_decorations.dart';
 import 'package:mobile_client/ui/Theme/text_styles.dart';
 import 'package:mobile_client/ui/widgets/feed/feed_model.dart';
+import 'package:mobile_client/ui/widgets/popular_widgets/web_app_bar_widget.dart';
 import 'package:provider/provider.dart';
 
 //TODO Доработать верстку ленты
@@ -10,43 +11,41 @@ class FeedWebWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecorations.scaffoldGradient,
-      child: SizedBox(
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: WebAppBarWidget(context: context, barElementIndex: 0),
+      ),
+      body: SizedBox(
         width: double.infinity,
         height: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 1024,
-              height: 696,
-              child: Scaffold(
-                floatingActionButton: const _FloatingButtonsWidget(),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerDocked,
-                extendBodyBehindAppBar: true,
-                appBar: AppBar(
-                  leading:
-                      const BackButton(color: Color.fromRGBO(169, 24, 175, 1)),
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                ),
-                body: DecoratedBox(
-                  decoration: const BoxDecoration(color: Colors.white),
-                  child: ListView(
-                    children: const [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(16, 0, 16, 128),
-                        child: _PublicationWidget(),
-                      ),
-                    ],
+        child: DecoratedBox(
+          decoration: BoxDecorations.scaffoldGradient,
+          child: Column(
+            children: [
+              SizedBox(
+                width: 1024,
+                height: MediaQuery.of(context).size.height,
+                child: Scaffold(
+                  floatingActionButton: const _FloatingButtonsWidget(),
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.centerDocked,
+                  body: DecoratedBox(
+                    decoration: BoxDecorations.whiteScaffold,
+                    child: ListView(
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 128),
+                          child: _PublicationWidget(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -62,7 +61,7 @@ class _PublicationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final model = context.watch<FeedModel>();
     final post = model.getCurrentPost();
-    final screenHeight = MediaQuery.of(context).size.height - 80;
+    final screenHeight = MediaQuery.of(context).size.height;
     if (model.isLoadingProgress) {
       return SizedBox(
         height: screenHeight,

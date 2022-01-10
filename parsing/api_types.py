@@ -11,7 +11,7 @@ class CopyHistory(typing.TypedDict):
     date: int
     post_type: str
     text: str
-    attachments: list[dict]
+    attachments: list
     post_source: dict
 
 
@@ -22,7 +22,7 @@ class NoteItem(typing.TypedDict):
     date: int
     post_type: str
     text: str
-    copy_history: list[CopyHistory]
+    copy_history: list
     can_delete: int
     can_pin: int
     can_archive: bool
@@ -40,7 +40,7 @@ class NoteItem(typing.TypedDict):
 
 class NotesResponse(typing.TypedDict):
     count: int
-    items: list[NoteItem]
+    items: list
 
 
 class RawNotesResponse(typing.TypedDict):
@@ -53,7 +53,7 @@ class APINote(typing.TypedDict):
     owner_id: int
     date: int
     text: str
-    liked_by: list[int]
+    liked_by: list
 
 
 class Note(typing.TypedDict):
@@ -67,8 +67,8 @@ class Note(typing.TypedDict):
 
 
 class JSONType(typing.TypedDict):
-    users: list[int]
-    notes: list[APINote]
+    users: list
+    notes: list
 
 class FakeUser(typing.TypedDict):
     first_name: str
