@@ -29,26 +29,16 @@ class PostView(APIView):
         return Response(data.data, HTTP_201_CREATED)
 
     @swagger_auto_schema(
-            operation_description="Список постов, рекомендованных для текущего "
-                                  "пользователя\n"
-                                  "**Внимание! метод может быть удалённж**",
+            operation_description="Список постов текущего пользователя",
             responses={
                 HTTP_200_OK: PostSerializer(many=True)
             },
-            manual_parameters=[
-                Parameter('skip', 'query', 'Количество уже полученных постов',
-                          required=True, type='number'),
-                Parameter('count', 'query', 'Количество постов для получения',
-                          required=True, type='number'),
-            ]
     )
     def get(self, request: Request):
-        # todo: написать интеллектуальное ранжирование
+        profile = Profile.objects.get(user=request.user)
         return Response(PostSerializer(
-                Post.objects.all()
-                    .order_by('-created_at')[int(request.query_params['skip'])
-                                             :int(request.query_params['skip'])
-                                              + int(request.query_params['count'])],
+                Post.objects.filter(creator=profile)
+                    .order_by('-created_at'),
                 many=True
         ).data
                         )
